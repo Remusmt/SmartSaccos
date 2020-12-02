@@ -1,0 +1,76 @@
+.site-footer {
+  padding: 12px;
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+.footer-content{
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-flow: row wrap;
+  padding: 8px;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 884px)
+{
+  .footer-content {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+  }
+}
+
+
+.footer-logo-content {
+  -webkit-box-flex: 1;
+    flex: 1;
+}
+
+.footer-social-content{
+  display: flex;
+
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+
+.footer-terms-content {
+  margin-top: 0;
+}
+
+.footer-smartbooks-logo {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.footer-smartbooks-text {
+  display: inline-block;
+  line-height: 50px;
+  margin: 0 16px;
+  vertical-align: top;
+}
+
+.footer-logo a {
+  font-size: 16px;
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.footer-social-content a {
+  font-size: 16px;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.footer-terms-content a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #3F51B5;
+  padding: 10px;
+}
+

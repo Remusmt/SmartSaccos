@@ -1,4 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.site-section {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.section-bg {
+  background-color: #F0EDDC;
+}
+
+.section-header {
+  padding-top: 10px;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  visibility: visible;
+  animation-name: fadeInDown;
+  color:#008000;
+  font-size: 44px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 20px;
+  margin: 0 0 20px;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+}
+
+.section-header .section-title:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  bottom: -11px;
+  left: 50%;
+  margin-left: -12px;
+  border: 5px solid #FFC000;
+  border-radius: 20px;
+  background: #008000;
+}
+
+.section-content {
+  padding-bottom: 10px;
+}
+
+.column-title {
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  color:#006838;
+  margin-top: 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.column-title:after {
+  content: " ";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40%;
+  border-bottom: 1px solid #006838;
+}
+
+.text-center {
+  text-align: center;
+}

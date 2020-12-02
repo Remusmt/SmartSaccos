@@ -1,0 +1,38 @@
+
+.top-menu{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.header-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  vertical-align: middle;
+}
+
+.company-logo {
+  background-image: url('/assets/images/logo.png');
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.company-name {
+  margin: 0 16px;
+  display: inline-block;
+  color: #fff;
+}
+
+.company-logo-link {
+  text-decoration: none;
+  display: flex;
+}
