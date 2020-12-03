@@ -17,7 +17,7 @@ export class AuthenticationService {
               private constants: ConstantsService) {
 
     this.currentUserSubject = new BehaviorSubject<CurrentUser>
-        (JSON.parse(localStorage.getItem('currentUser') as string));
+        (JSON.parse(localStorage.getItem('currentMember') as string));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -26,7 +26,7 @@ export class AuthenticationService {
   }
 
   public setUser(user: CurrentUser): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    localStorage.setItem('currentMember', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 
@@ -34,7 +34,7 @@ export class AuthenticationService {
       return this.http.post<CurrentUser>(`${this.constants.baseUrl}Accounts/Login`, model)
           .pipe(map(user => {
               // store user details and jwt token in local storage to keep user logged in between page refreshes
-              localStorage.setItem('currentUser', JSON.stringify(user));
+              localStorage.setItem('currentMember', JSON.stringify(user));
               this.currentUserSubject.next(user);
               return user;
           }));
@@ -42,7 +42,7 @@ export class AuthenticationService {
 
   logout(): void {
       // remove user from local storage and set current user to null
-      localStorage.removeItem('currentUser');
+      localStorage.removeItem('currentMember');
       this.currentUserSubject.next(null as any);
       location.reload();
   }

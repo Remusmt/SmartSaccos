@@ -1,0 +1,12 @@
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\bin\Release\netstandard2.1\SmartSaccos.ApplicationCore.deps.json
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\bin\Release\netstandard2.1\SmartSaccos.ApplicationCore.dll
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\bin\Release\netstandard2.1\SmartSaccos.ApplicationCore.pdb
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\bin\Release\netstandard2.1\SmartSaccos.Domains.dll
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\bin\Release\netstandard2.1\SmartSaccos.Domains.pdb
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.csprojAssemblyReference.cache
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.AssemblyInfoInputs.cache
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.AssemblyInfo.cs
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.csproj.CoreCompileInputs.cache
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.csproj.CopyComplete
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.dll
+E:\repos\SmartSaccos\SmartSaccos.ApplicationCore\obj\Release\netstandard2.1\SmartSaccos.ApplicationCore.pdb

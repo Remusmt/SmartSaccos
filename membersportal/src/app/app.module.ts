@@ -20,6 +20,10 @@ import { ProductsComponent } from './site/pages/products/products.component';
 import { CarouselComponent } from './site/pages/carousel/carousel.component';
 import { ContactsComponent } from './site/pages/contacts/contacts.component';
 import { CanjoinComponent } from './site/pages/canjoin/canjoin.component';
+import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from './views/login/login.component';
+import { HomeComponent } from './views/home/home.component';
+import { KnowCustomerComponent } from './views/know-customer/know-customer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { CanjoinComponent } from './site/pages/canjoin/canjoin.component';
     ProductsComponent,
     CarouselComponent,
     ContactsComponent,
-    CanjoinComponent
+    CanjoinComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent,
+    KnowCustomerComponent
   ],
   imports: [
     BrowserModule,

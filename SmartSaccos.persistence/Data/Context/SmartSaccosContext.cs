@@ -8,19 +8,12 @@ namespace SmartSaccos.persistence.Data.Context
 {
     public class SmartSaccosContextFactory : IDesignTimeDbContextFactory<SmartSaccosContext>
     {
-
         public SmartSaccosContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<SmartSaccosContext>();
-            optionsBuilder.UseSqlServer("Server=DESKTOP-LPOGMEO\\SQLEXPRESS01;Database=SmartSaccosDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseMySQL("server=localhost;database=SmartSaccosDb;user=root;password=RMEK6078");
             return new SmartSaccosContext(optionsBuilder.Options);
         }
-        //public SmartSaccosContext CreateDbContext(string[] args)
-        //{
-        //    var optionsBuilder = new DbContextOptionsBuilder<SmartSaccosContext>();
-        //    optionsBuilder.UseMySQL("server=localhost;database=SmartSaccosDb;user=root;password=RMEK6078");
-        //    return new SmartSaccosContext(optionsBuilder.Options);
-        //}
     }
     public class SmartSaccosContext : DbContext
     {
@@ -44,6 +37,7 @@ namespace SmartSaccos.persistence.Data.Context
         public DbSet<Company> Companies { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<CompanyDefaults> CompanyDefaults { get; set; }
 
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }

@@ -36,6 +36,7 @@
     public enum MemberStatus
     {
         Entered,
+        Known,
         Active,
         InActive
     }

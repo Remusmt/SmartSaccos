@@ -19,7 +19,6 @@ E:\repos\SmartSaccos\SmartSaccos.AdminPortal\bin\Debug\net5.0\Swashbuckle.AspNet
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
-E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.csprojAssemblyReference.cache
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.GeneratedMSBuildEditorConfig.editorconfig
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.AssemblyInfoInputs.cache
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.AssemblyInfo.cs
@@ -35,3 +34,4 @@ E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminP
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\ref\SmartSaccos.AdminPortal.dll
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.pdb
 E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.genruntimeconfig.cache
+E:\repos\SmartSaccos\SmartSaccos.AdminPortal\obj\Debug\net5.0\SmartSaccos.AdminPortal.csprojAssemblyReference.cache

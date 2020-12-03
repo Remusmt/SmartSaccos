@@ -1,0 +1,99 @@
+  <section class="register-form">
+    <div class="register-card-container">
+      <form [formGroup] = 'registerForm'
+            (ngSubmit) = 'submitForm()'>
+        <mat-card class="register-card">
+          <mat-card-header class="register-card-header">
+            <div mat-card-avatar class="register-header-image"></div>
+            <mat-card-title class="green-text title-font">JOIN NESADI SACCO</mat-card-title>
+            <mat-card-subtitle class="gold-text sub-title-font">We Care and Together We Can.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-error *ngIf="serverError">{{serverError}}</mat-error>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Name</mat-label>
+              <input matInput
+                    type="text"
+                    name="otherNames"
+                    formControlName="otherNames"
+                    placeholder="Enter your name"
+                    required/>
+              <mat-error *ngIf="registerForm.controls.otherNames.errors?.required">
+                Enter your name
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Surname</mat-label>
+              <input matInput
+                    type="text"
+                    name="surname"
+                    formControlName="surname"
+                    placeholder="Enter your surname"/>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Email (User ID)</mat-label>
+              <input matInput
+                    type="email"
+                    name="email"
+                    formControlName="email"
+                    autocomplete="on"/>
+              <mat-error *ngIf="registerForm.controls.email.errors?.required">
+                Enter your email
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.email.errors?.email">
+                Enter a valid email
+              </mat-error>
+            </mat-form-field>
+
+            <app-spinner></app-spinner>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Password</mat-label>
+              <input matInput
+                    type="password"
+                    name="password"
+                    formControlName="password"
+                    placeholder="Minimum 8 characters"
+                    required>
+              <mat-hint>At least 6 characters, but longer is better.</mat-hint>
+              <mat-error *ngIf="registerForm.controls.password.invalid">
+                {{getPasswordErrors()}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Confirm Password</mat-label>
+              <input matInput
+                    type="password"
+                    name="confirmPassword"
+                    formControlName="confirmPassword"
+                    placeholder="Confirm Password"
+                    required>
+              <mat-error *ngIf="registerForm.controls.confirmPassword.invalid">
+                {{getConfirmPasswordErrors()}}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Phone Number</mat-label>
+              <input matInput
+                    type="tel"
+                    name="phoneNumber"
+                    formControlName="phoneNumber">
+            </mat-form-field>
+
+          </mat-card-content>
+          <mat-card-actions class="register-footer">
+            <button mat-flat-button
+                    type="submit"
+                    class="btn-orange-large green-btn">
+                    Create Account
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </div>
+  </section>

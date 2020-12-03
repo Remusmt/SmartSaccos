@@ -6,13 +6,15 @@ import { environment } from 'src/environments/environment';
 })
 export class ConstantsService {
 
-  baseUrl = 'https://localhost:44383/api/'; // development
+  baseUrl = 'https://localhost:44365/api/'; // development
+  company = 'Nesadi Sacco';
+  countryId = 1;
 
   constructor() {
     if (environment.production) {
-      this.baseUrl = 'http://169.239.169.186:81/api/';
+      this.baseUrl = 'https://mpbackend.nesadisacco.com/api/';
     } else {
-      this.baseUrl = 'https://localhost:44383/api/';
+      this.baseUrl = 'https://localhost:44365/api/';
     }
   }
 }

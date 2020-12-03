@@ -3,6 +3,17 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
+.page-body {
+  margin-top: 85px;
+}
+
+
+.sections-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 85px;
+}
+
 .site-section {
   padding-right: 15px;
   padding-left: 15px;

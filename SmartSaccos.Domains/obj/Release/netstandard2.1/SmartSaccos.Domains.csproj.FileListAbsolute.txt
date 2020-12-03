@@ -1,0 +1,9 @@
+E:\repos\SmartSaccos\SmartSaccos.Domains\bin\Release\netstandard2.1\SmartSaccos.Domains.deps.json
+E:\repos\SmartSaccos\SmartSaccos.Domains\bin\Release\netstandard2.1\SmartSaccos.Domains.dll
+E:\repos\SmartSaccos\SmartSaccos.Domains\bin\Release\netstandard2.1\SmartSaccos.Domains.pdb
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.csprojAssemblyReference.cache
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.AssemblyInfoInputs.cache
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.AssemblyInfo.cs
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.csproj.CoreCompileInputs.cache
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.dll
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Release\netstandard2.1\SmartSaccos.Domains.pdb
