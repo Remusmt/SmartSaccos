@@ -88,7 +88,8 @@ namespace SmartSaccos.MemberPortal.Controllers
                     {
                         Id = user.Id,
                         Email = user.Email,
-                        FullName = user.FullName,
+                        OtherNames = member.OtherNames,
+                        Surname = member.Surname,
                         PhoneNumber = user.PhoneNumber,
                         CompanyId = user.CompanyId,
                         CompanyName = "Nesadi Sacco", //bad practice
@@ -96,7 +97,8 @@ namespace SmartSaccos.MemberPortal.Controllers
                         Succeeded = true,
                         MemberNumber = member.MemberNumber,
                         Status = member.MemberStatus,
-                        WeKnowCustomer = member.MemberStatus > Domains.Enums.MemberStatus.Entered
+                        WeKnowCustomer = member.MemberStatus > Domains.Enums.MemberStatus.KycPersonal,
+                        MemberId = member.Id
                     };
 
                     return Ok(loggedInUser);
@@ -195,14 +197,16 @@ namespace SmartSaccos.MemberPortal.Controllers
                                 {
                                     Id = registeredUser.Id,
                                     Email = user.Email,
-                                    FullName = user.FullName,
+                                    OtherNames = member.OtherNames,
+                                    Surname = member.Surname,
                                     PhoneNumber = user.PhoneNumber,
                                     CompanyId = user.CompanyId,
                                     CompanyName = company.CompanyName,
                                     TokenString = new JwtSecurityTokenHandler().WriteToken(tokenString),
                                     Succeeded = true,
                                     Status = Domains.Enums.MemberStatus.Entered,
-                                    WeKnowCustomer = false
+                                    WeKnowCustomer = false,
+                                    MemberId = member.Id
                                 };
                                 return Ok(loggedInUser);
                             }

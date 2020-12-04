@@ -4,9 +4,14 @@ namespace SmartSaccos.ApplicationCore.Specifications
 {
     public class MembersSpecification: BaseSpecification<Member>
     {
-        public MembersSpecification(int companyId) :
-           base(e => e.IsDeleted == false && e.CompanyId == companyId)
+        public MembersSpecification(int companyId, bool detailed = false) :
+          base(e => e.IsDeleted == false && e.CompanyId == companyId)
         {
+            if (detailed)
+            {
+                AddInclude(e => e.MemberAttachments);
+                AddInclude("MemberAttachments.Attachment");
+            }
         }
     }
 }

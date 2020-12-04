@@ -1,1 +1,142 @@
+<div class="kyc-page-container">
+
+  <div class="page-header">
+    <h2 class="page-title">KYC Verification</h2>
+  <p class="page-title-details">To comply with regulation each participant will have to go through indentity verification (KYC). Please, complete our fast and secure verification process.</p>
+
+  </div>
+
+    <mat-card class="page-card">
+      <mat-card-header class="login-card-header">
+        <div mat-card-avatar class="login-header-image"></div>
+        <mat-card-title class="orange-text">Welcome {{currentUser.otherNames + ' ' + currentUser.surname}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="service.kycForm">
+          <mat-vertical-stepper linear #stepper>
+            <mat-step [stepControl]="service.kycForm" editable class="vertical-content-container">
+              <ng-template matStepLabel>Personal Details</ng-template>
+              <mat-grid-list cols="2" rowHeight="60px">
+                <mat-grid-tile>
+                  <mat-form-field class="full-width-field">
+                    <mat-label class="mat-label">First Name</mat-label>
+                    <input matInput
+                          type="text"
+                          name="otherNames"
+                          formControlName="otherNames"
+                          required/>
+                          <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
+                            First Name is required
+                          </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field class="full-width-field">
+                    <mat-label class="mat-label">Last Name</mat-label>
+                    <input matInput
+                          type="text"
+                          name="surname"
+                          formControlName="surname"/>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field class="full-width-field">
+                    <mat-label class="mat-label">ID/Passport No</mat-label>
+                    <input matInput
+                          type="text"
+                          name="indentificationNo"
+                          formControlName="indentificationNo"
+                          required/>
+                          <mat-error *ngIf="service.kycForm.controls.indentificationNo.errors?.required">
+                            ID/ Passport No is required
+                          </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field class="full-width-field">
+                    <mat-label class="mat-label">Phone Number</mat-label>
+                    <input matInput
+                          type="text"
+                          name="phoneNumber"
+                          formControlName="phoneNumber"
+                          required/>
+                          <mat-error *ngIf="service.kycForm.controls.phoneNumber.errors?.required">
+                            Phone Number is required
+                          </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field>
+                    <mat-label class="mat-label">
+                      Marital Status
+                    </mat-label>
+                    <mat-select
+                    formControlName="maritalStatus">
+                      <mat-option
+                        *ngFor="let ms of maritalStatuses"
+                        [value]="ms.value">
+                          {{ms.description}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field class="full-width-field">
+                    <mat-label class="mat-label">Email</mat-label>
+                    <input matInput
+                          type="email"
+                          name="email"
+                          formControlName="email"
+                          required/>
+                          <mat-error *ngIf="service.kycForm.controls.email.errors?.required">
+                            Email is required
+                          </mat-error>
+                          <mat-error *ngIf="service.kycForm.controls.email.errors?.email">
+                            Enter a valid email
+                          </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]= "2">
+                  <mat-label class="mat-label">
+                    Gender &nbsp;&nbsp;&nbsp;
+                  </mat-label>
+                  <mat-radio-group aria-label="Select an gender"
+                    class="radio-group">
+                    <mat-radio-button value="true" (change)="onGenderChanged()" class="radio-btn" checked>
+                      Female
+                    </mat-radio-button>
+                    <mat-radio-button value="false" class="radio-btn" (change)="onGenderChanged()" >
+                      Male
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </mat-grid-tile>
+              </mat-grid-list>
+              <div class="action-container">
+                <button mat-raised-button
+                        color="primary"
+                        (click)="onSaveAndNext(stepper)">
+                        Continue
+                </button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Document Upload</ng-template>
+              <ng-template matStepLabel>To verify your identity, please upload any of your document</ng-template>
+
+              <div class="action-container">
+                <button mat-raised-button
+                        matStepperPrevious
+                        class="nav-btn">Back</button>
+                <button mat-raised-button
+                        color="primary"
+                        matStepperNext
+                        class="nav-btn">Next</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+</div>
 

@@ -1,4 +1,5 @@
 ﻿using SmartSaccos.ApplicationCore.Interfaces;
+using SmartSaccos.ApplicationCore.Models;
 using SmartSaccos.ApplicationCore.Services;
 using SmartSaccos.ApplicationCore.Specifications;
 using SmartSaccos.Domains.Entities;
@@ -30,6 +31,10 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             return await memberRepository.GetByIdAsync(id);
         }
 
+        public async Task<Member> GetDetailedMemberAsync(int id)
+        {
+            return await memberRepository.GetDetailedMember(id);
+        }
         public async Task<Member> GetMemberByUserIdAsync(int userId)
         {
             return await memberRepository
@@ -91,6 +96,55 @@ namespace SmartSaccos.ApplicationCore.DomainServices
                     CompanyId = member.CompanyId,
                     CreatedBy = userId,
                     CreatedByName = userFullName,
+                    CreatedOn = dateTimeOffset,
+                    RecordId = member.Id,
+                    RecordType = RecordType.LedgerAccount,
+                    SerializedRecord = logger.SeliarizeObject(member)
+                });
+            }
+
+            return member;
+        }
+
+        public async Task<Member> KycDetails(
+           MemberModel model,
+           DateTimeOffset dateTimeOffset,
+           bool systemGenerated = false)
+        {
+            
+            if (string.IsNullOrWhiteSpace(model.OtherNames))
+                throw new Exception("First name cannot be blank");
+
+            if (string.IsNullOrWhiteSpace(model.IndentificationNo))
+                throw new Exception("ID/Passport number cannot be blank");
+
+            if (string.IsNullOrWhiteSpace(model.PhoneNumber))
+                throw new Exception("Phone number cannot be blank");
+
+            Member member = await GetMemberAsync(model.Id);
+            if (member == null)
+                throw new Exception("Member not found");
+
+            if (memberRepository.DuplicateIdNumber(member.Id, model.IndentificationNo, member.CompanyId))
+                throw new Exception($"Updating member ID/Passport number with {member.IndentificationNo} would create a duplicate record");
+
+            member.Gender = model.Gender;
+            member.IndentificationNo = model.IndentificationNo;
+            member.MaritalStatus = model.MaritalStatus;
+            member.OtherNames = model.OtherNames;
+            member.PhoneNumber = model.PhoneNumber;
+            member.Surname = model.Surname;
+            member.MemberStatus = MemberStatus.KycPersonal;
+
+            memberRepository.Update(member);
+            if (!systemGenerated)
+            {
+                await logger.Log(new AuditLog
+                {
+                    ActionType = ActionType.Update,
+                    CompanyId = member.CompanyId,
+                    CreatedBy = member.ApplicationUserId,
+                    CreatedByName = $"{member.OtherNames} {member.Surname}",
                     CreatedOn = dateTimeOffset,
                     RecordId = member.Id,
                     RecordType = RecordType.LedgerAccount,

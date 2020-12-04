@@ -1,0 +1,104 @@
+.kyc-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 50px;
+  background-color: #F0EDDC;
+}
+
+.page-header {
+  max-width: 400px;
+  width: 100%;
+  min-width: 250px;
+}
+
+.page-title {
+  font-weight: 300;
+  margin-bottom: 12px;
+  font-size: 2.57em;
+  color:#008000;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.page-title-details {
+  font-size: 1.2em;
+  font-family: "Roboto",sans-serif;
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-card {
+  width: 70%;
+  max-width: 500px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .page-card {
+    box-shadow: none;
+    width: 90%;
+  }
+}
+
+.vertical-content-container {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0,0,0,.12);
+}
+
+.step-page-header {
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.action-container {
+  text-align: right;
+}
+
+.radio-group-container {
+  padding-top: 10px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.radio-btn {
+  margin: 5px;
+}
+
+.nav-btn {
+  margin: 5px;
+}
+
+.step-form-container {
+  padding: 5px;
+  padding-top: 10px;
+}
+
+.factor-field {
+  max-width: 150px;
+  text-align: right;
+}
+
+.conversion-summary {
+  margin: 5px;
+  padding: 5px;
+}
+
+.summary-title {
+  font-weight: bold;
+  text-decoration: underline;
+  padding-bottom: 5px;
+}
+
+.conversion-description {
+  font-weight: bold;
+  text-decoration: underline;
+}

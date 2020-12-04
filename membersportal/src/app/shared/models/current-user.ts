@@ -1,7 +1,8 @@
 export interface CurrentUser {
   id: number;
   email: string;
-  fullName: string;
+  surname: string;
+  otherNames: string;
   memberNumber: string;
   phoneNumber: string;
   tokenString: string;
@@ -10,4 +11,5 @@ export interface CurrentUser {
   succeeded: boolean;
   status: number;
   weKnowCustomer: boolean;
+  memberId: number;
 }

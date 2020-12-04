@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HtDYa85oMAKkZgGLnsXfmmWr8O8i0iKh0gXd9hjYz6T5vdmtI2XrXi1qCfKs3bUTz7jRKG8NO6tTz2mrgtfYxg==",
+  "dgSpecHash": "2BQ1u2pC77IO+f8nb5yhq0CbPEIKm2/LjgNGycBnCOJ6AeXzFU4MVKTSPReV0tNh8Htr5Lyzci8KYefolfcGfA==",
   "success": true,
   "projectFilePath": "E:\\repos\\SmartSaccos\\SmartSaccos.persistence\\SmartSaccos.persistence.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,8 @@
     "C:\\Users\\remus\\.nuget\\packages\\mysql.data\\8.0.20\\mysql.data.8.0.20.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\mysql.data.entityframeworkcore\\8.0.20\\mysql.data.entityframeworkcore.8.0.20.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

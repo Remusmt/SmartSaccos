@@ -93,6 +93,7 @@ namespace SmartSaccos.MemberPortal
             services.AddScoped(typeof(Logger));
             services.AddScoped(typeof(CompanyService));
             services.AddScoped(typeof(MemberService));
+            services.AddScoped(typeof(MessageService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

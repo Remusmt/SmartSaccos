@@ -1,10 +1,12 @@
-﻿using SmartSaccos.ApplicationCore.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartSaccos.ApplicationCore.Interfaces;
 using SmartSaccos.Domains.Entities;
 using SmartSaccos.persistence.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartSaccos.persistence.Data.Repositories
 {
@@ -20,6 +22,14 @@ namespace SmartSaccos.persistence.Data.Repositories
             return smartSaccosContext.Set<T>()
                   .Any(e => e.IndentificationNo == idNo 
                   && e.CompanyId == companyId && e.Id != id);
+        }
+
+        public async Task<T> GetDetailedMember(int id)
+        {
+            return await smartSaccosContext.Set<T>()
+                .Include("MemberAttachment")
+                .Include("MemberAttachments.Attachment")
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public bool IdNumberExists(string idNo, int companyId)

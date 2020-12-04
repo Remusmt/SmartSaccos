@@ -1,4 +1,5 @@
-﻿using SmartSaccos.ApplicationCore.Interfaces;
+﻿using Newtonsoft.Json;
+using SmartSaccos.ApplicationCore.Interfaces;
 using SmartSaccos.Domains.Entities;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,11 @@ namespace SmartSaccos.ApplicationCore.Services
 
         public string SeliarizeObject(object obj)
         {
-            return "";
+            return JsonConvert.SerializeObject(obj, Formatting.None,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
         }
     }
 }

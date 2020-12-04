@@ -36,7 +36,9 @@
     public enum MemberStatus
     {
         Entered,
-        Known,
+        KycPersonal,
+        KycDocs,
+        kycPassport,
         Active,
         InActive
     }

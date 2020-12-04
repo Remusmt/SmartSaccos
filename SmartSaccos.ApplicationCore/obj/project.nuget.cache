@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UgPKUX153DL9WiwH+jKExoFnm/lHhrcqnV9gpKhWV2kqHxU7Bui36o4iB9XZ6ZPV5Dn2A9N+QeE+2ryMDvYXlQ==",
+  "dgSpecHash": "7NxSM6ESQLlCtd0OKF/LZBsvgHwd23oBibaKmxuclujT8ctKl1YvjBIIWLVFedFkvLGWgFN9ABeR4wdlEhom1g==",
   "success": true,
   "projectFilePath": "E:\\repos\\SmartSaccos\\SmartSaccos.ApplicationCore\\SmartSaccos.ApplicationCore.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,8 @@
     "C:\\Users\\remus\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.10\\microsoft.extensions.logging.abstractions.3.1.10.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\microsoft.extensions.options\\3.1.10\\microsoft.extensions.options.3.1.10.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.10\\microsoft.extensions.primitives.3.1.10.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512",

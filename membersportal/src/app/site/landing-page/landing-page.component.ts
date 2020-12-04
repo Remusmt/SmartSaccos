@@ -15,7 +15,6 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authenticationService.currentUserValue) {
-      console.log(this.authenticationService.currentUserValue);
       this.router.navigate(['/membersportal']);
     }
   }

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ConstantsService {
 
-  baseUrl = 'https://localhost:44365/api/'; // development
+  baseUrl = ''; // development
   company = 'Nesadi Sacco';
   countryId = 1;
 
@@ -14,7 +14,7 @@ export class ConstantsService {
     if (environment.production) {
       this.baseUrl = 'https://mpbackend.nesadisacco.com/api/';
     } else {
-      this.baseUrl = 'https://localhost:44365/api/';
+      this.baseUrl = 'https://localhost:44353/api/';
     }
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginModel } from 'src/app/shared/models/login-model';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
@@ -9,13 +10,16 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup|any;
   serverError = '';
+  returnUrl = '';
+  subscription: Subscription = new Subscription();
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private userService: AuthenticationService
   ) {
       this.formGroup = this.fb.group({
@@ -30,11 +34,22 @@ export class LoginComponent implements OnInit {
         ])
       });
    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     if (this.userService.currentUserValue) {
-      this.router.navigate(['/app']);
+      this.router.navigate(['/home']);
     }
+    this.subscription.add(
+      this.route.queryParams
+      .subscribe(
+        res => {
+          this.returnUrl = res.returnUrl;
+        }
+      )
+    );
   }
 
   getEmailErrors(): string {
@@ -62,7 +77,12 @@ export class LoginComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if (res.succeeded) {
-          this.router.navigate(['/app']);
+          if (this.returnUrl) {
+            this.router.navigate([this.returnUrl]);
+          } else {
+            this.router.navigate(['/home']);
+          }
+
         } else {
           this.serverError = res;
         }

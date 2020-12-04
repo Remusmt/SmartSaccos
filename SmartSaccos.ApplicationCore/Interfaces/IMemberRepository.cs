@@ -1,4 +1,5 @@
 ﻿using SmartSaccos.Domains.Entities;
+using System.Threading.Tasks;
 
 namespace SmartSaccos.ApplicationCore.Interfaces
 {
@@ -7,5 +8,6 @@ namespace SmartSaccos.ApplicationCore.Interfaces
     {
         bool IdNumberExists(string idNo, int companyId);
         bool DuplicateIdNumber(int id, string idNo, int companyId);
+        Task<T> GetDetailedMember(int id);
     }
 }
