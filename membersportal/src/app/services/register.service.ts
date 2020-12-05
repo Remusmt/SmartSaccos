@@ -21,7 +21,9 @@ export class RegisterService {
       return this.http.post<CurrentUser>(this.constants.baseUrl + 'Accounts/Register', model)
       .pipe(
         map(res => {
-          this.authenticationService.setUser(res);
+          if (res.id > 0) {
+            this.authenticationService.setUser(res);
+          }
           return res;
         })
       );

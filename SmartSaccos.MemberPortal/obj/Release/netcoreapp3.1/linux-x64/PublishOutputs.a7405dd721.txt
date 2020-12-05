@@ -50,6 +50,7 @@ E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x6
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\MySql.Data.EntityFrameworkCore.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\Newtonsoft.Json.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\Newtonsoft.Json.Bson.dll
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\RestSharp.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\Renci.SshNet.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\SshNet.Security.Cryptography.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\System.Collections.Immutable.dll

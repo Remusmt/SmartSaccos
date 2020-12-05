@@ -121,7 +121,14 @@
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Document Upload</ng-template>
-              <ng-template matStepLabel>To verify your identity, please upload any of your document</ng-template>
+
+              <input
+                style="display: none"
+                type="file"
+                (change)="onFileChanged($event)"
+                #fileInput>
+              <button (click)="fileInput.click()">Select File</button>
+              <button (click)="onUpload()">Upload!</button>
 
               <div class="action-container">
                 <button mat-raised-button

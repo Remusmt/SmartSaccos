@@ -9,5 +9,6 @@ namespace SmartSaccos.ApplicationCore.Interfaces
         bool IdNumberExists(string idNo, int companyId);
         bool DuplicateIdNumber(int id, string idNo, int companyId);
         Task<T> GetDetailedMember(int id);
+        Task<MemberAttachment> GetDetailedMemberAttachment(int id);
     }
 }

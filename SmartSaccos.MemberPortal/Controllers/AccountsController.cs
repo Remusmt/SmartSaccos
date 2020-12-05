@@ -69,12 +69,10 @@ namespace SmartSaccos.MemberPortal.Controllers
                     //get member
                     Member member = await memberService.GetMemberByUserIdAsync(user.Id);
                     //Generate token
-                    List<Claim> claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.UserName)
-                    };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Secret));
                     var signingCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+                    var claims = new[] { new Claim(ClaimTypes.Name, user.UserName) };
+
 
                     var tokenString = new JwtSecurityToken(
                          issuer: "witsoft.co.ke",

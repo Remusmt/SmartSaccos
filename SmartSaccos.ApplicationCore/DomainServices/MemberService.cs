@@ -15,15 +15,21 @@ namespace SmartSaccos.ApplicationCore.DomainServices
         private readonly Logger logger;
         private readonly IRepository<CompanyDefaults> companyDefaultsRepository;
         private readonly IMemberRepository<Member> memberRepository;
+        private readonly IRepository<MemberAttachment> memberAttRepository;
+        private readonly IRepository<Attachment> attachmentRepository;
         public MemberService(
             Logger loger,
             IRepository<CompanyDefaults> companyDefaultsRepo,
-            IMemberRepository<Member> memberRepo
+            IMemberRepository<Member> memberRepo,
+            IRepository<MemberAttachment> memberAttRepo,
+            IRepository<Attachment> attachmentRepo
             )
         {
             logger = loger;
             memberRepository = memberRepo;
             companyDefaultsRepository = companyDefaultsRepo;
+            memberAttRepository = memberAttRepo;
+            attachmentRepository = attachmentRepo;
         }
 
         public async Task<Member> GetMemberAsync(int id)
@@ -45,6 +51,16 @@ namespace SmartSaccos.ApplicationCore.DomainServices
         {
             return await memberRepository
                 .ListAsync(new MembersSpecification(companyId));
+        }
+
+        public async Task<MemberAttachment> GetMemberAttachmentAsync(int id)
+        {
+            return await memberRepository.GetDetailedMemberAttachment(id);
+        }
+
+        public async Task<Attachment> GetAttachmentByIdAsync(int id)
+        {
+            return await attachmentRepository.GetByIdAsync(id);
         }
 
         public async Task<Member> Add(Member member)
@@ -111,7 +127,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
            DateTimeOffset dateTimeOffset,
            bool systemGenerated = false)
         {
-            
+
             if (string.IsNullOrWhiteSpace(model.OtherNames))
                 throw new Exception("First name cannot be blank");
 
@@ -153,6 +169,45 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             }
 
             return member;
+        }
+
+        public async Task<Member> SaveAttachment(
+            Member member,
+            Attachment attachment,
+            AttachmentType attachmentType)
+        {
+            MemberAttachment memberAttachment = new MemberAttachment
+            {
+                MemberId = member.Id,
+                Attachment = attachment,
+            };
+            memberAttRepository.Add(memberAttachment);
+            await memberAttRepository.SaveChangesAsync();
+            switch (attachmentType)
+            {
+                case AttachmentType.IdFront:
+                    member.IdFrontAttachmentId = memberAttachment.Id;
+                    break;
+                case AttachmentType.IdBack:
+                    member.IdBackAttachmentId = memberAttachment.Id;
+                    break;
+                case AttachmentType.Avator:
+                    member.PassportPhotoId = memberAttachment.Id;
+                    memberRepository.Update(member);
+                    await memberRepository.SaveChangesAsync();
+                    break;
+            }
+            return member;
+        }
+
+        public async Task<bool> DeleteAttachmentAsync(MemberAttachment memberAttachment)
+        {
+            Attachment attachment = await attachmentRepository
+                .GetByIdAsync(memberAttachment.AttachmentId);
+            attachmentRepository.Delete(attachment);
+            memberAttRepository.Delete(memberAttachment);
+            await memberAttRepository.SaveChangesAsync();
+            return true;
         }
     }
 }

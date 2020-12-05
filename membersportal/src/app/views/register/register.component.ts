@@ -79,8 +79,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.registerService.Register(this.registerForm.value).subscribe(
           res => {
-            this.notificationService.success(`${res.otherNames} ${res.surname} account created successfuly`);
-            this.router.navigate(['/home']);
+            if (res.id > 0) {
+              this.notificationService.success(`${res.otherNames} ${res.surname} account created successfuly`);
+              this.router.navigate(['/home']);
+            } else {
+              this.notificationService.warn('An error occured please try again');
+            }
           },
           err => {
             this.notificationService.warn(err);

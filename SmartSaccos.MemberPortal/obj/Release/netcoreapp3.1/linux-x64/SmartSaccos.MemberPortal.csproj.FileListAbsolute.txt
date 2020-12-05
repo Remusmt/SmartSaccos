@@ -82,3 +82,4 @@ E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Release\netcoreapp3.1\linux-x6
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Release\netcoreapp3.1\linux-x64\System.Security.Cryptography.ProtectedData.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Release\netcoreapp3.1\linux-x64\System.Xml.XPath.XmlDocument.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\SmartSaccos.MemberPortal.csprojAssemblyReference.cache
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Release\netcoreapp3.1\linux-x64\RestSharp.dll

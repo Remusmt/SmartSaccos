@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JHGsnQDxhYdx6dpZGIAiSQw0gfHXxEvVGFCYV7o6afLdKW9BTH4DJZ/IcMNzyk8DFGqdKrnoB6iao0iSmRPUFA==",
+  "dgSpecHash": "dug9q66c2JXc7CcHIMPTCJD75qLmiJqbZRAeb60XSsX3lmfNfE2bdkI5e5xw1Q51yaoXMCt9SuMzYYE32MC5mQ==",
   "success": true,
   "projectFilePath": "E:\\repos\\SmartSaccos\\SmartSaccos.MemberPortal\\SmartSaccos.MemberPortal.csproj",
   "expectedPackageFiles": [
@@ -52,8 +52,9 @@
     "C:\\Users\\remus\\.nuget\\packages\\mysql.data\\8.0.20\\mysql.data.8.0.20.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\mysql.data.entityframeworkcore\\8.0.20\\mysql.data.entityframeworkcore.8.0.20.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\remus\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.any.system.collections\\4.3.0\\runtime.any.system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.any.system.diagnostics.tools\\4.3.0\\runtime.any.system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\runtime.any.system.diagnostics.tracing\\4.3.0\\runtime.any.system.diagnostics.tracing.4.3.0.nupkg.sha512",

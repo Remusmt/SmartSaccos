@@ -19,4 +19,15 @@ namespace SmartSaccos.persistence.Data.Config
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
+
+    public class MemberAttachmentConfiguration : IEntityTypeConfiguration<MemberAttachment>
+    {
+        public void Configure(EntityTypeBuilder<MemberAttachment> builder)
+        {
+            builder.HasOne(e => e.Attachment)
+                .WithMany()
+                .HasForeignKey(e => e.AttachmentId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
 }

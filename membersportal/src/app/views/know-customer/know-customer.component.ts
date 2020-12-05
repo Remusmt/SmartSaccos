@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CurrentUser } from 'src/app/shared/models/current-user';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-know-customer',
@@ -21,10 +22,12 @@ export class KnowCustomerComponent implements OnInit {
     {value: 3 , description: 'widowed'}
   ];
   gender = 0;
+  selectedFile: File|any;
 
   constructor(
     private router: Router,
     public service: MembersService,
+    private notification: NotificationService,
     private authenticationService: AuthenticationService) {
       this.subscription.add(
         this.authenticationService.currentUser.subscribe(
@@ -45,14 +48,30 @@ export class KnowCustomerComponent implements OnInit {
 
   onSaveAndNext(stepper: any): void {
     if (this.service.kycForm.valid) {
-      this.subscription.add(
-        this.service.KycDetails(this.service.kycForm.value).subscribe(
-          err => {
-            stepper.next();
-          }
-        )
-      );
+      if (this.service.kycForm.dirty) {
+        this.subscription.add(
+          this.service.kycDetails(this.service.kycForm.value).subscribe(
+            _ => {
+              stepper.next();
+            },
+            err => {
+              console.log(err);
+              this.notification.warn('An error occured');
+            }
+          )
+        );
+      } else {
+        stepper.next();
+      }
     }
+  }
+
+  onFileChanged(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onUpload(): void {
+    this.service.uploadImage(this.selectedFile, 0);
   }
 
 }

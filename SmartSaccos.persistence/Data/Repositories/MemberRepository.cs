@@ -32,6 +32,13 @@ namespace SmartSaccos.persistence.Data.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
+        public async Task<MemberAttachment> GetDetailedMemberAttachment(int id)
+        {
+            return await smartSaccosContext.MemberAttachments
+                .Include("Attachment")
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
         public bool IdNumberExists(string idNo, int companyId)
         {
             return smartSaccosContext.Set<T>()

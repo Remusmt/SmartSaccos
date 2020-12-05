@@ -43,6 +43,14 @@
         InActive
     }
 
+    public enum AttachmentType
+    {
+        IdFront,
+        IdBack,
+        Avator,
+        Other
+    }
+
     public enum MainAccountType
     {
         Asset,

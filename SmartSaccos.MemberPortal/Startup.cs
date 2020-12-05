@@ -89,6 +89,8 @@ namespace SmartSaccos.MemberPortal
             services.AddScoped<IRepository<Currency>, Repository<Currency>>();
             services.AddScoped<IRepository<CompanyDefaults>, Repository<CompanyDefaults>>();
             services.AddScoped<IMemberRepository<Member>, MemberRepository<Member>>();
+            services.AddScoped<IRepository<Attachment>, Repository<Attachment>>();
+            services.AddScoped<IRepository<MemberAttachment>, Repository<MemberAttachment>>();
 
             services.AddScoped(typeof(Logger));
             services.AddScoped(typeof(CompanyService));
@@ -106,12 +108,15 @@ namespace SmartSaccos.MemberPortal
 
             app.UseHttpsRedirection();
 
+            app.UseFileServer();
+
             app.UseRouting();
 
             app.UseCors(SPAOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

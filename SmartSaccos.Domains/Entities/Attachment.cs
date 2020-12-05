@@ -21,7 +21,7 @@
         {
             get
             {
-                return $"{RootPath}/uploads/{SystemFileName}{Extension}";
+                return $"{RootPath}//{SystemFileName}{Extension}";
             }
 
         }
