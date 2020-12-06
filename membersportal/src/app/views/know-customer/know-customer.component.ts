@@ -22,7 +22,7 @@ export class KnowCustomerComponent implements OnInit {
     {value: 3 , description: 'widowed'}
   ];
   gender = 0;
-  selectedFile: File|any;
+  trueInfo = false;
 
   constructor(
     private router: Router,
@@ -66,12 +66,17 @@ export class KnowCustomerComponent implements OnInit {
     }
   }
 
-  onFileChanged(event: any): void {
-    this.selectedFile = event.target.files[0];
+  onCompleteKyc(): void {
+    this.service.onCompleteKyc().
+      subscribe(
+        _ => {
+          this.notification.success('Completed successfully');
+          this.router.navigate(['/membersportal']);
+        }
+      );
   }
 
-  onUpload(): void {
-    this.service.uploadImage(this.selectedFile, 0);
-  }
+
+
 
 }

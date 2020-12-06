@@ -53,7 +53,7 @@ namespace SmartSaccos.ApplicationCore.Services
                 restRequest.AddHeader("accept", "application/json");
                 restRequest.AddHeader("content-type", "application/json");
                 restRequest.AddHeader("authorization", "Basic " + EncodePassword("kageratea", "K@geratea2019"));
-                string body = $"\"from\":\"uwazii\",\"to\":\"[254{phoneNumber.Substring(phoneNumber.Length - 9, phoneNumber.Length - 1)}]\",\"text\":\"{message}\"";
+                string body = $"\"from\":\"uwazii\",\"to\":\"[{phoneNumber}]\",\"text\":\"{message}\"";
                 restRequest.AddParameter("application/json", "{" + body + "}", ParameterType.RequestBody);
 
                 var response = await restClient.ExecuteAsync(restRequest);

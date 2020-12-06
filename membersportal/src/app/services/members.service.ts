@@ -167,9 +167,25 @@ export class MembersService {
       reportProgress: true,
       observe: 'events'
     })
-      .subscribe(event => {
-        console.log(event); // handle event here
+      .subscribe(_ => {
+        // console.log(event); // handle event here
       });
+  }
+
+  onCompleteKyc(): Observable<Member> {
+    return this.http.get<Member>(`${this.baseurl}CompleteKyc`)
+    .pipe(
+      map(
+        res => {
+          if (this.isMember(res)) {
+            this.currentUser.status = res.memberStatus;
+            this.currentUser.weKnowCustomer = res.memberStatus > 1;
+            this.authenticationService.setUser(this.currentUser);
+          }
+          return res;
+        }
+      )
+    );
   }
 
 }

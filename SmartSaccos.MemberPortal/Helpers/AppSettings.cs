@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SmartSaccos.MemberPortal.Helpers
+﻿namespace SmartSaccos.MemberPortal.Helpers
 {
     public class AppSettings
     {
@@ -12,5 +7,7 @@ namespace SmartSaccos.MemberPortal.Helpers
         public string Subject { get; set; }
         public string PublicKey { get; set; }
         public string PrivateKey { get; set; }
+        public string AdminPhoneNo { get; set; }
+        public string AdminEmail { get; set; }
     }
 }

@@ -187,12 +187,19 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             {
                 case AttachmentType.IdFront:
                     member.IdFrontAttachmentId = memberAttachment.Id;
+                    member.MemberStatus = MemberStatus.KycDocs;
+                    memberRepository.Update(member);
+                    await memberRepository.SaveChangesAsync();
                     break;
                 case AttachmentType.IdBack:
                     member.IdBackAttachmentId = memberAttachment.Id;
+                    member.MemberStatus = MemberStatus.KycDocs;
+                    memberRepository.Update(member);
+                    await memberRepository.SaveChangesAsync();
                     break;
                 case AttachmentType.Avator:
                     member.PassportPhotoId = memberAttachment.Id;
+                    member.MemberStatus = MemberStatus.kycPassport;
                     memberRepository.Update(member);
                     await memberRepository.SaveChangesAsync();
                     break;

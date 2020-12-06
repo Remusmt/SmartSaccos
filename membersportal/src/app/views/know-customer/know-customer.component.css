@@ -1,3 +1,4 @@
+
 .kyc-page-container {
   display: flex;
   flex-direction: column;
@@ -30,6 +31,7 @@
   line-height: 1.7;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  padding-left: 15px;
 }
 
 .page-card {
@@ -82,23 +84,38 @@
   padding-top: 10px;
 }
 
-.factor-field {
-  max-width: 150px;
-  text-align: right;
-}
-
-.conversion-summary {
-  margin: 5px;
-  padding: 5px;
-}
-
 .summary-title {
   font-weight: bold;
   text-decoration: underline;
   padding-bottom: 5px;
 }
 
-.conversion-description {
-  font-weight: bold;
-  text-decoration: underline;
+
+.docs-container {
+  padding-top: 10px;
+}
+
+.docs-page-title {
+  color: #008000;
+}
+
+.select-doc-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.select-doc-item {
+  padding: 0 15px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.tab-head-icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.doc-type-title {
+  padding: 5px;
+  text-align: center;
 }

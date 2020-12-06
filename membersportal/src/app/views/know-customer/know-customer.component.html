@@ -1,149 +1,211 @@
-<div class="kyc-page-container">
+<section class="kyc-page-body">
+  <div class="kyc-page-container">
 
-  <div class="page-header">
-    <h2 class="page-title">KYC Verification</h2>
-  <p class="page-title-details">To comply with regulation each participant will have to go through indentity verification (KYC). Please, complete our fast and secure verification process.</p>
+    <div class="page-header">
+      <h2 class="page-title">KYC Verification</h2>
+      <p class="page-title-details">To comply with regulation each participant will have to go through indentity verification (KYC). Please, complete our fast and secure verification process.</p>
+
+    </div>
+
+      <mat-card class="page-card">
+        <mat-card-header class="login-card-header">
+          <div mat-card-avatar class="login-header-image"></div>
+          <mat-card-title class="orange-text">Welcome {{currentUser.otherNames + ' ' + currentUser.surname}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-vertical-stepper linear #stepper>
+              <mat-step [stepControl]="service.kycForm" editable class="vertical-content-container">
+                <form [formGroup]="service.kycForm">
+                <ng-template matStepLabel>Personal Details</ng-template>
+                <mat-grid-list cols="2" rowHeight="60px">
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">First Name</mat-label>
+                      <input matInput
+                            type="text"
+                            name="otherNames"
+                            formControlName="otherNames"
+                            required/>
+                            <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
+                              First Name is required
+                            </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">Last Name</mat-label>
+                      <input matInput
+                            type="text"
+                            name="surname"
+                            formControlName="surname"/>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <app-spinner></app-spinner>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">ID/Passport No</mat-label>
+                      <input matInput
+                            type="text"
+                            name="indentificationNo"
+                            formControlName="indentificationNo"
+                            required/>
+                            <mat-error *ngIf="service.kycForm.controls.indentificationNo.errors?.required">
+                              ID/ Passport No is required
+                            </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">Phone Number</mat-label>
+                      <input matInput
+                            type="text"
+                            name="phoneNumber"
+                            formControlName="phoneNumber"
+                            required/>
+                            <mat-error *ngIf="service.kycForm.controls.phoneNumber.errors?.required">
+                              Phone Number is required
+                            </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field>
+                      <mat-label class="mat-label">
+                        Marital Status
+                      </mat-label>
+                      <mat-select
+                      formControlName="maritalStatus">
+                        <mat-option
+                          *ngFor="let ms of maritalStatuses"
+                          [value]="ms.value">
+                            {{ms.description}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">Email</mat-label>
+                      <input matInput
+                            type="email"
+                            name="email"
+                            formControlName="email"
+                            required/>
+                            <mat-error *ngIf="service.kycForm.controls.email.errors?.required">
+                              Email is required
+                            </mat-error>
+                            <mat-error *ngIf="service.kycForm.controls.email.errors?.email">
+                              Enter a valid email
+                            </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile [colspan]= "2">
+                    <mat-label class="mat-label">
+                      Gender &nbsp;&nbsp;&nbsp;
+                    </mat-label>
+                    <mat-radio-group aria-label="Select an gender"
+                      class="radio-group">
+                      <mat-radio-button value="true" (change)="onGenderChanged()" class="radio-btn" checked>
+                        Female
+                      </mat-radio-button>
+                      <mat-radio-button value="false" class="radio-btn" (change)="onGenderChanged()" >
+                        Male
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </mat-grid-tile>
+                </mat-grid-list>
+                <div class="action-container">
+                  <button mat-raised-button
+                          color="primary"
+                          (click)="onSaveAndNext(stepper)">
+                          Continue
+                  </button>
+                </div>
+              </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Document Upload</ng-template>
+
+                <div class="docs-container">
+                  <div class="docs-page-title">
+                    <h3>
+                      Please upload any of the following personal document.
+                    </h3>
+                  </div>
+
+                  <mat-tab-group>
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <img src="assets/icons/national-id.png"
+                              alt="facebook icon"
+                              class="tab-head-icon">
+                        National Id
+                      </ng-template>
+
+                      <div>
+                        <h3 class="doc-type-title">Upload Here Your National id Front Side</h3>
+
+                        <app-file-upload attachmentType="0"></app-file-upload>
+
+                      <h3 class="doc-type-title">Upload Here Your National id Back Side</h3>
+
+                      <app-file-upload attachmentType="1"></app-file-upload>
+                      </div>
+
+                    </mat-tab>
+
+                    <mat-tab>
+                      <ng-template mat-tab-label>
+                        <img src="assets/icons/passport.png"
+                              alt="facebook icon"
+                              class="tab-head-icon">
+                        Passport
+                      </ng-template>
+                      <h3 class="doc-type-title">Upload Here Your Passport Copy</h3>
+
+                      <app-file-upload attachmentType="0"></app-file-upload>
+
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+                <div class="action-container">
+                  <button mat-raised-button
+                          matStepperPrevious
+                          class="nav-btn">Back</button>
+                  <button mat-raised-button
+                          color="primary"
+                          matStepperNext
+                          class="nav-btn">Next</button>
+                </div>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Photo Upload</ng-template>
+
+                <h3 class="doc-type-title">Upload Here Your Recent Passport Size Photo</h3>
+                <app-spinner></app-spinner>
+                <app-file-upload attachmentType="2"></app-file-upload>
+
+                <mat-checkbox [(ngModel)]="trueInfo">
+                  All The Personal Information I Have Entered Is Correct.
+                </mat-checkbox>
+
+                <div class="action-container">
+                  <button mat-raised-button
+                          matStepperPrevious
+                          class="nav-btn">Back</button>
+                  <button mat-raised-button
+                          color="primary"
+                          [disabled]="!trueInfo"
+                          (click)="onCompleteKyc()"
+                          class="nav-btn">Finish</button>
+                </div>
+              </mat-step>
+            </mat-vertical-stepper>
+
+        </mat-card-content>
+      </mat-card>
 
   </div>
+</section>
 
-    <mat-card class="page-card">
-      <mat-card-header class="login-card-header">
-        <div mat-card-avatar class="login-header-image"></div>
-        <mat-card-title class="orange-text">Welcome {{currentUser.otherNames + ' ' + currentUser.surname}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="service.kycForm">
-          <mat-vertical-stepper linear #stepper>
-            <mat-step [stepControl]="service.kycForm" editable class="vertical-content-container">
-              <ng-template matStepLabel>Personal Details</ng-template>
-              <mat-grid-list cols="2" rowHeight="60px">
-                <mat-grid-tile>
-                  <mat-form-field class="full-width-field">
-                    <mat-label class="mat-label">First Name</mat-label>
-                    <input matInput
-                          type="text"
-                          name="otherNames"
-                          formControlName="otherNames"
-                          required/>
-                          <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
-                            First Name is required
-                          </mat-error>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="full-width-field">
-                    <mat-label class="mat-label">Last Name</mat-label>
-                    <input matInput
-                          type="text"
-                          name="surname"
-                          formControlName="surname"/>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="full-width-field">
-                    <mat-label class="mat-label">ID/Passport No</mat-label>
-                    <input matInput
-                          type="text"
-                          name="indentificationNo"
-                          formControlName="indentificationNo"
-                          required/>
-                          <mat-error *ngIf="service.kycForm.controls.indentificationNo.errors?.required">
-                            ID/ Passport No is required
-                          </mat-error>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="full-width-field">
-                    <mat-label class="mat-label">Phone Number</mat-label>
-                    <input matInput
-                          type="text"
-                          name="phoneNumber"
-                          formControlName="phoneNumber"
-                          required/>
-                          <mat-error *ngIf="service.kycForm.controls.phoneNumber.errors?.required">
-                            Phone Number is required
-                          </mat-error>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field>
-                    <mat-label class="mat-label">
-                      Marital Status
-                    </mat-label>
-                    <mat-select
-                    formControlName="maritalStatus">
-                      <mat-option
-                        *ngFor="let ms of maritalStatuses"
-                        [value]="ms.value">
-                          {{ms.description}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="full-width-field">
-                    <mat-label class="mat-label">Email</mat-label>
-                    <input matInput
-                          type="email"
-                          name="email"
-                          formControlName="email"
-                          required/>
-                          <mat-error *ngIf="service.kycForm.controls.email.errors?.required">
-                            Email is required
-                          </mat-error>
-                          <mat-error *ngIf="service.kycForm.controls.email.errors?.email">
-                            Enter a valid email
-                          </mat-error>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]= "2">
-                  <mat-label class="mat-label">
-                    Gender &nbsp;&nbsp;&nbsp;
-                  </mat-label>
-                  <mat-radio-group aria-label="Select an gender"
-                    class="radio-group">
-                    <mat-radio-button value="true" (change)="onGenderChanged()" class="radio-btn" checked>
-                      Female
-                    </mat-radio-button>
-                    <mat-radio-button value="false" class="radio-btn" (change)="onGenderChanged()" >
-                      Male
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </mat-grid-tile>
-              </mat-grid-list>
-              <div class="action-container">
-                <button mat-raised-button
-                        color="primary"
-                        (click)="onSaveAndNext(stepper)">
-                        Continue
-                </button>
-              </div>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Document Upload</ng-template>
-
-              <input
-                style="display: none"
-                type="file"
-                (change)="onFileChanged($event)"
-                #fileInput>
-              <button (click)="fileInput.click()">Select File</button>
-              <button (click)="onUpload()">Upload!</button>
-
-              <div class="action-container">
-                <button mat-raised-button
-                        matStepperPrevious
-                        class="nav-btn">Back</button>
-                <button mat-raised-button
-                        color="primary"
-                        matStepperNext
-                        class="nav-btn">Next</button>
-              </div>
-            </mat-step>
-          </mat-vertical-stepper>
-        </form>
-      </mat-card-content>
-    </mat-card>
-
-</div>
 

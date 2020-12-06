@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SmartSaccos.ApplicationCore.DomainServices;
 using SmartSaccos.ApplicationCore.Models;
 using SmartSaccos.ApplicationCore.Services;
@@ -19,6 +20,7 @@ namespace SmartSaccos.MemberPortal.Controllers
     [Authorize]
     public class MembersController : ControllerBase
     {
+        private readonly AppSettings appSettings;
         private readonly MemberService memberService;
         private readonly MessageService messageService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -27,12 +29,14 @@ namespace SmartSaccos.MemberPortal.Controllers
             MemberService membaService,
             MessageService msgService,
             IWebHostEnvironment webHost,
+            IOptions<AppSettings> AppSettings,
             UserManager<ApplicationUser> usermanager)
         {
             memberService = membaService;
             messageService = msgService;
             hostEnvironment = webHost;
             userManager = usermanager;
+            appSettings = AppSettings.Value;
         }
 
         [HttpGet("GetMember/{id}")]
@@ -113,7 +117,36 @@ namespace SmartSaccos.MemberPortal.Controllers
             {
                 return BadRequest(new { ex.Message });
             }
+        }
 
+        [HttpGet("CompleteKyc")]
+        public async Task<ActionResult<Member>> CompleteKyc()
+        {
+            try
+            {
+                // Use authorized user to get member
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                    return Unauthorized();
+                //get member if user exits
+                Member member = await memberService.GetMemberByUserIdAsync(user.Id);
+                if (member == null)
+                    return NotFound();
+                await messageService.SendSms(
+                    appSettings.AdminPhoneNo,
+                    $"{member.OtherNames} {member.Surname} has registered and is pending your approval");
+
+                await messageService.SendEmail(
+                    member.Email,
+                    "Registration Confirmation",
+                    "Let me know the best message to use here");
+
+                return Ok(await memberService.GetDetailedMemberAsync(member.Id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
         }
 
         private async void DeleteFile(int id)

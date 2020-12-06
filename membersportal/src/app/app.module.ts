@@ -24,6 +24,8 @@ import { RegisterComponent } from './views/register/register.component';
 import { LoginComponent } from './views/login/login.component';
 import { HomeComponent } from './views/home/home.component';
 import { KnowCustomerComponent } from './views/know-customer/know-customer.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FileUploadComponent } from './views/custom/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { KnowCustomerComponent } from './views/know-customer/know-customer.compo
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    KnowCustomerComponent
+    KnowCustomerComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { KnowCustomerComponent } from './views/know-customer/know-customer.compo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxDropzoneModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
