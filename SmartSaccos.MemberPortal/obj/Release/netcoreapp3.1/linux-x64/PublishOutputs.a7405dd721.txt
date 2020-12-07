@@ -1,4 +1,14 @@
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\SmartSaccos.MemberPortal
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\0a0d5583-a520-4bd9-832d-df79432e40ae.png
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\0e89b47c-adba-40da-9f3b-63a00b4b26be.png
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\2a802795-7a06-424a-a3d8-db31bab54b06.png
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\2b0e6c37-641e-4c70-8a2e-a85755bfb046.png
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\46a3824f-1464-4d07-b487-71623991b877.jpeg
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\6c52631b-a368-4d0d-95ae-53e713457c37.PNG
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\debug.log
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\e1548f0d-0089-49c1-9ee8-8d1249355dd3.jpeg
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\f1758235-8078-4969-9a73-8553f58df017.png
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\wwwroot\link.PNG
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\appsettings.Development.json
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\appsettings.json
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Release\netcoreapp3.1\linux-x64\PubTmp\Out\libman.json

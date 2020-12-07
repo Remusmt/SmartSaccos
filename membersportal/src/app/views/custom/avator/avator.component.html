@@ -1,0 +1,8 @@
+<div class="profile-avator">
+  <img src="{{avatorUrl}}"
+       *ngIf="avatorUrl">
+  <div class="intials"
+       *ngIf="!avatorUrl">
+    {{initials}}
+  </div>
+</div>

@@ -6,7 +6,10 @@
           (ngSubmit) = 'submitForm(formGroup.value)'>
       <mat-card class="login-card">
         <mat-card-header class="login-card-header">
-          <div mat-card-avatar class="login-header-image"></div>
+          <a [routerLink]="'/'"
+              class="home-link">
+            <div mat-card-avatar class="login-header-image"></div>
+          </a>
           <mat-card-title class="orange-text">Login</mat-card-title>
           <mat-error *ngIf="serverError">
             {{serverError}}

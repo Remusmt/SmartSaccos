@@ -22,10 +22,9 @@ namespace SmartSaccos.MemberPortal.Controllers
     {
         private readonly AppSettings appSettings;
         private readonly MemberService memberService;
+        private readonly CompanyService companyService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-
-        private readonly CompanyService companyService;
 
         public AccountsController(
             MemberService membaService,
@@ -95,7 +94,7 @@ namespace SmartSaccos.MemberPortal.Controllers
                         Succeeded = true,
                         MemberNumber = member.MemberNumber,
                         Status = member.MemberStatus,
-                        WeKnowCustomer = member.MemberStatus > Domains.Enums.MemberStatus.KycPersonal,
+                        WeKnowCustomer = member.MemberStatus > Domains.Enums.MemberStatus.KycDocs,
                         MemberId = member.Id
                     };
 
@@ -143,7 +142,8 @@ namespace SmartSaccos.MemberPortal.Controllers
                     FullName = $"{model.OtherNames} {model.Surname}",
                     UserName = model.Email,
                     PhoneNumber = model.PhoneNumber,
-                    CompanyId = company.Id
+                    CompanyId = company.Id,
+                    UserType = Domains.Enums.UserType.Member
                 };
                 try
                 {
@@ -185,11 +185,12 @@ namespace SmartSaccos.MemberPortal.Controllers
                                 var signingCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
                                 var tokenString = new JwtSecurityToken(
-                                     issuer: "witsoft.co.ke",
-                                     expires: DateTime.Now.AddDays(15),
-                                     claims: claims,
-                                     signingCredentials: signingCred
-                                    );
+                                 issuer: "witsoft.co.ke",
+                                 audience: "witsoft.co.ke",
+                                 expires: DateTime.Now.AddDays(15),
+                                 claims: claims,
+                                 signingCredentials: signingCred
+                                );
 
                                 LoggedInUserViewModel loggedInUser = new LoggedInUserViewModel
                                 {

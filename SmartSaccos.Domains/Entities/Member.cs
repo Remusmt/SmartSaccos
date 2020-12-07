@@ -9,6 +9,7 @@ namespace SmartSaccos.Domains.Entities
         public Member()
         {
             MemberAttachments = new HashSet<MemberAttachment>();
+            MemberApprovals = new HashSet<MemberApproval>();
         }
         public string MemberNumber { get; set; }
         public string Surname { get; set; }
@@ -29,6 +30,7 @@ namespace SmartSaccos.Domains.Entities
 
         public ApplicationUser ApplicationUser { get; set; }
         public ICollection<MemberAttachment> MemberAttachments { get; set; }
+        public ICollection<MemberApproval> MemberApprovals { get; set; }
 
     }
 }

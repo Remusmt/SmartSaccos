@@ -1,0 +1,19 @@
+.profile-avator {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #008000;
+}
+
+img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.intials {
+  color: #FFC000;
+}

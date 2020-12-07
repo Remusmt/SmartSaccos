@@ -1,0 +1,18 @@
+<div class="page-header">
+  <a (click)="goBack()"
+      class="back-arrow">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <span class="current-page-title">Members</span>
+</div>
+<mat-drawer-container class="main-page-container">
+  <mat-drawer mode="side"
+              [opened]="!(isHandset | async)"
+              class="list-container">
+    <app-members-list></app-members-list>
+  </mat-drawer>
+  <mat-drawer-content class="main-page-content-container">
+    <app-members-details *ngIf="!(isHandset | async)"></app-members-details>
+    <app-members-list *ngIf="(isHandset | async)"></app-members-list>
+  </mat-drawer-content>
+</mat-drawer-container>

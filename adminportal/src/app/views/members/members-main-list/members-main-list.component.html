@@ -1,0 +1,33 @@
+<div class="page-header">
+  <a (click)="goBack()"
+      class="back-arrow">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <span class="current-page-title">Members</span>
+</div>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      All
+    </ng-template>
+    <div>
+      <app-members-list></app-members-list>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Pending
+    </ng-template>
+    <div>
+      <app-members-list></app-members-list>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Rejected
+    </ng-template>
+    <div>
+      <app-members-list></app-members-list>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -26,6 +26,7 @@ namespace SmartSaccos.persistence.Data.Repositories
             return await smartSaccosContext.Set<T>()
                 .Include("MemberAttachments")
                 .Include("MemberAttachments.Attachment")
+                .Include("MemberApprovals")
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 

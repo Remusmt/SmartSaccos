@@ -321,6 +321,9 @@ namespace SmartSaccos.persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("MemberNumber")
+                        .HasColumnType("int");
+
                     b.Property<int>("UpdateCode")
                         .HasColumnType("int");
 
@@ -562,6 +565,43 @@ namespace SmartSaccos.persistence.Migrations
                     b.ToTable("Members");
                 });
 
+            modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberApproval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApprovalAction")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("timestamp");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MessageToMember")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UpdateCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("MemberApprovals");
+                });
+
             modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberAttachment", b =>
                 {
                     b.Property<int>("Id")
@@ -771,6 +811,15 @@ namespace SmartSaccos.persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberApproval", b =>
+                {
+                    b.HasOne("SmartSaccos.Domains.Entities.Member", "Member")
+                        .WithMany("MemberApprovals")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

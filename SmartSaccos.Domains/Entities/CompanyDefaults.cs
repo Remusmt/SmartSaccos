@@ -19,5 +19,6 @@ namespace SmartSaccos.Domains.Entities
         /// </summary>
         public bool UseFinancialYear { get; set; }
         public int CurrentFinancialYear { get; set; }
+        public int MemberNumber { get; set; }
     }
 }

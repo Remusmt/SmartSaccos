@@ -1,3 +1,5 @@
+import { WelcomeComponent } from './views/welcome/welcome.component';
+import { ProfileComponent } from './views/profile/profile.component';
 import { KnowCustomerComponent } from './views/know-customer/know-customer.component';
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
@@ -12,7 +14,12 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'kyc', component: KnowCustomerComponent},
-  {path: 'membersportal', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'membersportal', component: HomeComponent, canActivate: [AuthGuard],
+  children: [
+    {path: '', component: WelcomeComponent},
+    {path: 'welcome', component: WelcomeComponent},
+    {path: 'profile', component: ProfileComponent}
+  ]},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', component: LandingPageComponent}
 ];

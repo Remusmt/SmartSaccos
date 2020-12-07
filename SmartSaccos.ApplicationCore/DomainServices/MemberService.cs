@@ -6,6 +6,7 @@ using SmartSaccos.Domains.Entities;
 using SmartSaccos.Domains.Enums;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartSaccos.ApplicationCore.DomainServices
@@ -13,23 +14,26 @@ namespace SmartSaccos.ApplicationCore.DomainServices
     public class MemberService
     {
         private readonly Logger logger;
-        private readonly IRepository<CompanyDefaults> companyDefaultsRepository;
         private readonly IMemberRepository<Member> memberRepository;
-        private readonly IRepository<MemberAttachment> memberAttRepository;
         private readonly IRepository<Attachment> attachmentRepository;
+        private readonly IRepository<MemberAttachment> memberAttRepository;
+        private readonly IRepository<MemberApproval> memberApprovalRepository;
+        private readonly IRepository<CompanyDefaults> companyDefaultsrepository;
         public MemberService(
             Logger loger,
-            IRepository<CompanyDefaults> companyDefaultsRepo,
             IMemberRepository<Member> memberRepo,
+            IRepository<Attachment> attachmentRepo,
             IRepository<MemberAttachment> memberAttRepo,
-            IRepository<Attachment> attachmentRepo
+            IRepository<MemberApproval> memberApprovalRepo,
+            IRepository<CompanyDefaults> companyDefaultsrepo
             )
         {
             logger = loger;
             memberRepository = memberRepo;
-            companyDefaultsRepository = companyDefaultsRepo;
             memberAttRepository = memberAttRepo;
             attachmentRepository = attachmentRepo;
+            memberApprovalRepository = memberApprovalRepo;
+            companyDefaultsrepository = companyDefaultsrepo;
         }
 
         public async Task<Member> GetMemberAsync(int id)
@@ -51,6 +55,12 @@ namespace SmartSaccos.ApplicationCore.DomainServices
         {
             return await memberRepository
                 .ListAsync(new MembersSpecification(companyId));
+        }
+
+        public async Task<List<Member>> GetDetailedMembersAsync(int companyId)
+        {
+            return await memberRepository
+                .ListAsync(new MembersSpecification(companyId, true));
         }
 
         public async Task<MemberAttachment> GetMemberAttachmentAsync(int id)
@@ -215,6 +225,64 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             memberAttRepository.Delete(memberAttachment);
             await memberAttRepository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<Member> ApproveMember(MemberApproval memberApproval)
+        {
+            Member member = await GetMemberByUserIdAsync(memberApproval.MemberId);
+            if (member == null)
+                throw new Exception("Member not found");
+
+            CompanyDefaults companyDefaults = await companyDefaultsrepository
+                .FirstOrDefaultAsync(e => e.CompanyId == member.CompanyId);
+
+            member.MemberStatus = MemberStatus.PaidMembership;
+            member.MemberNumber = GetMemberNumber(member, companyDefaults.MemberNumber);
+            memberRepository.Update(member);
+            companyDefaults.MemberNumber += 1;
+            companyDefaultsrepository.Update(companyDefaults);
+            memberApprovalRepository.Add(memberApproval);
+
+            await memberApprovalRepository.SaveChangesAsync();
+            return await GetDetailedMemberAsync(memberApproval.MemberId);
+        }
+
+        public async Task<Member> PutMemberOnHold(MemberApproval memberApproval)
+        {
+            Member member = await GetMemberByUserIdAsync(memberApproval.MemberId);
+            if (member == null)
+                throw new Exception("Member not found");
+
+            member.MemberStatus = MemberStatus.OnHold;
+            memberRepository.Update(member);
+            memberApprovalRepository.Add(memberApproval);
+
+            await memberApprovalRepository.SaveChangesAsync();
+            return await GetDetailedMemberAsync(memberApproval.MemberId);
+        }
+
+        public async Task<Member> RejectMember(MemberApproval memberApproval)
+        {
+            Member member = await GetMemberByUserIdAsync(memberApproval.MemberId);
+            if (member == null)
+                throw new Exception("Member not found");
+
+            member.MemberStatus = MemberStatus.Rejected;
+            memberRepository.Update(member);
+            memberApprovalRepository.Add(memberApproval);
+
+            await memberApprovalRepository.SaveChangesAsync();
+            return await GetDetailedMemberAsync(memberApproval.MemberId);
+        }
+
+        private string GetMemberNumber(Member member, int currentNumber)
+        {
+            StringBuilder sb = new StringBuilder((DateTime.Now.Year - 2000).ToString());
+            sb.Append(DateTime.Now.Month.ToString().PadLeft(2, '0'));
+            sb.Append(member.IndentificationNo.Substring(0, 1));
+            sb.Append(member.IndentificationNo.Substring(member.IndentificationNo.Length - 2, 1));
+            sb.Append((currentNumber + 1).ToString().PadLeft(3, '0'));
+            return sb.ToString();
         }
     }
 }

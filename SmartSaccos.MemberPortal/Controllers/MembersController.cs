@@ -141,7 +141,7 @@ namespace SmartSaccos.MemberPortal.Controllers
                     "Registration Confirmation",
                     "Let me know the best message to use here");
 
-                return Ok(await memberService.GetDetailedMemberAsync(member.Id));
+                return Ok(member);
             }
             catch (Exception ex)
             {

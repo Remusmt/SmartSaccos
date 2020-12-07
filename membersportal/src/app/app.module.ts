@@ -26,6 +26,9 @@ import { HomeComponent } from './views/home/home.component';
 import { KnowCustomerComponent } from './views/know-customer/know-customer.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { FileUploadComponent } from './views/custom/file-upload/file-upload.component';
+import { AvatorComponent } from './views/custom/avator/avator.component';
+import { ProfileComponent } from './views/profile/profile.component';
+import { WelcomeComponent } from './views/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { FileUploadComponent } from './views/custom/file-upload/file-upload.comp
     LoginComponent,
     HomeComponent,
     KnowCustomerComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AvatorComponent,
+    ProfileComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

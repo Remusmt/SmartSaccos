@@ -17,6 +17,11 @@ namespace SmartSaccos.persistence.Data.Config
                 .WithOne(e => e.Member)
                 .HasForeignKey(e => e.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(e => e.MemberApprovals)
+                .WithOne(e => e.Member)
+                .HasForeignKey(e => e.MemberId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 

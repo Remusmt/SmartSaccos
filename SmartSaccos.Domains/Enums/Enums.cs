@@ -2,8 +2,8 @@
 {
     public enum UserType
     {
-        Admin,
-        Member
+        Member,
+        Admin
     }
 
     public enum ActionType
@@ -11,6 +11,13 @@
         Create,
         Update,
         Delete
+    }
+
+    public enum ApprovalAction
+    {
+        Approved,
+        OnHold,
+        Rejected
     }
 
     public enum RecordType
@@ -39,8 +46,11 @@
         KycPersonal,
         KycDocs,
         kycPassport,
+        PaidMembership,
         Active,
-        InActive
+        OnHold,
+        Rejected,
+        Left
     }
 
     public enum AttachmentType

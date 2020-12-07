@@ -41,16 +41,8 @@ export class MembersService {
     ]),
   });
   baseurl = '';
-  private emptyMember = {
-    id: 0, memberNumber: '', surname: '', otherNames: '',
-    gender:  0, maritalStatus:  0, dateOfBirth: undefined,
-    dateJoined: new Date(), phoneNumber: '', email: '',
-    memberStatus:  0, applicationUserId:  0, indentificationNo: '',
-    passportPhotoId:  0, idFrontAttachmentId:  0, idBackAttachmentId:  0,
-    MemberAttachments: []
-  };
 
-  private currentMemberSubject = new BehaviorSubject<Member>(this.emptyMember);
+  private currentMemberSubject = new BehaviorSubject<Member>(new Member());
   public currentMember = this.currentMemberSubject.asObservable();
 
   constructor(
@@ -99,7 +91,7 @@ export class MembersService {
     return (value as Member).id !== undefined;
   }
 
-  refreshMember(id: number, detailed = false): Member {
+  refreshMember(id: number, detailed = true): Member {
     if (detailed) {
       this.getDetailedMember(id).subscribe(
         res => {
@@ -123,7 +115,7 @@ export class MembersService {
         }
       );
     }
-    return this.emptyMember;
+    return new Member();
   }
 
   getMember(id: number): Observable<Member> {

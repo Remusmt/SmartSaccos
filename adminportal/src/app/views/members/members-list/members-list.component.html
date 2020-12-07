@@ -1,0 +1,46 @@
+
+<mat-divider class="padding-bottom-10"></mat-divider>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="listData"  matSort>
+    <ng-container matColumnDef="memberNumber">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Member No</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.memberNumber}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="otherNames">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.otherNames}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phoneNumber">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Phone No</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.phoneNumber}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="memberStatus">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{getStatusDescription(element.memberStatus)}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="th-right w-75"></mat-header-cell>
+      <mat-cell *matCellDef="let row" class="th-right w-75">
+        <button mat-icon-button (click)="onView(row)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="2">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click) ="onRowClicked(row)"
+            [ngClass]="{'highlightSelected':isSelectedRow(row.id)}"></mat-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData != null && listData.data.length == 0)}"></mat-footer-row>
+  </mat-table>
+  <mat-paginator [length]=listData.data.length [pageSizeOptions]="[10, 15, 20, 50, 100]" [pageSize]="20" hidePageSize></mat-paginator>
+</div>

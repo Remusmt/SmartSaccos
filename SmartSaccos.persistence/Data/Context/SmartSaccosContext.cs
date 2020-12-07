@@ -47,6 +47,7 @@ namespace SmartSaccos.persistence.Data.Context
         public DbSet<LedgerAccount> LedgerAccounts { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<MemberAttachment> MemberAttachments { get; set; }
+        public DbSet<MemberApproval> MemberApprovals { get; set; }
 
     }
 }

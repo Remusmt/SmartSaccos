@@ -1,0 +1,65 @@
+
+.login-card-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.login-card {
+  max-width: 350px;
+  min-width: 250px;
+}
+
+@media screen and (max-width: 600px) {
+  .login-card {
+    box-shadow: none;
+  }
+}
+
+
+.login-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.login-header-image {
+  background-image: url('/assets/icons/icon-96x96.png');
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.orange-text {
+  padding-top: 10px;
+  color: #008000 !important;
+}
+
+.mat-card-subtitle {
+  color: rgba(0,0,0,0.8);
+}
+
+.btn-orange-large {
+  color: rgb(255, 255, 255);
+  background-color: #008000;
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.login-footer{
+  text-align: center;
+}
+
+a {
+  color: #008000;
+  text-decoration: none;
+}
+
