@@ -1,1 +1,76 @@
-<p>profile works!</p>
+
+<div class="profile-page-container">
+  <div class="profile-page-header">
+    <div class="profile-avator">
+      <img src="{{service.avatorName()}}"
+      class="profile-image"
+      *ngIf="service.avatorName()">
+    <div class="intials"
+          *ngIf="!service.avatorName()">
+      {{service.intial()}}
+    </div>
+    </div>
+    <h2 class="member-name">
+      {{currentMember.otherNames}} {{currentMember.surname}}
+    </h2>
+  </div>
+  <div class="profile-body">
+    <mat-card class="profile-body-content">
+      <mat-dialog-content>
+        <mat-card-content>
+          <mat-grid-list cols="2" rowHeight="60px">
+            <mat-grid-tile>
+              Member Number
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{currentMember.memberNumber}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Fisrt Name
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{currentMember.otherNames}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Last Name
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{currentMember.surname}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Phone Number
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{currentMember.phoneNumber}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Email
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{currentMember.email}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Gender
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{getGenderDescription(currentMember.gender)}}
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              Marital Status
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{getMaritalStatusDescription(currentMember.maritalStatus)}}
+            </mat-grid-tile>
+
+          </mat-grid-list>
+        </mat-card-content>
+      </mat-dialog-content>
+    </mat-card>
+  </div>
+</div>

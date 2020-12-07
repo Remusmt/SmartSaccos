@@ -1,1 +1,23 @@
-<p>welcome works!</p>
+
+<div class="welcome-page-container">
+  <div *ngIf="currentMember.memberStatus === 3">
+    <h2 class="heading">Welcome!</h2>
+    <ng-container *ngTemplateOutlet="pending"></ng-container>
+  </div>
+
+  <div *ngIf="currentMember.memberStatus === 4">
+    <ng-container *ngTemplateOutlet="approved"></ng-container>
+  </div>
+</div>
+
+<ng-template #pending>
+  <p class="content-message">
+    Your application was received and is pending approval.
+  </p>
+</ng-template>
+
+<ng-template #approved>
+  <p class="content-message">
+    Your application was approved and your membership number is {{currentMember.memberNumber}}
+  </p>
+</ng-template>

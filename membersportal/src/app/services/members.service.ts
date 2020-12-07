@@ -7,6 +7,7 @@ import { CurrentUser } from '../shared/models/current-user';
 import { Member } from '../shared/models/member';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { ConstantsService } from '../shared/services/constants.service';
+import { Attachment } from '../shared/models/attachment';
 
 export interface KycFormModel {
   id: number;
@@ -180,4 +181,49 @@ export class MembersService {
     );
   }
 
+
+  intial = () => {
+    let initials = '';
+    if (this.currentUser.otherNames.length > 0) {
+      initials = this.currentUser.otherNames.substr(0, 1);
+    }
+    if (this.currentUser.surname.length > 0) {
+      initials = `${initials} ${this.currentUser.surname.substr(0, 1)}`;
+    }
+    return initials;
+  }
+
+  avatorName = () => {
+    const avatorName = this.getAttachmentName(this.currentMemberSubject.value.passportPhotoId);
+    return avatorName ? `${this.constants.resourceUrl}${avatorName}` : '';
+  }
+
+  idFrontName = () => {
+    const rName = this.getAttachmentName(this.currentMemberSubject.value.idFrontAttachmentId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  idBackName = () => {
+    const rName = this.getAttachmentName(this.currentMemberSubject.value.idBackAttachmentId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  private getAttachmentName(id: number): string {
+    if (id === 0) {
+      return '';
+    }
+    let name = '';
+    if (this.currentMemberSubject.value.memberAttachments.length > 0) {
+      const attachment = this.getAttachment(this.currentMemberSubject.value.passportPhotoId);
+      if (attachment !== undefined) {
+        name = `${attachment.systemFileName}${attachment.extension}`;
+      }
+    }
+    return name;
+  }
+
+  private getAttachment(id: number): Attachment|undefined {
+    return this.currentMemberSubject.value.memberAttachments
+    .find((e: any) => e.id === id)?.attachment;
+  }
 }

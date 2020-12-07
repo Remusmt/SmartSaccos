@@ -17,7 +17,7 @@ namespace SmartSaccos.ApplicationCore.Services
         {
             using (var mailMessage = new MailMessage())
             {
-                mailMessage.From = new MailAddress("smartbookserp@gmail.com", "NESADI SACCO");
+                mailMessage.From = new MailAddress("noreply@nesadisacco.com", "NESADI SACCO");
                 mailMessage.To.Add(new MailAddress(emailTo));
                 mailMessage.Subject = subject;
                 mailMessage.Body = body;
@@ -25,19 +25,20 @@ namespace SmartSaccos.ApplicationCore.Services
 
                 using SmtpClient smtpClient = new SmtpClient
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    Credentials = new NetworkCredential("smartbookserp@gmail.com", "zkmmbjcqpqzvxpeo")
+                    Host = "mail.nesadisacco.com",
+                    Port = 25,
+                    EnableSsl = false,
+                    Credentials = new NetworkCredential("noreply@nesadisacco.com", "nesadi2020")
                 };
 
                 try
                 {
                     await smtpClient.SendMailAsync(mailMessage).ConfigureAwait(false);
                 }
-                catch (SmtpException)
+                catch (SmtpException ex)
                 {
-                    return false;
+                    throw ex;
+                    //return false;
                 }
             }
 

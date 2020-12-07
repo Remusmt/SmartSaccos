@@ -1,0 +1,20 @@
+
+.welcome-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.heading {
+  text-align: center;
+  color: #008000;
+  font-size: 44px;
+  font-weight: 600;
+}
+
+.content-message {
+  text-align: center;
+  font-size: 24px;
+}
