@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SmartSaccos.ApplicationCore.DomainServices;
 using SmartSaccos.ApplicationCore.Models;
+using SmartSaccos.ApplicationCore.Services;
 using SmartSaccos.Domains.Entities;
 using SmartSaccos.Domains.Enums;
 using SmartSaccos.MemberPortal.Helpers;
@@ -25,14 +26,18 @@ namespace SmartSaccos.MemberPortal.Controllers
     {
         private readonly AppSettings appSettings;
         private readonly MemberService memberService;
+        private readonly MessageService messageService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        public AdminController(MemberService membaService,
+        public AdminController(
+            MessageService msgService,
+            MemberService membaService,
             IOptions<AppSettings> AppSettings,
             UserManager<ApplicationUser> UserManager,
             SignInManager<ApplicationUser> SignInManager)
         {
             userManager = UserManager;
+            messageService = msgService;
             signInManager = SignInManager;
             memberService = membaService;
             appSettings = AppSettings.Value;
@@ -153,7 +158,14 @@ namespace SmartSaccos.MemberPortal.Controllers
                     MemberId = model.MemberId,
                     MessageToMember = model.MessageToMember
                 };
-                return await memberService.ApproveMember(memberApproval);
+                Member member = await memberService.ApproveMember(memberApproval);
+
+                string html = Properties.Resources.ApprovedEmailTemplate;
+                html = html.Replace("{Username}", $"{member.OtherNames} {member.Surname}");
+                html = html.Replace("{memberno}", member.MemberNumber);
+
+                await messageService.SendEmail(member.Email, $"{member.OtherNames} {member.Surname}", "Membership Approval", html);
+                return member;
             }
             catch (Exception ex)
             {

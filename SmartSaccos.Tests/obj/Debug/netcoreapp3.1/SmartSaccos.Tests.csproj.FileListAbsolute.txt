@@ -113,3 +113,8 @@ E:\repos\SmartSaccos\SmartSaccos.Tests\obj\Debug\netcoreapp3.1\SmartSaccos.Tests
 E:\repos\SmartSaccos\SmartSaccos.Tests\obj\Debug\netcoreapp3.1\SmartSaccos.Tests.dll
 E:\repos\SmartSaccos\SmartSaccos.Tests\obj\Debug\netcoreapp3.1\SmartSaccos.Tests.pdb
 E:\repos\SmartSaccos\SmartSaccos.Tests\obj\Debug\netcoreapp3.1\SmartSaccos.Tests.genruntimeconfig.cache
+E:\repos\SmartSaccos\SmartSaccos.Tests\bin\Debug\netcoreapp3.1\MailKit.dll
+E:\repos\SmartSaccos\SmartSaccos.Tests\bin\Debug\netcoreapp3.1\MimeKit.dll
+E:\repos\SmartSaccos\SmartSaccos.Tests\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+E:\repos\SmartSaccos\SmartSaccos.Tests\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+E:\repos\SmartSaccos\SmartSaccos.Tests\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Pkcs.dll

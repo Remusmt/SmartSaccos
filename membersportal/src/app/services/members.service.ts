@@ -129,6 +129,18 @@ export class MembersService {
       map(
         res => {
           if (this.isMember(res)) {
+            this.populateForm(
+              {
+                id: res.id,
+                surname:  res.surname,
+                otherNames: res.otherNames,
+                gender: res.gender,
+                maritalStatus: res.maritalStatus,
+                phoneNumber: res.phoneNumber,
+                indentificationNo: res.indentificationNo,
+                email: res.email
+              }
+            );
             this.currentMemberSubject.next(res);
           }
           return res;
@@ -152,17 +164,23 @@ export class MembersService {
     );
   }
 
-  uploadImage(file: File|any, kycDocType: number): any {
+  uploadImage(file: File|any, kycDocType: number): Observable<Member> {
     const uploadData = new FormData();
     uploadData.append('kycDoc', file, file.name);
     uploadData.append('kycDocType', kycDocType.toString());
-    this.http.post(`${this.baseurl}KycDocs`, uploadData, {
-      reportProgress: true,
-      observe: 'events'
-    })
-      .subscribe(_ => {
-        // console.log(event); // handle event here
-      });
+    return this.http.post<Member>(`${this.baseurl}KycDocs`, uploadData)
+    .pipe(
+      map(
+        res => {
+          if (this.isMember(res)) {
+            this.currentUser.status = res.memberStatus;
+            this.currentUser.weKnowCustomer = res.memberStatus > 1;
+            this.authenticationService.setUser(this.currentUser);
+          }
+          return res;
+        }
+      )
+    );
   }
 
   onCompleteKyc(): Observable<Member> {

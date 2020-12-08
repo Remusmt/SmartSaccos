@@ -1,8 +1,8 @@
+import { Member } from 'src/app/shared/models/member';
 import { MembersService } from './../../services/members.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CurrentUser } from 'src/app/shared/models/current-user';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
@@ -13,7 +13,8 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class KnowCustomerComponent implements OnInit {
 
-  currentUser: CurrentUser|any;
+  memberId = 0;
+  currentMember = new  Member();
   subscription: Subscription = new Subscription();
   maritalStatuses = [
     {value: 0 , description: 'Single'},
@@ -31,13 +32,17 @@ export class KnowCustomerComponent implements OnInit {
     private authenticationService: AuthenticationService) {
       this.subscription.add(
         this.authenticationService.currentUser.subscribe(
-          res => this.currentUser = res
+          res => this.memberId = res.memberId
         )
       );
     }
 
   ngOnInit(): void {
-
+    this.service.getDetailedMember(this.memberId).subscribe(
+      res => {
+        this.currentMember = res;
+      }
+    );
   }
 
   onGenderChanged(): void {

@@ -19,7 +19,7 @@ import { Attachment } from 'src/app/shared/models/attachment';
 export class HomeComponent implements OnInit, OnDestroy {
 
   currentUser: CurrentUser|any;
-  currentMember: Member|any;
+  currentMember = new  Member();
   subscription: Subscription = new Subscription();
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([
     Breakpoints.Handset,
@@ -60,12 +60,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
     );
 
-    this.subscription.add(
-      this.service.currentMember.subscribe(
-        res => {
-          this.currentMember = res;
-        }
-      )
+    this.service.getDetailedMember(this.currentUser.memberId)
+    .subscribe(
+      res => {
+        this.currentMember = res;
+      }
     );
   }
 

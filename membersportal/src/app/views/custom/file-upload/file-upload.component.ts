@@ -1,5 +1,6 @@
 import { MembersService } from './../../../services/members.service';
 import { Component, Input } from '@angular/core';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -14,7 +15,8 @@ export class FileUploadComponent {
   @Input() attachmentType = '0';
 
   constructor(
-    private service: MembersService
+    private service: MembersService,
+    private notification: NotificationService
   ) { }
 
   onSelect(event: any): void {
@@ -23,7 +25,15 @@ export class FileUploadComponent {
     this.files.push(...event.addedFiles);
     this.rejectedFiles.push(...event.rejectedFiles);
     if (this.files.length > 0) {
-      this.service.uploadImage(this.files[0], Number.parseInt(this.attachmentType, 10));
+      this.service.uploadImage(this.files[0], Number.parseInt(this.attachmentType, 10))
+      .subscribe(
+        res => {
+          this.notification.success('Uploaded successfully');
+        },
+        err => {
+          this.notification.warn(err);
+        }
+      );
     }
   }
 

@@ -132,14 +132,18 @@ namespace SmartSaccos.MemberPortal.Controllers
                 Member member = await memberService.GetMemberByUserIdAsync(user.Id);
                 if (member == null)
                     return NotFound();
+
+                string html = Properties.Resources.RegistrationTemplate;
+                html = html.Replace("{Username}", $"{member.OtherNames} {member.Surname}");
+
+                await messageService.SendEmail(
+                        member.Email, 
+                        $"{member.OtherNames} {member.Surname}", 
+                        "Registration Confirmation", html);
+
                 await messageService.SendSms(
                     appSettings.AdminPhoneNo,
                     $"{member.OtherNames} {member.Surname} has registered and is pending your approval");
-
-                await messageService.SendEmail(
-                    member.Email,
-                    "Registration Confirmation",
-                    "Let me know the best message to use here");
 
                 return Ok(member);
             }

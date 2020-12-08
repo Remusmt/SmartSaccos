@@ -84,3 +84,7 @@ E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\System.Sec
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\RestSharp.dll
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Debug\netcoreapp3.1\SmartSaccos.MemberPortal.Properties.Resources.resources
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\obj\Debug\netcoreapp3.1\SmartSaccos.MemberPortal.csproj.GenerateResource.cache
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\MailKit.dll
+E:\repos\SmartSaccos\SmartSaccos.MemberPortal\bin\Debug\netcoreapp3.1\MimeKit.dll

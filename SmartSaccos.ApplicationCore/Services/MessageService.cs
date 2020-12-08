@@ -1,7 +1,9 @@
-﻿using RestSharp;
+﻿using MailKit.Security;
+using MimeKit;
+using MimeKit.Text;
+using RestSharp;
 using System;
 using System.Net;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,36 +13,31 @@ namespace SmartSaccos.ApplicationCore.Services
     {
         public async Task<bool> SendEmail(
               string emailTo,
+              string name,
               string subject,
               string body
           )
         {
-            using (var mailMessage = new MailMessage())
-            {
-                mailMessage.From = new MailAddress("noreply@nesadisacco.com", "NESADI SACCO");
-                mailMessage.To.Add(new MailAddress(emailTo));
-                mailMessage.Subject = subject;
-                mailMessage.Body = body;
-                mailMessage.IsBodyHtml = true;
-
-                using SmtpClient smtpClient = new SmtpClient
-                {
-                    Host = "mail.nesadisacco.com",
-                    Port = 25,
-                    EnableSsl = false,
-                    Credentials = new NetworkCredential("noreply@nesadisacco.com", "nesadi2020")
-                };
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("NESADI SACCO", "noreply@nesadisacco.com"));
+                message.To.Add(new MailboxAddress(name, emailTo));
+                message.Subject = subject;
+                message.Body = new TextPart(TextFormat.Html) { Text = body };
 
                 try
                 {
-                    await smtpClient.SendMailAsync(mailMessage).ConfigureAwait(false);
+                    using var smtp = new MailKit.Net.Smtp.SmtpClient();
+
+                    await smtp.ConnectAsync("mail.nesadisacco.com", 465, SecureSocketOptions.SslOnConnect);
+                    await smtp.AuthenticateAsync("noreply@nesadisacco.com", "nesadi2020");
+                    await smtp.SendAsync(message);
+                    await smtp.DisconnectAsync(true);
+
                 }
-                catch (SmtpException ex)
+                catch (Exception ex)
                 {
                     throw ex;
-                    //return false;
                 }
-            }
 
             return true;
         }
@@ -60,9 +57,9 @@ namespace SmartSaccos.ApplicationCore.Services
                 var response = await restClient.ExecuteAsync(restRequest);
                 return response.StatusCode == HttpStatusCode.OK;
             }
-            catch (SmtpException ex)
+            catch (Exception ex)
             {
-                throw new SmtpException(ex.Message);
+                throw ex;
             }
         }
 
