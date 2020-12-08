@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MembersService } from 'src/app/services/members.service';
 import { Member } from 'src/app/shared/models/member';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +13,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   currentMember: Member|any;
   subscription: Subscription = new Subscription();
+  maritalStatuses = [
+    {value: 0 , description: 'Single'},
+    {value: 1 , description: 'Married'},
+    {value: 2 , description: 'Divorced'},
+    {value: 3 , description: 'widowed'}
+  ];
+  gender = 1;
+
   constructor(
-    public service: MembersService) {}
+    public service: MembersService,
+    private notification: NotificationService) {}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -29,8 +39,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  getGenderDescription(gender: number): string {
-    return gender === 0 ? 'Female' : 'Male';
+  onGenderChanged(): void {
+    this.gender = this.gender > 0 ? 0 : 1;
+    this.service.kycForm.controls.gender
+        .setValue(this.gender);
   }
 
   getMaritalStatusDescription(status: number): string {
@@ -48,4 +60,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
         return 'Single';
     }
   }
+
+  onSaveDetails(): void {
+    if (this.service.kycForm.valid) {
+      if (this.service.kycForm.dirty) {
+        this.subscription.add(
+          this.service.kycDetails(this.service.kycForm.value).subscribe(
+            _ => {
+              this.notification.success('Saved Successfully');
+            },
+            err => {
+              this.notification.warn(err);
+            }
+          )
+        );
+      }
+    }
+  }
+
 }

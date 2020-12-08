@@ -232,7 +232,7 @@ export class MembersService {
     }
     let name = '';
     if (this.currentMemberSubject.value.memberAttachments.length > 0) {
-      const attachment = this.getAttachment(this.currentMemberSubject.value.passportPhotoId);
+      const attachment = this.getAttachment(id);
       if (attachment !== undefined) {
         name = `${attachment.systemFileName}${attachment.extension}`;
       }
