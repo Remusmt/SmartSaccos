@@ -6,3 +6,4 @@ E:\repos\SmartSaccos\SmartSaccos.Domains\bin\Debug\netstandard2.1\SmartSaccos.Do
 E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Debug\netstandard2.1\SmartSaccos.Domains.csproj.CoreCompileInputs.cache
 E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Debug\netstandard2.1\SmartSaccos.Domains.dll
 E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Debug\netstandard2.1\SmartSaccos.Domains.pdb
+E:\repos\SmartSaccos\SmartSaccos.Domains\obj\Debug\netstandard2.1\SmartSaccos.Domains.csprojAssemblyReference.cache

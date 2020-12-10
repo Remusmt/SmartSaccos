@@ -13,136 +13,412 @@
     <h2 class="member-name">
       {{currentMember.otherNames}} {{currentMember.surname}}
     </h2>
+    <h3 class="status-badge">
+      Status {{getStatusDesription(currentMember.memberStatus)}}
+    </h3>
+    <h3 class="gender-badge">
+      {{getGenderDescription(currentMember.gender)}}
+    </h3>
   </div>
   <div class="profile-body">
+    <form [formGroup]="service.kycForm"
+      class="kyc-form">
+      <h3 class="profile-section-header">
+        Personal Details
+      </h3>
     <mat-card class="page-card">
       <mat-card-content>
-        <form [formGroup]="service.kycForm">
-          <ng-template matStepLabel>Personal Details</ng-template>
-          <mat-grid-list cols="2" rowHeight="60px">
-            <mat-grid-tile>
-              <mat-form-field class="full-width-field">
-                <mat-label class="mat-label">First Name</mat-label>
-                <input matInput
-                      type="text"
-                      name="otherNames"
-                      formControlName="otherNames"
-                      required/>
-                      <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
-                        First Name is required
-                      </mat-error>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field class="full-width-field">
-                <mat-label class="mat-label">Last Name</mat-label>
-                <input matInput
-                      type="text"
-                      name="surname"
-                      formControlName="surname"/>
-              </mat-form-field>
-            </mat-grid-tile>
-            <app-spinner></app-spinner>
-            <mat-grid-tile>
-              <mat-form-field class="full-width-field">
-                <mat-label class="mat-label">ID/Passport No</mat-label>
-                <input matInput
-                      type="text"
-                      name="indentificationNo"
-                      formControlName="indentificationNo"
-                      required/>
-                      <mat-error *ngIf="service.kycForm.controls.indentificationNo.errors?.required">
-                        ID/ Passport No is required
-                      </mat-error>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field class="full-width-field">
-                <mat-label class="mat-label">Phone Number</mat-label>
-                <input matInput
-                      type="text"
-                      name="phoneNumber"
-                      formControlName="phoneNumber"
-                      required/>
-                      <mat-error *ngIf="service.kycForm.controls.phoneNumber.errors?.required">
-                        Phone Number is required
-                      </mat-error>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field>
-                <mat-label class="mat-label">
-                  Marital Status
-                </mat-label>
-                <mat-select
-                formControlName="maritalStatus">
-                  <mat-option
-                    *ngFor="let ms of maritalStatuses"
-                    [value]="ms.value">
-                      {{ms.description}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field class="full-width-field">
-                <mat-label class="mat-label">Email</mat-label>
-                <input matInput
-                      type="email"
-                      name="email"
-                      formControlName="email"
-                      required/>
-                      <mat-error *ngIf="service.kycForm.controls.email.errors?.required">
-                        Email is required
-                      </mat-error>
-                      <mat-error *ngIf="service.kycForm.controls.email.errors?.email">
-                        Enter a valid email
-                      </mat-error>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]= "2">
+        <mat-grid-list cols="2" rowHeight="60px">
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Title</mat-label>
+              <input matInput
+                    type="text"
+                    name="title"
+                    formControlName="title"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Surname</mat-label>
+              <input matInput
+                    type="text"
+                    name="surname"
+                    formControlName="surname"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">First & Middle Name</mat-label>
+              <input matInput
+                    type="text"
+                    name="otherNames"
+                    formControlName="otherNames"
+                    required/>
+                    <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
+                      First Name is required
+                    </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <app-spinner></app-spinner>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">ID/Passport No</mat-label>
+              <input matInput
+                    type="text"
+                    name="indentificationNo"
+                    formControlName="indentificationNo"
+                    required/>
+                    <mat-error *ngIf="service.kycForm.controls.indentificationNo.errors?.required">
+                      ID/ Passport No is required
+                    </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Phone Number</mat-label>
+              <input matInput
+                    type="text"
+                    name="phoneNumber"
+                    formControlName="phoneNumber"
+                    required/>
+                    <mat-error *ngIf="service.kycForm.controls.phoneNumber.errors?.required">
+                      Phone Number is required
+                    </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
               <mat-label class="mat-label">
-                Gender &nbsp;&nbsp;&nbsp;
+                Marital Status
               </mat-label>
-              <mat-radio-group aria-label="Select a gender"
-                class="radio-group"
-                value="gender">
-                <mat-radio-button value="0" (change)="onGenderChanged()" class="radio-btn" checked>
-                  Female
-                </mat-radio-button>
-                <mat-radio-button value="1" class="radio-btn" (change)="onGenderChanged()" >
-                  Male
-                </mat-radio-button>
-              </mat-radio-group>
-            </mat-grid-tile>
-          </mat-grid-list>
-          <div class="action-container">
-            <button mat-raised-button
-                    color="primary"
-                    (click)="onSaveDetails()">
-                    Update
-            </button>
-          </div>
-        </form>
+              <mat-select
+              formControlName="maritalStatus">
+                <mat-option
+                  *ngFor="let ms of maritalStatuses"
+                  [value]="ms.value">
+                    {{ms.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Email</mat-label>
+              <input matInput
+                    type="email"
+                    name="email"
+                    formControlName="email"
+                    required/>
+                    <mat-error *ngIf="service.kycForm.controls.email.errors?.required">
+                      Email is required
+                    </mat-error>
+                    <mat-error *ngIf="service.kycForm.controls.email.errors?.email">
+                      Enter a valid email
+                    </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field margin-right-5">
+              <mat-label class="mat-label">Date of Birth</mat-label>
+              <input matInput
+                    [matDatepicker]="dateOfBirthP"
+                    formControlName="dateOfBirth"
+                    name ="dateOfBirth">
+              <mat-datepicker-toggle matSuffix [for]="dateOfBirthP"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfBirthP disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Occupation</mat-label>
+              <input matInput
+                    type="text"
+                    name="occupation"
+                    formControlName="occupation"/>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">
+                Occupation Type
+              </mat-label>
+              <mat-select
+              formControlName="maritalStatus">
+                <mat-option
+                  *ngFor="let ot of service.occupationTypes"
+                  [value]="ot.value">
+                    {{ot.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div class="action-container">
+          <button mat-raised-button
+                  color="primary"
+                  (click)="onSaveDetails()">
+                  Update Personal Details
+          </button>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+    <h2 class="profile-section-header">
+      Next of Kin Details
+    </h2>
+    <mat-card class="page-card">
+      <mat-card-content>
+        <mat-grid-list cols="2" rowHeight="60px">
+          <mat-grid-tile  [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Next Of Kin</mat-label>
+              <input matInput
+                    type="text"
+                    name="nextOfKin"
+                    formControlName="nextOfKin"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">NoK Relation</mat-label>
+              <input matInput
+                    type="text"
+                    name="nokRelation"
+                    title="What is your relationship with the NoK"
+                    formControlName="nokRelation"/>
+                    <mat-hint>
+                      What is your relationship with the NoK
+                    </mat-hint>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile  [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">NoK Contacts</mat-label>
+              <input matInput
+                    type="text"
+                    name="nokContacts"
+                    formControlName="nokContacts"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-checkbox (change) ="onMinorChange()">
+              NoK is Minor
+            </mat-checkbox>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="nokIsMinor">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Minor C/o</mat-label>
+              <input matInput
+                    type="text"
+                    name=""/>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div class="action-container">
+          <button mat-raised-button
+                  color="primary"
+                  (click)="onSaveDetails()">
+                  Update NoK Details
+          </button>
+        </div>
       </mat-card-content>
     </mat-card>
 
-    <h2 class="member-name">
+    <h3 class="profile-section-header">
+      Address Details
+    </h3>
+    <mat-card class="page-card">
+      <mat-card-content>
+
+        <div class="stepper-details-container">
+          <div formGroupName="homeAddress">
+            <h3>
+              Place of birth
+            </h3>
+            <mat-grid-list cols="2" rowHeight="60px">
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Village</mat-label>
+                  <input matInput
+                        type="text"
+                        name="village"
+                        formControlName="village"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Location</mat-label>
+                  <input matInput
+                        type="text"
+                        name="location"
+                        formControlName="location"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">District</mat-label>
+                  <input matInput
+                        type="text"
+                        name="district"
+                        formControlName="district"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">County</mat-label>
+                  <input matInput
+                        type="text"
+                        name="county"
+                        formControlName="county"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Country</mat-label>
+                  <input matInput
+                        type="text"
+                        name="country"
+                        formControlName="country"/>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+
+            <h3>
+              Permanent address
+            </h3>
+            <mat-grid-list cols="2" rowHeight="60px">
+              <mat-grid-tile  [colspan] = "2">
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Nearest Town</mat-label>
+                  <input matInput
+                        type="text"
+                        name="nearestTown"
+                        formControlName="nearestTown"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <div formGroupName="permanentAddress">
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Village</mat-label>
+                  <input matInput
+                        type="text"
+                        name="village"
+                        formControlName="village"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Location</mat-label>
+                  <input matInput
+                        type="text"
+                        name="location"
+                        formControlName="location"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">District</mat-label>
+                  <input matInput
+                        type="text"
+                        name="district"
+                        formControlName="district"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">County</mat-label>
+                  <input matInput
+                        type="text"
+                        name="county"
+                        formControlName="county"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Country</mat-label>
+                  <input matInput
+                        type="text"
+                        name="country"
+                        formControlName="country"/>
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+            </mat-grid-list>
+          </div>
+        <div class="action-container">
+          <button mat-raised-button
+                  color="primary"
+                  (click)="onSaveDetails()">
+                  Update Addresses
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+
+
+  </form>
+    <h2 class="profile-section-header">
       Attachments
     </h2>
 
-    <mat-card class="page-card">
-      <mat-card-content>
-        <img src="{{service.avatorName()}}"
-            class="attachment-image "
-            *ngIf="service.avatorName()">
-        <img src="{{service.idFrontName()}}"
-            class="attachment-image"
-            *ngIf="service.idFrontName()">
-        <img src="{{service.idBackName()}}"
-            class="attachment-image"
-            *ngIf="service.idBackName()">
-      </mat-card-content>
-    </mat-card>
+    <mat-tab-group class="page-card">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="assets/icons/national-id.png"
+                alt="facebook icon"
+                class="tab-head-icon">
+          National Id
+        </ng-template>
+
+        <div class="doc-tab-container">
+          <div class="doc-item">
+            <h3 class="doc-type-title">National Id Front Side</h3>
+
+            <img src="{{service.idFrontName()}}"
+                class="attachment-image">
+          </div>
+
+          <div class="doc-item">
+            <h3 class="doc-type-title">National Id Back Side</h3>
+
+            <img src="{{service.idBackName()}}"
+                  class="attachment-image">
+          </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="assets/icons/passport.png"
+                alt="facebook icon"
+                class="tab-head-icon">
+          Passport
+        </ng-template>
+        <div class="doc-item">
+          <h3 class="doc-type-title">Passport Copy</h3>
+
+          <img src="{{service.passportCopyName()}}"
+              class="attachment-image">
+        </div>
+
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+                Signature
+        </ng-template>
+        <div class="doc-item">
+          <h3 class="doc-type-title">Signature Specimen</h3>
+
+          <img src="{{service.signatureName()}}"
+              class="attachment-image">
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

@@ -60,7 +60,24 @@
         IdFront,
         IdBack,
         Avator,
+        PassportCopy,
+        Signature,
         Other
+    }
+
+    public enum OccupationType
+    {
+        Employed,
+        SelfEmployed,
+        EmployedInBussiness
+    }
+
+    public enum LearntAboutUs
+    {
+        Member,
+        Friend,
+        Website,
+        Advertisement
     }
 
     public enum MainAccountType

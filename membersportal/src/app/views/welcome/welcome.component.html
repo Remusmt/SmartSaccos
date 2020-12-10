@@ -1,6 +1,6 @@
 
 <div class="welcome-page-container">
-  <div *ngIf="currentMember.memberStatus === 3">
+  <div *ngIf="currentMember.memberStatus <= 3">
     <h2 class="heading">Welcome!</h2>
     <ng-container *ngTemplateOutlet="pending"></ng-container>
 

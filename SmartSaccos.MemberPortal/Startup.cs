@@ -92,6 +92,7 @@ namespace SmartSaccos.MemberPortal
             services.AddScoped<IRepository<Attachment>, Repository<Attachment>>();
             services.AddScoped<IRepository<MemberAttachment>, Repository<MemberAttachment>>();
             services.AddScoped<IRepository<MemberApproval>, Repository<MemberApproval>>();
+            services.AddScoped<IRepository<MemberAddress>, Repository<MemberAddress>>();
 
             services.AddScoped(typeof(Logger));
             services.AddScoped(typeof(CompanyService));

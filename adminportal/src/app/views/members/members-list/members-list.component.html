@@ -1,6 +1,9 @@
 
 <mat-divider class="padding-bottom-10"></mat-divider>
 <div class="mat-elevation-z8">
+  <div>
+    <app-spinner></app-spinner>
+  </div>
   <mat-table [dataSource]="listData"  matSort>
     <ng-container matColumnDef="memberNumber">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Member No</mat-header-cell>
@@ -25,7 +28,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef class="th-right w-75"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="th-right w-75">
-        <button mat-icon-button (click)="onView(row)">
+        <button mat-icon-button (click)="onView()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-cell>

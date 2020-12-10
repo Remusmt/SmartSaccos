@@ -12,6 +12,8 @@ namespace SmartSaccos.ApplicationCore.Specifications
                 AddInclude(e => e.MemberAttachments);
                 AddInclude("MemberAttachments.Attachment");
                 AddInclude("MemberApprovals");
+                AddInclude("HomeAddress");
+                AddInclude("PermanentAddress");
             }
         }
     }

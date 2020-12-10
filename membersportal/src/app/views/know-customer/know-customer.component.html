@@ -15,14 +15,32 @@
           <mat-card-title class="orange-text">Welcome {{currentMember.otherNames + ' ' + currentMember.surname}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+          <form [formGroup]="service.kycForm">
             <mat-vertical-stepper linear #stepper>
               <mat-step [stepControl]="service.kycForm" editable class="vertical-content-container">
-                <form [formGroup]="service.kycForm">
                 <ng-template matStepLabel>Personal Details</ng-template>
                 <mat-grid-list cols="2" rowHeight="60px">
                   <mat-grid-tile>
                     <mat-form-field class="full-width-field">
-                      <mat-label class="mat-label">First Name</mat-label>
+                      <mat-label class="mat-label">Title</mat-label>
+                      <input matInput
+                            type="text"
+                            name="title"
+                            formControlName="title"/>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">Surname</mat-label>
+                      <input matInput
+                            type="text"
+                            name="surname"
+                            formControlName="surname"/>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile [colspan]= "2">
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">First & Middle Name</mat-label>
                       <input matInput
                             type="text"
                             name="otherNames"
@@ -31,15 +49,6 @@
                             <mat-error *ngIf="service.kycForm.controls.otherNames.errors?.required">
                               First Name is required
                             </mat-error>
-                    </mat-form-field>
-                  </mat-grid-tile>
-                  <mat-grid-tile>
-                    <mat-form-field class="full-width-field">
-                      <mat-label class="mat-label">Last Name</mat-label>
-                      <input matInput
-                            type="text"
-                            name="surname"
-                            formControlName="surname"/>
                     </mat-form-field>
                   </mat-grid-tile>
                   <app-spinner></app-spinner>
@@ -70,7 +79,7 @@
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile>
-                    <mat-form-field>
+                    <mat-form-field class="full-width-field">
                       <mat-label class="mat-label">
                         Marital Status
                       </mat-label>
@@ -101,6 +110,17 @@
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile [colspan]= "2">
+                    <mat-form-field class="full-width-field margin-right-5">
+                      <mat-label class="mat-label">Date of Birth</mat-label>
+                      <input matInput
+                            [matDatepicker]="dateOfBirthP"
+                            formControlName="dateOfBirth"
+                            name ="dateOfBirth">
+                      <mat-datepicker-toggle matSuffix [for]="dateOfBirthP"></mat-datepicker-toggle>
+                      <mat-datepicker #dateOfBirthP disabled="false"></mat-datepicker>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile [colspan]= "2">
                     <mat-label class="mat-label">
                       Gender &nbsp;&nbsp;&nbsp;
                     </mat-label>
@@ -114,15 +134,232 @@
                       </mat-radio-button>
                     </mat-radio-group>
                   </mat-grid-tile>
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">Occupation</mat-label>
+                      <input matInput
+                            type="text"
+                            name="occupation"
+                            formControlName="occupation"/>
+                    </mat-form-field>
+                  </mat-grid-tile>
+
+                  <mat-grid-tile>
+                    <mat-form-field class="full-width-field">
+                      <mat-label class="mat-label">
+                        Occupation Type
+                      </mat-label>
+                      <mat-select
+                      formControlName="maritalStatus">
+                        <mat-option
+                          *ngFor="let ot of service.occupationTypes"
+                          [value]="ot.value">
+                            {{ot.description}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </mat-grid-tile>
                 </mat-grid-list>
                 <div class="action-container">
                   <button mat-raised-button
                           color="primary"
-                          (click)="onSaveAndNext(stepper)">
+                          matStepperNext>
                           Continue
                   </button>
                 </div>
-              </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Next of Kin Details</ng-template>
+
+                <div class="stepper-details-container">
+                  <mat-grid-list cols="2" rowHeight="60px">
+                    <mat-grid-tile  [colspan]= "2">
+                      <mat-form-field class="full-width-field">
+                        <mat-label class="mat-label">Next Of Kin</mat-label>
+                        <input matInput
+                              type="text"
+                              name="nextOfKin"
+                              formControlName="nextOfKin"/>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]= "2">
+                      <mat-form-field class="full-width-field">
+                        <mat-label class="mat-label">NoK Relation</mat-label>
+                        <input matInput
+                              type="text"
+                              name="nokRelation"
+                              title="What is your relationship with the NoK"
+                              formControlName="nokRelation"/>
+                              <mat-hint>
+                                What is your relationship with the NoK
+                              </mat-hint>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile  [colspan]= "2">
+                      <mat-form-field class="full-width-field">
+                        <mat-label class="mat-label">NoK Contacts</mat-label>
+                        <input matInput
+                              type="text"
+                              name="nokContacts"
+                              formControlName="nokContacts"/>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                      <mat-checkbox (change) ="onMinorChange()">
+                        NoK is Minor
+                      </mat-checkbox>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="nokIsMinor">
+                      <mat-form-field class="full-width-field">
+                        <mat-label class="mat-label">Minor C/o</mat-label>
+                        <input matInput
+                              type="text"
+                              name=""/>
+                      </mat-form-field>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </div>
+
+                <div class="action-container">
+                  <button mat-raised-button
+                          matStepperPrevious
+                          class="nav-btn">Back</button>
+                  <button mat-raised-button
+                          color="primary"
+                          matStepperNext
+                          class="nav-btn">Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Address Details</ng-template>
+
+                <div class="stepper-details-container">
+                  <div formGroupName="homeAddress">
+                    <h3>
+                      Place of birth
+                    </h3>
+                    <mat-grid-list cols="2" rowHeight="60px">
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Village</mat-label>
+                          <input matInput
+                                type="text"
+                                name="village"
+                                formControlName="village"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Location</mat-label>
+                          <input matInput
+                                type="text"
+                                name="location"
+                                formControlName="location"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">District</mat-label>
+                          <input matInput
+                                type="text"
+                                name="district"
+                                formControlName="district"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">County</mat-label>
+                          <input matInput
+                                type="text"
+                                name="county"
+                                formControlName="county"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Country</mat-label>
+                          <input matInput
+                                type="text"
+                                name="country"
+                                formControlName="country"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                    </mat-grid-list>
+                  </div>
+
+                    <h3>
+                      Permanent address
+                    </h3>
+                    <mat-grid-list cols="2" rowHeight="60px">
+                      <mat-grid-tile  [colspan] = "2">
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Nearest Town</mat-label>
+                          <input matInput
+                                type="text"
+                                name="nearestTown"
+                                formControlName="nearestTown"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <div formGroupName="permanentAddress">
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Village</mat-label>
+                          <input matInput
+                                type="text"
+                                name="village"
+                                formControlName="village"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Location</mat-label>
+                          <input matInput
+                                type="text"
+                                name="location"
+                                formControlName="location"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">District</mat-label>
+                          <input matInput
+                                type="text"
+                                name="district"
+                                formControlName="district"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">County</mat-label>
+                          <input matInput
+                                type="text"
+                                name="county"
+                                formControlName="county"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                      <mat-grid-tile>
+                        <mat-form-field class="full-width-field">
+                          <mat-label class="mat-label">Country</mat-label>
+                          <input matInput
+                                type="text"
+                                name="country"
+                                formControlName="country"/>
+                        </mat-form-field>
+                      </mat-grid-tile>
+                    </div>
+                    </mat-grid-list>
+                  </div>
+
+                <div class="action-container">
+                  <button mat-raised-button
+                          matStepperPrevious
+                          class="nav-btn">Back</button>
+                  <button mat-raised-button
+                          color="primary"
+                          matStepperNext
+                          class="nav-btn">Next</button>
+                </div>
               </mat-step>
               <mat-step>
                 <ng-template matStepLabel>Document Upload</ng-template>
@@ -164,7 +401,7 @@
                       </ng-template>
                       <h3 class="doc-type-title">Upload Here Your Passport Copy</h3>
 
-                      <app-file-upload attachmentType="0"></app-file-upload>
+                      <app-file-upload attachmentType="3"></app-file-upload>
 
                     </mat-tab>
                   </mat-tab-group>
@@ -181,15 +418,13 @@
                 </div>
               </mat-step>
               <mat-step>
-                <ng-template matStepLabel>Photo Upload</ng-template>
+                <ng-template matStepLabel>Photo & Signature Upload</ng-template>
 
                 <h3 class="doc-type-title">Upload Here Your Recent Passport Size Photo</h3>
-                <app-spinner></app-spinner>
                 <app-file-upload attachmentType="2"></app-file-upload>
 
-                <mat-checkbox [(ngModel)]="trueInfo">
-                  All The Personal Information I Have Entered Is Correct.
-                </mat-checkbox>
+                <h3 class="doc-type-title">Upload Signature Specimen</h3>
+                <app-file-upload attachmentType="4"></app-file-upload>
 
                 <div class="action-container">
                   <button mat-raised-button
@@ -197,13 +432,52 @@
                           class="nav-btn">Back</button>
                   <button mat-raised-button
                           color="primary"
-                          [disabled]="!trueInfo"
-                          (click)="onCompleteKyc()"
+                          matStepperNext
+                          class="nav-btn">Next</button>
+                </div>
+
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Finish</ng-template>
+                <div class="stepper-details-container">
+                  <app-spinner></app-spinner>
+                  <mat-grid-list cols="2" rowHeight="60px">
+                    <mat-grid-tile [colspan]= "2">
+                      <mat-form-field class="full-width-field">
+                        <mat-label class="mat-label">
+                          How did you learn about Nesadi Sacco?
+                        </mat-label>
+                        <mat-select
+                        formControlName="learntAboutUs">
+                          <mat-option
+                            *ngFor="let ms of service.memberSource"
+                            [value]="ms.value">
+                              {{ms.description}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile [colspan]= "2">
+                      <mat-checkbox #trueInfo>
+                        All The Personal Information I Have Entered Is Correct.
+                      </mat-checkbox>
+                    </mat-grid-tile>
+
+                  </mat-grid-list>
+                </div>
+                <div class="action-container">
+                  <button mat-raised-button
+                          matStepperPrevious
+                          class="nav-btn">Back</button>
+                  <button mat-raised-button
+                          color="primary"
+                          (click)="onSaveAndNext()"
                           class="nav-btn">Finish</button>
                 </div>
               </mat-step>
             </mat-vertical-stepper>
-
+          </form>
         </mat-card-content>
       </mat-card>
 

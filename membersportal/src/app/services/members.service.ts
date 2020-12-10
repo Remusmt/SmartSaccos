@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CurrentUser } from '../shared/models/current-user';
-import { Member } from '../shared/models/member';
+import { Member, MemberAddress } from '../shared/models/member';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { ConstantsService } from '../shared/services/constants.service';
 import { Attachment } from '../shared/models/attachment';
@@ -18,6 +18,18 @@ export interface KycFormModel {
   phoneNumber: string;
   indentificationNo: string;
   email: string;
+  learntAboutUs: number;
+  nearestTown: string;
+  nextOfKin: string;
+  nokContacts: string;
+  nokIsMinor: boolean;
+  nokRelation: string;
+  occupation: string;
+  occupationType: number;
+  title: string;
+  dateOfBirth?: Date;
+  homeAddress: MemberAddress;
+  permanentAddress: MemberAddress;
 }
 
 @Injectable({
@@ -26,6 +38,7 @@ export interface KycFormModel {
 export class MembersService {
 
   currentUser: CurrentUser|any;
+  private address = {id : 0, village: '', location: '', district: '', county: '', country: ''};
 
   kycForm: FormGroup = new FormGroup({
     id: new FormControl(null),
@@ -40,8 +53,49 @@ export class MembersService {
       Validators.required,
       Validators.email
     ]),
+    learntAboutUs: new FormControl(0),
+    nearestTown: new FormControl(''),
+    nextOfKin: new FormControl(''),
+    nokContacts: new FormControl(''),
+    nokIsMinor: new FormControl(''),
+    nokRelation: new FormControl(''),
+    occupation: new FormControl(''),
+    occupationType: new FormControl(0),
+    title: new FormControl(''),
+    dateOfBirth: new FormControl(new Date((new Date().getTime()))),
+    homeAddress: new FormGroup(
+      {
+        village: new FormControl(''),
+        location: new FormControl(''),
+        district: new FormControl(''),
+        county: new FormControl(''),
+        country: new FormControl(''),
+      }
+    ),
+    permanentAddress: new FormGroup(
+      {
+        village: new FormControl(''),
+        location: new FormControl(''),
+        district: new FormControl(''),
+        county: new FormControl(''),
+        country: new FormControl(''),
+      }
+    )
   });
   baseurl = '';
+
+  occupationTypes = [
+    {value: 0, description: 'Employed'},
+    {value: 1, description: 'Self Employed'},
+    {value: 2, description: 'Employed & In Bussiness'}
+  ];
+
+  memberSource = [
+    {value: 0, description: 'Member'},
+    {value: 1, description: 'Friend'},
+    {value: 2, description: 'Website'},
+    {value: 3, description: 'Advertisement'}
+  ];
 
   private currentMemberSubject = new BehaviorSubject<Member>(new Member());
   public currentMember = this.currentMemberSubject.asObservable();
@@ -60,17 +114,6 @@ export class MembersService {
       if (!this.isMember(member)) { return; } // value not a valid member
       // populate set member
       this.currentMemberSubject.next(member);
-    } else { // Registered user no kyc entered
-      this.populateForm({
-        id: this.currentUser.memberId,
-        surname:  this.currentUser.surname,
-        otherNames: this.currentUser.otherNames,
-        gender: 0,
-        maritalStatus: 0,
-        phoneNumber: this.currentUser.phoneNumber,
-        indentificationNo: '',
-        email: this.currentUser.email
-      });
     }
   }
 
@@ -83,7 +126,31 @@ export class MembersService {
       maritalStatus: value.maritalStatus,
       phoneNumber: value.phoneNumber,
       indentificationNo: value.indentificationNo,
-      email: value.email
+      email: value.email,
+      learntAboutUs: value.learntAboutUs,
+      nearestTown: value.nearestTown,
+      nextOfKin: value.nextOfKin,
+      nokContacts: value.nokContacts,
+      nokIsMinor: value.nokIsMinor,
+      nokRelation: value.nokRelation,
+      occupation: value.occupation,
+      occupationType: value.occupationType,
+      title: value.title,
+      dateOfBirth: value.dateOfBirth,
+      homeAddress: {
+        village: value.homeAddress?.village,
+        location: value.homeAddress?.location,
+        district: value.homeAddress?.district,
+        county: value.homeAddress?.county,
+        country: value.homeAddress?.country
+      },
+      permanentAddress: {
+        village: value.permanentAddress?.village,
+        location: value.permanentAddress?.location,
+        district: value.permanentAddress?.district,
+        county: value.permanentAddress?.county,
+        country: value.permanentAddress?.country
+      }
     });
   }
 
@@ -110,7 +177,19 @@ export class MembersService {
             maritalStatus: res.maritalStatus,
             phoneNumber: res.phoneNumber,
             indentificationNo: res.indentificationNo,
-            email: res.email
+            email: res.email,
+            learntAboutUs: res.learntAboutUs,
+            nearestTown: res.nearestTown,
+            nextOfKin: res.nextOfKin,
+            nokContacts: res.nokContacts,
+            nokIsMinor: res.nokIsMinor,
+            nokRelation: res.nokRelation,
+            occupation: res.occupation,
+            occupationType: res.occupationType,
+            title: res.title,
+            dateOfBirth: res.dateOfBirth,
+            homeAddress: res.homeAddress ? res.homeAddress : this.address,
+            permanentAddress: res.permanentAddress ? res.permanentAddress : this.address
           });
           return res;
         }
@@ -138,7 +217,19 @@ export class MembersService {
                 maritalStatus: res.maritalStatus,
                 phoneNumber: res.phoneNumber,
                 indentificationNo: res.indentificationNo,
-                email: res.email
+                email: res.email,
+                learntAboutUs: res.learntAboutUs,
+                nearestTown: res.nearestTown,
+                nextOfKin: res.nextOfKin,
+                nokContacts: res.nokContacts,
+                nokIsMinor: res.nokIsMinor,
+                nokRelation: res.nokRelation,
+                occupation: res.occupation,
+                occupationType: res.occupationType,
+                title: res.title,
+                dateOfBirth: res.dateOfBirth,
+                homeAddress: res.homeAddress ? res.homeAddress : this.address,
+                permanentAddress: res.permanentAddress ? res.permanentAddress : this.address
               }
             );
             this.currentMemberSubject.next(res);
@@ -223,6 +314,16 @@ export class MembersService {
 
   idBackName = () => {
     const rName = this.getAttachmentName(this.currentMemberSubject.value.idBackAttachmentId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  passportCopyName = () => {
+    const rName = this.getAttachmentName(this.currentMemberSubject.value.passportCopyId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  signatureName = () => {
+    const rName = this.getAttachmentName(this.currentMemberSubject.value.signatureId);
     return rName ? `${this.constants.resourceUrl}${rName}` : '';
   }
 

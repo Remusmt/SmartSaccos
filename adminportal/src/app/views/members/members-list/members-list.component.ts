@@ -7,9 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogService } from 'src/app/shared/services/confirm-dialog.service';
-import { NotificationService } from 'src/app/shared/services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-members-list',
@@ -39,11 +37,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
     );
 
   constructor(
-    private dialog: MatDialog,
+    private router: Router,
     private service: MembersService,
-    private confrimDialog: ConfirmDialogService,
-    private breakpointObserver: BreakpointObserver,
-    private notificationService: NotificationService
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
@@ -106,8 +102,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onView(member: Member): void {
-
+  onView(): void {
+    this.router.navigate(['/app/memberprofile']);
   }
 
 }

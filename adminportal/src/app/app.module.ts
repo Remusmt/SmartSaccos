@@ -19,6 +19,8 @@ import { MembersMainComponent } from './views/members/members-main/members-main.
 import { MembersListComponent } from './views/members/members-list/members-list.component';
 import { MembersDetailsComponent } from './views/members/members-details/members-details.component';
 import { MembersMainListComponent } from './views/members/members-main-list/members-main-list.component';
+import { RegistrationActionComponent } from './views/registration-action/registration-action.component';
+import { MemberProfileComponent } from './views/members/member-profile/member-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MembersMainListComponent } from './views/members/members-main-list/memb
     MembersMainComponent,
     MembersListComponent,
     MembersDetailsComponent,
-    MembersMainListComponent
+    MembersMainListComponent,
+    RegistrationActionComponent,
+    MemberProfileComponent
   ],
   imports: [
     BrowserModule,

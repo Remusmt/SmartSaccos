@@ -15,6 +15,7 @@ export class Member {
   passportPhotoId = 0;
   idFrontAttachmentId = 0;
   idBackAttachmentId = 0;
+  passportCopyId = 0;
   dateOfBirth?: Date;
   dateJoined: Date|any;
   memberAttachments: Array<MemberAttachment> = [];

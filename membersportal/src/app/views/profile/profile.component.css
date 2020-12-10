@@ -9,23 +9,38 @@
 
 .profile-avator {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 154px;
+  height: 154px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #008000;
+  border: 2px solid #FFC000;
 }
 
 .profile-image {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  margin: 8px;
+  border: 2px solid #FFC000;
+}
+
+.gender-badge {
+  color: #FFC000;
+  font-size: large;
+}
+
+.status-badge {
+  color: #FFC000;
+  font-size: x-large;
+  margin: auto;
 }
 
 .attachment-image {
-  border-radius: 50%;
-  width: 150px;
+  border-radius: 5%;
+  width: 180px;
   height: 150px;
   padding: 10px;
   margin: 10px;
@@ -34,6 +49,8 @@
 
 .intials {
   color: #FFC000;
+  font-size: xx-large;
+  font-weight: 600;
 }
 
 .member-name {
@@ -63,4 +80,38 @@
 
 .action-container {
   text-align: right;
+}
+
+.tab-head-icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.doc-type-title {
+  padding: 5px;
+  text-align: center;
+}
+
+.doc-tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.doc-item {
+  text-align: center;
+}
+
+.kyc-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-section-header {
+  color: #008000;
+  font-weight: 600;
+  font-size: xx-large;
+  padding-top: 10px;
 }

@@ -1,0 +1,61 @@
+<mat-toolbar class="display-flex">
+  <span *ngIf="service.approvalForm.controls['actionType'].value === 0">
+    Approve
+  </span>
+  <span *ngIf="service.approvalForm.controls['actionType'].value === 1">
+    Reject
+  </span>
+  <span>&nbsp; {{selectedMember.otherNames}} {{selectedMember.surname}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<mat-divider class="padding-top-10"></mat-divider>
+<form [formGroup] = 'service.approvalForm'
+      (ngSubmit) = 'onSubmit()'>
+      <mat-card class="register-card">
+        <mat-dialog-content>
+          <mat-card-content>
+            <mat-grid-list cols="1" rowHeight="60px">
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Message To Member</mat-label>
+                  <input matInput
+                        type="text"
+                        name="messageToMember"
+                        formControlName="messageToMember"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Comments</mat-label>
+                  <input matInput
+                        type="text"
+                        name="comments"
+                        formControlName="comments"/>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+        </mat-dialog-content>
+        <mat-card-actions class="form-actions">
+          <button mat-raised-button
+                  type="button"
+                  (click)="onClose()"
+                  class="btn-form-actions btn-form-actions-cancel">
+                  Cancel
+          </button>
+
+          <button mat-raised-button
+                  type="submit"
+                  class="btn-form-actions"
+                  color = 'primary'>
+                  <span *ngIf="service.approvalForm.controls['actionType'].value === 0">
+                    Approve
+                  </span>
+                  <span *ngIf="service.approvalForm.controls['actionType'].value === 1">
+                    Reject
+                  </span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+</form>

@@ -16,6 +16,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
         private readonly Logger logger;
         private readonly IMemberRepository<Member> memberRepository;
         private readonly IRepository<Attachment> attachmentRepository;
+        private readonly IRepository<MemberAddress> addressRepository;
         private readonly IRepository<MemberAttachment> memberAttRepository;
         private readonly IRepository<MemberApproval> memberApprovalRepository;
         private readonly IRepository<CompanyDefaults> companyDefaultsrepository;
@@ -23,6 +24,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             Logger loger,
             IMemberRepository<Member> memberRepo,
             IRepository<Attachment> attachmentRepo,
+            IRepository<MemberAddress> addressRepo,
             IRepository<MemberAttachment> memberAttRepo,
             IRepository<MemberApproval> memberApprovalRepo,
             IRepository<CompanyDefaults> companyDefaultsrepo
@@ -30,6 +32,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
         {
             logger = loger;
             memberRepository = memberRepo;
+            addressRepository = addressRepo;
             memberAttRepository = memberAttRepo;
             attachmentRepository = attachmentRepo;
             memberApprovalRepository = memberApprovalRepo;
@@ -161,6 +164,78 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             member.PhoneNumber = model.PhoneNumber;
             member.Surname = model.Surname;
             member.MemberStatus = MemberStatus.KycPersonal;
+            member.PassportCopyId = model.PassportCopyId;
+            member.SignatureId = model.SignatureId;           
+            member.NearestTown = model.NearestTown;
+            member.NextOfKin = model.NextOfKin;
+            member.NokRelation = model.NokRelation;
+            member.NokContacts = model.NokContacts;
+            member.NokIsMinor = model.NokIsMinor;
+            member.Occupation = model.Occupation;
+            member.OccupationType = model.OccupationType;
+            member.LearntAboutUs = model.LearntAboutUs;
+            member.Title = model.Title;
+
+            bool save = false;
+            MemberAddress homeAddress;
+            if (member.HomeAddressId.HasValue)
+            {
+                homeAddress = await addressRepository
+                    .GetByIdAsync(member.HomeAddressId.Value);
+
+                homeAddress.Country = model.PermanentAddress?.Country;
+                homeAddress.County = model.PermanentAddress?.County;
+                homeAddress.District = model.PermanentAddress?.District;
+                homeAddress.Location = model.PermanentAddress?.Location;
+                homeAddress.Village = model.PermanentAddress?.Village;
+
+                addressRepository.Update(homeAddress);
+            }
+            else
+            {
+                homeAddress = new MemberAddress
+                {
+                    Country = model.HomeAddress?.Country,
+                    County = model.HomeAddress?.County,
+                    District = model.HomeAddress?.District,
+                    Location = model.HomeAddress?.Location,
+                    Village = model.HomeAddress?.Village
+                };
+                addressRepository.Add(homeAddress);
+                save = true;
+            }
+
+            MemberAddress permanentAddress;
+            if (member.PermanentAddressId.HasValue)
+            {
+                permanentAddress = await addressRepository
+                    .GetByIdAsync(member.PermanentAddressId.Value);
+                permanentAddress.Country = model.PermanentAddress?.Country;
+                permanentAddress.County = model.PermanentAddress?.County;
+                permanentAddress.District = model.PermanentAddress?.District;
+                permanentAddress.Location = model.PermanentAddress?.Location;
+                permanentAddress.Village = model.PermanentAddress?.Village;
+                
+                addressRepository.Update(permanentAddress);
+            }
+            else
+            {
+                permanentAddress = new MemberAddress
+                {
+                    Country = model.PermanentAddress?.Country,
+                    County = model.PermanentAddress?.County,
+                    District = model.PermanentAddress?.District,
+                    Location = model.PermanentAddress?.Location,
+                    Village = model.PermanentAddress?.Village
+                };
+                addressRepository.Add(permanentAddress);
+                save = true;
+            }
+
+            if (save) await addressRepository.SaveChangesAsync();
+           
+            member.HomeAddressId = homeAddress.Id;
+            member.PermanentAddressId = permanentAddress.Id;
 
             memberRepository.Update(member);
             if (!systemGenerated)
@@ -209,6 +284,18 @@ namespace SmartSaccos.ApplicationCore.DomainServices
                     break;
                 case AttachmentType.Avator:
                     member.PassportPhotoId = memberAttachment.Id;
+                    member.MemberStatus = MemberStatus.kycPassport;
+                    memberRepository.Update(member);
+                    await memberRepository.SaveChangesAsync();
+                    break;
+                case AttachmentType.PassportCopy:
+                    member.PassportCopyId = memberAttachment.Id;
+                    member.MemberStatus = MemberStatus.KycDocs;
+                    memberRepository.Update(member);
+                    await memberRepository.SaveChangesAsync();
+                    break;
+                case AttachmentType.Signature:
+                    member.SignatureId = memberAttachment.Id;
                     member.MemberStatus = MemberStatus.kycPassport;
                     memberRepository.Update(member);
                     await memberRepository.SaveChangesAsync();
@@ -277,11 +364,11 @@ namespace SmartSaccos.ApplicationCore.DomainServices
 
         private string GetMemberNumber(Member member, int currentNumber)
         {
-            StringBuilder sb = new StringBuilder((DateTime.Now.Year - 2000).ToString());
-            sb.Append(DateTime.Now.Month.ToString().PadLeft(2, '0'));
+            StringBuilder sb = new StringBuilder(DateTime.Now.Month.ToString().PadLeft(2, '0'));
+            sb.Append((DateTime.Now.Year - 2000).ToString());
             sb.Append(member.IndentificationNo.Substring(0, 1));
-            sb.Append(member.IndentificationNo.Substring(member.IndentificationNo.Length - 2, 1));
-            sb.Append((currentNumber + 1).ToString().PadLeft(3, '0'));
+            sb.Append(member.IndentificationNo.Substring(member.IndentificationNo.Length - 1, 1));
+            sb.Append((currentNumber + 1).ToString().PadLeft(4, '0'));
             return sb.ToString();
         }
     }

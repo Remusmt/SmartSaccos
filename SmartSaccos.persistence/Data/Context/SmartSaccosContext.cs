@@ -48,6 +48,7 @@ namespace SmartSaccos.persistence.Data.Context
         public DbSet<Member> Members { get; set; }
         public DbSet<MemberAttachment> MemberAttachments { get; set; }
         public DbSet<MemberApproval> MemberApprovals { get; set; }
+        public DbSet<MemberAddress> MemberAddresses { get; set; }
 
     }
 }

@@ -224,7 +224,6 @@ namespace SmartSaccos.MemberPortal.Controllers
             {
                 return StatusCode(500, new { error = ex.Message });
             }
-
         }
 
     }

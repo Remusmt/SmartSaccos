@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/services/auth.guard';
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
+import { MemberProfileComponent } from './views/members/member-profile/member-profile.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -12,7 +13,8 @@ const routes: Routes = [
   children: [
     {path: '', component: MembersMainListComponent},
     {path: 'members', component: MembersMainComponent},
-    {path: 'memberslist', component: MembersMainListComponent}
+    {path: 'memberslist', component: MembersMainListComponent},
+    {path: 'memberprofile', component: MemberProfileComponent}
   ]},
   {path: '', redirectTo: '/app', pathMatch: 'full'},
   {path: '**', component: HomeComponent}

@@ -7,17 +7,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CurrentUser } from '../shared/models/current-user';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { ConstantsService } from '../shared/services/constants.service';
-
-export interface KycFormModel {
-  id: number;
-  surname: string;
-  otherNames: string;
-  gender: number;
-  maritalStatus: number;
-  phoneNumber: string;
-  indentificationNo: string;
-  email: string;
-}
+import { ApprovalModel } from '../models/approval-modal';
+import { Attachment } from '../shared/models/attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,25 +18,17 @@ export class MembersService {
   currentUser: CurrentUser|any;
   private wasFetched = false;
 
-  kycForm: FormGroup = new FormGroup({
-    id: new FormControl(null),
-    surname: new FormControl(''),
-    otherNames: new FormControl('', Validators.required),
-    gender: new FormControl(0, Validators.required),
-    maritalStatus: new FormControl(0),
-    phoneNumber: new FormControl('', Validators.required),
-    indentificationNo: new FormControl('', Validators.required),
-    email: new FormControl({value: '', disabled: true},
-    [
-      Validators.required,
-      Validators.email
-    ]),
+  approvalForm: FormGroup = new FormGroup({
+    memberId: new FormControl(null),
+    messageToMember: new FormControl(''),
+    comments: new FormControl(''),
+    actionType: new FormControl(0),
   });
   baseurl = '';
   controller = 'Admin';
 
-  private currentMemberSubject = new BehaviorSubject<Member>(new Member());
-  public currentMember = this.currentMemberSubject.asObservable();
+  private selectedMemberSubject = new BehaviorSubject<Member>(new Member());
+  public selectedMember = this.selectedMemberSubject.asObservable();
 
   private dataSourceSubject = new BehaviorSubject<Member[]>([]);
   public dataSource = this.dataSourceSubject.asObservable();
@@ -55,11 +38,22 @@ export class MembersService {
     private constants: ConstantsService,
     private authenticationService: AuthenticationService) {
 
-    this.baseurl = `${this.constants.baseUrl}Members/`;
+    this.baseurl = `${this.constants.baseUrl}Admin/`;
     this.authenticationService.currentUser.subscribe(
       res => this.currentUser = res
     );
 
+  }
+
+  initApprovalForm(memberId: number, action: number): void {
+    this.approvalForm.setValue(
+      {
+        memberId,
+        messageToMember: '',
+        comments: '',
+        actionType: action
+      }
+    );
   }
 
   onGetMembers(): void {
@@ -76,20 +70,7 @@ export class MembersService {
   }
 
   public setSelected(member: Member): void {
-    this.currentMemberSubject.next(member);
-  }
-
-  private populateForm(value: KycFormModel): void {
-    this.kycForm.setValue({
-      id: value.id,
-      surname:  value.surname,
-      otherNames: value.otherNames,
-      gender: value.gender,
-      maritalStatus: value.maritalStatus,
-      phoneNumber: value.phoneNumber,
-      indentificationNo: value.indentificationNo,
-      email: value.email
-    });
+    this.selectedMemberSubject.next(member);
   }
 
   // verify returned value is of type member
@@ -103,22 +84,7 @@ export class MembersService {
       map(
         res => {
           if (this.isMember(res)) {
-            this.currentMemberSubject.next(res);
-          }
-          return res;
-        }
-      )
-    );
-  }
-
-  kycDetails(model: Member): Observable<Member> {
-    return this.http.post<Member>(`${this.baseurl}KycDetails`, model)
-    .pipe(
-      map(
-        res => {
-          if (this.isMember(res)) {
-            this.currentUser.status = res.memberStatus;
-            this.authenticationService.setUser(this.currentUser);
+            this.selectedMemberSubject.next(res);
           }
           return res;
         }
@@ -139,20 +105,90 @@ export class MembersService {
       });
   }
 
-  onCompleteKyc(): Observable<Member> {
-    return this.http.get<Member>(`${this.baseurl}CompleteKyc`)
+  approveRegistration(model: ApprovalModel): Observable<Member> {
+    return this.http.post<Member>(`${this.baseurl}ApproveMember`, model)
     .pipe(
       map(
         res => {
-          if (this.isMember(res)) {
-            this.currentUser.status = res.memberStatus;
-            this.currentUser.weKnowCustomer = res.memberStatus > 2;
-            this.authenticationService.setUser(this.currentUser);
-          }
+          this.selectedMemberSubject.next(res);
           return res;
         }
       )
     );
+  }
+
+  putMemberOnHold(model: ApprovalModel): Observable<Member> {
+    return this.http.post<Member>(`${this.baseurl}PutMemberOnHold`, model)
+    .pipe(
+      map(
+        res => {
+          this.selectedMemberSubject.next(res);
+          return res;
+        }
+      )
+    );
+  }
+
+  rejectMember(model: ApprovalModel): Observable<Member> {
+    return this.http.post<Member>(`${this.baseurl}RejectMember`, model)
+    .pipe(
+      map(
+        res => {
+          this.selectedMemberSubject.next(res);
+          return res;
+        }
+      )
+    );
+  }
+
+  intial = () => {
+    let initials = '';
+    if (this.selectedMemberSubject.value.otherNames.length > 0) {
+      initials = this.selectedMemberSubject.value.otherNames.substr(0, 1);
+    }
+    if (this.selectedMemberSubject.value.surname.length > 0) {
+      initials = `${initials} ${this.selectedMemberSubject.value.surname.substr(0, 1)}`;
+    }
+    return initials;
+  }
+
+  avatorName = () => {
+    const avatorName = this.getAttachmentName(this.selectedMemberSubject.value.passportPhotoId);
+    return avatorName ? `${this.constants.resourceUrl}${avatorName}` : '';
+  }
+
+  idFrontName = () => {
+    const rName = this.getAttachmentName(this.selectedMemberSubject.value.idFrontAttachmentId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  idBackName = () => {
+    const rName = this.getAttachmentName(this.selectedMemberSubject.value.idBackAttachmentId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  passportCopyName = () => {
+    const rName = this.getAttachmentName(this.selectedMemberSubject.value.passportCopyId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  private getAttachmentName(id: number): string {
+    if (id === 0) {
+      return '';
+    }
+    let name = '';
+    if (this.selectedMemberSubject.value.memberAttachments.length > 0) {
+      const attachment = this.getAttachment(id);
+      if (attachment !== undefined) {
+        name = `${attachment.systemFileName}${attachment.extension}`;
+      }
+    }
+    return name;
+  }
+
+  private getAttachment(id: number): Attachment|undefined {
+    return this.selectedMemberSubject.value.memberAttachments
+    .find((e: any) => e.id === id)?.attachment;
   }
 
 }

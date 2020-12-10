@@ -519,6 +519,9 @@ namespace SmartSaccos.persistence.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<int?>("HomeAddressId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdBackAttachmentId")
                         .HasColumnType("int");
 
@@ -531,6 +534,9 @@ namespace SmartSaccos.persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LearntAboutUs")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaritalStatus")
                         .HasColumnType("int");
 
@@ -540,10 +546,37 @@ namespace SmartSaccos.persistence.Migrations
                     b.Property<int>("MemberStatus")
                         .HasColumnType("int");
 
+                    b.Property<string>("NearestTown")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NextOfKin")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NokContacts")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("NokIsMinor")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NokRelation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Occupation")
+                        .HasColumnType("text");
+
+                    b.Property<int>("OccupationType")
+                        .HasColumnType("int");
+
                     b.Property<string>("OtherNames")
                         .HasColumnType("text");
 
+                    b.Property<int>("PassportCopyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PassportPhotoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PermanentAddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
@@ -552,7 +585,13 @@ namespace SmartSaccos.persistence.Migrations
                     b.Property<decimal>("Shared")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<int>("SignatureId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.Property<int>("UpdateCode")
@@ -562,7 +601,46 @@ namespace SmartSaccos.persistence.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("HomeAddressId");
+
+                    b.HasIndex("PermanentAddressId");
+
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("text");
+
+                    b.Property<string>("County")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("District")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UpdateCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Village")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MemberAddresses");
                 });
 
             modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberApproval", b =>
@@ -812,6 +890,16 @@ namespace SmartSaccos.persistence.Migrations
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("SmartSaccos.Domains.Entities.MemberAddress", "HomeAddress")
+                        .WithMany()
+                        .HasForeignKey("HomeAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SmartSaccos.Domains.Entities.MemberAddress", "PermanentAddress")
+                        .WithMany()
+                        .HasForeignKey("PermanentAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SmartSaccos.Domains.Entities.MemberApproval", b =>

@@ -15,26 +15,24 @@ export class Member {
   passportPhotoId = 0;
   idFrontAttachmentId = 0;
   idBackAttachmentId = 0;
+  passportCopyId = 0;
+  homeAddressId = 0;
+  learntAboutUs = 0;
+  nearestTown = '';
+  nextOfKin = '';
+  nokContacts = '';
+  nokIsMinor = false;
+  nokRelation = '';
+  occupation = '';
+  occupationType = 0;
+  permanentAddressId = 0;
+  signatureId = 0;
+  title = '';
   dateOfBirth?: Date;
   dateJoined: Date|any;
+  homeAddress = new MemberAddress();
+  permanentAddress = new MemberAddress();
   memberAttachments: Array<MemberAttachment> = [];
-  // constructor() {
-  //   this.id = 0;
-  //   this.memberNumber = '';
-  //   this.surname = '';
-  //   this.otherNames = '';
-  //   this.gender = 0;
-  //   this.maritalStatus = 0;
-  //   this.phoneNumber = '';
-  //   this.email = '';
-  //   this.memberStatus = 0;
-  //   this.applicationUserId = 0;
-  //   this.indentificationNo = '';
-  //   this.passportPhotoId = 0;
-  //   this.idFrontAttachmentId = 0;
-  //   this.idBackAttachmentId = 0;
-  //   this.memberAttachments = [];
-  // }
 
   intial = () => {
     let initials = '';
@@ -86,3 +84,11 @@ export interface MemberAttachment {
   attachment: Attachment;
 }
 
+export class MemberAddress {
+  id = 0;
+  village = '';
+  location = '';
+  district = '';
+  county = '';
+  country = '';
+}

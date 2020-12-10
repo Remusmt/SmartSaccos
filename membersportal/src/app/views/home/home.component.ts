@@ -48,10 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (!this.currentUser.weKnowCustomer) {
-      this.router.navigate(['/kyc']);
-    }
-
     this.subscription.add(
       this.isHandset$.subscribe(
         res => {

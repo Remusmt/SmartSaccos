@@ -12,6 +12,7 @@ namespace SmartSaccos.Domains.Entities
             MemberApprovals = new HashSet<MemberApproval>();
         }
         public string MemberNumber { get; set; }
+        public string Title { get; set; }
         public string Surname { get; set; }
         public string OtherNames { get; set; }
         public Gender Gender { get; set; }
@@ -27,10 +28,24 @@ namespace SmartSaccos.Domains.Entities
         public int PassportPhotoId { get; set; }
         public int IdFrontAttachmentId { get; set; }
         public int IdBackAttachmentId { get; set; }
+        public int PassportCopyId { get; set; }
+        public int SignatureId { get; set; }
+        public int? HomeAddressId { get; set; }
+        public int? PermanentAddressId { get; set; }
+        public string NearestTown { get; set; }
+        public string NextOfKin { get; set; }
+        public string NokRelation { get; set; }
+        public string NokContacts { get; set; }
+        public bool NokIsMinor { get; set; }
+        public string Occupation { get; set; }
+        public OccupationType OccupationType { get; set; }
+        public LearntAboutUs LearntAboutUs { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+        public MemberAddress HomeAddress { get; set; }
+        public MemberAddress PermanentAddress { get; set; }
+
         public ICollection<MemberAttachment> MemberAttachments { get; set; }
         public ICollection<MemberApproval> MemberApprovals { get; set; }
-
     }
 }

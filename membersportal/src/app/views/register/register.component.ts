@@ -1,3 +1,4 @@
+import { CurrentUser } from './../../shared/models/current-user';
 import { NotificationService } from './../../shared/services/notification.service';
 import { RegisterService } from './../../services/register.service';
 import { ConstantsService } from './../../shared/services/constants.service';
@@ -78,12 +79,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.registerForm.valid) {
       this.subscription.add(
         this.registerService.Register(this.registerForm.value).subscribe(
-          res => {
+          (res: CurrentUser|any) => {
             if (res.id > 0) {
               this.notificationService.success(`${res.otherNames} ${res.surname} account created successfuly`);
-              this.router.navigate(['/home']);
+              this.router.navigate(['/kyc']);
             } else {
-              this.notificationService.warn('An error occured please try again');
+              this.notificationService.warn(res.errors[0].description);
             }
           },
           err => {

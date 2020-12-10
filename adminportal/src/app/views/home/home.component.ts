@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
 
     this.subscription.add(
-      this.service.currentMember.subscribe(
+      this.service.selectedMember.subscribe(
         res => {
           this.currentMember = res;
         }

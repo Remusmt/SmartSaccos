@@ -17,3 +17,159 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .back-arrow {
   vertical-align: middle;
 }
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.hide{
+  display: none;
+}
+
+.highlightSelected {
+  background: rgba(0,0,0,.04)
+}
+
+.th-right{
+  justify-content: flex-end;
+}
+
+.w-50{
+  width: 50px;
+  flex: none;
+}
+
+.w-75{
+  width: 75px;
+  flex: none;
+}
+
+.w-115{
+  width: 115px;
+  flex: none;
+}
+
+.padding-bottom-10 {
+  padding-bottom: 10px;
+}
+
+.padding-top-10 {
+  padding-top: 10px;
+}
+
+.padding-left-10 {
+  padding-left: 10px;
+}
+
+.padding-right-10 {
+  padding-right: 10px;
+}
+
+.page-header-actions {
+  display: flex;
+}
+
+.page-filter-action {
+  flex: 1 1 auto;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.right-aligned-input {
+  text-align: right !important;
+}
+
+/* Dialog forms max-width: 95vw;*/
+.form-dialog-container {
+  max-width: 450px !important;
+}
+
+.form-dialog-container-mobile {
+  max-width: 95vw !important;
+}
+
+
+.display-flex {
+  display: flex;
+}
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.btn-dialog-close {
+  width: 45px !important;
+  min-width: 0px !important;
+  height: 40px !important;
+  padding: 0px !important;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+.btn-form-actions {
+  margin: 10px !important;
+  width: 30% !important;
+}
+
+.btn-form-actions-cancel {
+  background-color: #b6bece;
+  color:white;
+}
+
+/* notification */
+snack-bar-container.success {
+  background-color: #5cb85c;
+  color : #fff;
+}
+
+snack-bar-container.warn {
+  background-color: #E30B0B;
+  color : #fff;
+}
+
+
+snack-bar-container.notification simple-snack-bar{
+  font-size: 18px !important;
+}
+
+.mat-label {
+  /* color: rgba(0,0,0,.84); */
+  font-size: 18px;
+}
+
+.page-header {
+  padding: 5px;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+}
+
+.page-header-action {
+  display: flex;
+  flex-direction: row;
+}
+
+.current-page-title {
+  padding-left: 5px;
+}
+
+.back-arrow {
+  vertical-align: middle;
+}
+
+.details-content-page {
+  overflow-y: hidden !important;
+}
+
+.header-spacer {
+  flex: 1 1 auto;
+}
+

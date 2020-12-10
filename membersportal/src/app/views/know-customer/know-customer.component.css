@@ -120,3 +120,7 @@
   padding: 5px;
   text-align: center;
 }
+
+.stepper-details-container {
+  padding-top: 10px;
+}

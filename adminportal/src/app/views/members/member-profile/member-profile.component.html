@@ -1,0 +1,58 @@
+<div class="profile-page-container">
+  <div class="profile-page-header">
+    <div class="profile-avator">
+      <img src="{{service.avatorName()}}"
+      class="profile-image"
+      *ngIf="service.avatorName()">
+    <div class="intials"
+          *ngIf="!service.avatorName()">
+      {{service.intial()}}
+    </div>
+    </div>
+    <h2 class="member-name">
+      {{selectedMember.otherNames}} {{selectedMember.surname}}
+    </h2>
+  </div>
+  <div class="profile-body">
+
+
+    <h2 class="member-name">
+      Attachments
+    </h2>
+
+    <mat-card class="page-card">
+      <mat-card-content>
+        <img src="{{service.avatorName()}}"
+            class="attachment-image "
+            *ngIf="service.avatorName()">
+        <img src="{{service.idFrontName()}}"
+            class="attachment-image"
+            *ngIf="service.idFrontName()">
+        <img src="{{service.idBackName()}}"
+            class="attachment-image"
+            *ngIf="service.idBackName()">
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="page-card">
+      <mat-card-content>
+          <ng-template matStepLabel>Personal Details</ng-template>
+
+          <div class="action-container">
+            <button mat-raised-button
+                    color="primary"
+                    (click)="onApprove()"
+                    class="action">
+                    Approve
+            </button>
+            <button mat-raised-button
+                    color="warn"
+                    (click)="onReject()"
+                    class="action">
+                    Reject
+            </button>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

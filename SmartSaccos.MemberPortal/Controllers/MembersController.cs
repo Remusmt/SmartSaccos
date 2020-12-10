@@ -95,11 +95,19 @@ namespace SmartSaccos.MemberPortal.Controllers
                         break;
                     case AttachmentType.IdBack:
                         if (member.IdBackAttachmentId > 0)
-                            DeleteFile(member.IdFrontAttachmentId);
+                            DeleteFile(member.IdBackAttachmentId);
                         break;
                     case AttachmentType.Avator:
                         if (member.PassportPhotoId > 0)
                             DeleteFile(member.PassportPhotoId);
+                        break;
+                    case AttachmentType.PassportCopy:
+                        if (member.PassportCopyId > 0)
+                            DeleteFile(member.PassportCopyId);
+                        break;
+                    case AttachmentType.Signature:
+                        if (member.SignatureId > 0)
+                            DeleteFile(member.SignatureId);
                         break;
                 }
 

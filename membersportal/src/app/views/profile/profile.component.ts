@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     {value: 2 , description: 'Divorced'},
     {value: 3 , description: 'widowed'}
   ];
-  gender = 1;
+  nokIsMinor = false;
 
   constructor(
     public service: MembersService,
@@ -39,12 +39,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  onGenderChanged(): void {
-    this.gender = this.gender > 0 ? 0 : 1;
-    this.service.kycForm.controls.gender
-        .setValue(this.gender);
-  }
-
   getMaritalStatusDescription(status: number): string {
 
     switch (status) {
@@ -59,6 +53,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
       default:
         return 'Single';
     }
+  }
+
+  getStatusDesription(memberStatus: number): string {
+    switch (memberStatus) {
+      case 0:
+      case 1:
+      case 2:
+        return 'Pending KYC';
+      case 3:
+      case 6:
+        return 'Pending Approval';
+      case 4:
+        return 'Pay Membership Fee';
+      case 5:
+        return 'Active';
+      case 7:
+        return 'Rejected';
+      case 8:
+        return 'Terminated';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  getGenderDescription(gender: number): string {
+    return gender > 0 ? 'Male' : 'Female';
+  }
+
+  onMinorChange(): void {
+    this.nokIsMinor = !this.nokIsMinor;
   }
 
   onSaveDetails(): void {

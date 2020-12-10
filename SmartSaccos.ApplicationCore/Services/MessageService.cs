@@ -18,26 +18,27 @@ namespace SmartSaccos.ApplicationCore.Services
               string body
           )
         {
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("NESADI SACCO", "noreply@nesadisacco.com"));
-                message.To.Add(new MailboxAddress(name, emailTo));
-                message.Subject = subject;
-                message.Body = new TextPart(TextFormat.Html) { Text = body };
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("NESADI SACCO", "noreply@nesadisacco.com"));
+            message.To.Add(new MailboxAddress(name, emailTo));
+            message.Bcc.Add(new MailboxAddress(name, "registration@nesadisacco.com"));
+            message.Subject = subject;
+            message.Body = new TextPart(TextFormat.Html) { Text = body };
 
-                try
-                {
-                    using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            try
+            {
+                using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
-                    await smtp.ConnectAsync("mail.nesadisacco.com", 465, SecureSocketOptions.SslOnConnect);
-                    await smtp.AuthenticateAsync("noreply@nesadisacco.com", "nesadi2020");
-                    await smtp.SendAsync(message);
-                    await smtp.DisconnectAsync(true);
+                await smtp.ConnectAsync("mail.nesadisacco.com", 465, SecureSocketOptions.SslOnConnect);
+                await smtp.AuthenticateAsync("noreply@nesadisacco.com", "nesadi2020");
+                await smtp.SendAsync(message);
+                await smtp.DisconnectAsync(true);
 
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return true;
         }

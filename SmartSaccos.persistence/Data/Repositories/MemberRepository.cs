@@ -27,6 +27,8 @@ namespace SmartSaccos.persistence.Data.Repositories
                 .Include("MemberAttachments")
                 .Include("MemberAttachments.Attachment")
                 .Include("MemberApprovals")
+                .Include("HomeAddress")
+                .Include("PermanentAddress")
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
