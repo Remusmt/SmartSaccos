@@ -37,7 +37,7 @@ export class RegistrationActionComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    switch (this.service.approvalForm.controls['actionType'].value) {
+    switch (this.service.approvalForm.controls[0].value) {
       case 0:
         this.subscriptions.add(
           this.service.approveRegistration(this.service.approvalForm.value)

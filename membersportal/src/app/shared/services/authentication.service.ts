@@ -40,10 +40,12 @@ export class AuthenticationService {
           }));
   }
 
-  logout(): void {
+  logout(reload = true): void {
       // remove user from local storage and set current user to null
       localStorage.removeItem('currentMember');
       this.currentUserSubject.next(null as any);
-      location.reload();
+      if (reload) {
+        location.reload();
+      }
   }
 }

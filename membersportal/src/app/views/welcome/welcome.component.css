@@ -19,6 +19,10 @@
   font-size: 24px;
 }
 
+.logout-message {
+  text-align: center;
+}
+
 .green-btn {
   background-color: #008000;
   color: #ffffff;

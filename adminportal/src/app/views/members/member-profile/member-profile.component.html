@@ -1,3 +1,11 @@
+<div class="page-header">
+  <a (click)="goBack()"
+      class="back-arrow">
+    <mat-icon class="back-arrow">arrow_back</mat-icon>
+    <span class="current-page-title">Back</span>
+  </a>
+
+</div>
 <div class="profile-page-container">
   <div class="profile-page-header">
     <div class="profile-avator">
@@ -12,47 +20,366 @@
     <h2 class="member-name">
       {{selectedMember.otherNames}} {{selectedMember.surname}}
     </h2>
+    <h3 class="status-badge">
+      Status: {{service.getStatusDesription(selectedMember.memberStatus)}}
+    </h3>
+    <h3 class="gender-badge">
+      {{service.getGenderDescription(selectedMember.gender)}}
+    </h3>
   </div>
   <div class="profile-body">
-
-
-    <h2 class="member-name">
-      Attachments
-    </h2>
-
+      <h3 class="profile-section-header">
+        Personal Details
+      </h3>
     <mat-card class="page-card">
       <mat-card-content>
-        <img src="{{service.avatorName()}}"
-            class="attachment-image "
-            *ngIf="service.avatorName()">
-        <img src="{{service.idFrontName()}}"
-            class="attachment-image"
-            *ngIf="service.idFrontName()">
-        <img src="{{service.idBackName()}}"
-            class="attachment-image"
-            *ngIf="service.idBackName()">
+        <mat-grid-list cols="2" rowHeight="60px">
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Title</mat-label>
+              <input matInput
+                    type="text"
+                    name="title"
+                    [ngModel]="selectedMember.title"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Surname</mat-label>
+              <input matInput
+                    type="text"
+                    name="surname"
+                    [ngModel]="selectedMember.surname"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">First & Middle Name</mat-label>
+              <input matInput
+                    type="text"
+                    name="otherNames"
+                    [ngModel]="selectedMember.otherNames"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <app-spinner></app-spinner>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">ID/Passport No</mat-label>
+              <input matInput
+                    type="text"
+                    name="indentificationNo"
+                    [ngModel]="selectedMember.indentificationNo"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Phone Number</mat-label>
+              <input matInput
+                    type="text"
+                    name="phoneNumber"
+                    [ngModel]="selectedMember.phoneNumber"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Marital Status</mat-label>
+              <input matInput
+                    type="text"
+                    name="maritalStatus"
+                    [ngModel]="service.getMaritalStatusDescription(selectedMember.maritalStatus)"/>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Email</mat-label>
+              <input matInput
+                    type="email"
+                    name="email"
+                    [ngModel]="selectedMember.email"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field margin-right-5">
+              <mat-label class="mat-label">Date of Birth</mat-label>
+              <input matInput
+                    [matDatepicker]="dateOfBirthP"
+                    name ="dateOfBirth"
+                    [ngModel]="selectedMember.dateOfBirth">
+              <mat-datepicker-toggle matSuffix [for]="dateOfBirthP"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfBirthP disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Occupation</mat-label>
+              <input matInput
+                    type="text"
+                    name="occupation"
+                    [ngModel]="selectedMember.occupation"/>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Occupation Type</mat-label>
+              <input matInput
+                    type="text"
+                    name="occupation"
+                    [ngModel]="service.getOccupationDescription(selectedMember.occupationType)"/>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">How they learnt about us</mat-label>
+              <input matInput
+                    type="text"
+                    [ngModel]="service.getMemberSourceDescription(selectedMember.learntAboutUs)"/>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+    <h2 class="profile-section-header">
+      Next of Kin Details
+    </h2>
+    <mat-card class="page-card">
+      <mat-card-content>
+        <mat-grid-list cols="2" rowHeight="60px">
+          <mat-grid-tile  [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">Next Of Kin</mat-label>
+              <input matInput
+                    type="text"
+                    name="nextOfKin"
+                    [ngModel]="selectedMember.nextOfKin"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">NoK Relation</mat-label>
+              <input matInput
+                    type="text"
+                    name="nokRelation"
+                    [ngModel]="selectedMember.nokRelation"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile  [colspan]= "2">
+            <mat-form-field class="full-width-field">
+              <mat-label class="mat-label">NoK Contacts</mat-label>
+              <input matInput
+                    type="text"
+                    name="nokContacts"
+                    [ngModel]="selectedMember.nokContacts"/>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-checkbox>
+              NoK is Minor
+            </mat-checkbox>
+          </mat-grid-tile>
+        </mat-grid-list>
+
       </mat-card-content>
     </mat-card>
 
+    <h3 class="profile-section-header">
+      Address Details
+    </h3>
     <mat-card class="page-card">
       <mat-card-content>
-          <ng-template matStepLabel>Personal Details</ng-template>
 
-          <div class="action-container">
-            <button mat-raised-button
-                    color="primary"
-                    (click)="onApprove()"
-                    class="action">
-                    Approve
-            </button>
-            <button mat-raised-button
-                    color="warn"
-                    (click)="onReject()"
-                    class="action">
-                    Reject
-            </button>
+        <div class="stepper-details-container">
+            <h3>
+              Place of birth
+            </h3>
+            <mat-grid-list cols="2" rowHeight="60px">
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Village</mat-label>
+                  <input matInput
+                        type="text"
+                        name="village"
+                        [ngModel]="selectedMember.homeAddress.village"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Location</mat-label>
+                  <input matInput
+                        type="text"
+                        name="location"
+                        [ngModel]="selectedMember.homeAddress.location"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">District</mat-label>
+                  <input matInput
+                        type="text"
+                        name="district"
+                        [ngModel]="selectedMember.homeAddress.district"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">County</mat-label>
+                  <input matInput
+                        type="text"
+                        name="county"
+                        [ngModel]="selectedMember.homeAddress.county"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Country</mat-label>
+                  <input matInput
+                        type="text"
+                        name="country"
+                        [ngModel]="selectedMember.homeAddress.country"/>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+            <h3>
+              Permanent address
+            </h3>
+            <mat-grid-list cols="2" rowHeight="60px">
+              <mat-grid-tile  [colspan] = "2">
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Nearest Town</mat-label>
+                  <input matInput
+                        type="text"
+                        name="nearestTown"
+                        [ngModel]="selectedMember.nearestTown"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Village</mat-label>
+                  <input matInput
+                        type="text"
+                        name="village"
+                        [ngModel]="selectedMember.permanentAddress.village"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Location</mat-label>
+                  <input matInput
+                        type="text"
+                        name="location"
+                        [ngModel]="selectedMember.permanentAddress.location"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">District</mat-label>
+                  <input matInput
+                        type="text"
+                        name="district"
+                        [ngModel]="selectedMember.permanentAddress.district"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">County</mat-label>
+                  <input matInput
+                        type="text"
+                        name="county"
+                        [ngModel]="selectedMember.permanentAddress.county"/>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-form-field class="full-width-field">
+                  <mat-label class="mat-label">Country</mat-label>
+                  <input matInput
+                        type="text"
+                        name="country"
+                        [ngModel]="selectedMember.permanentAddress.country"/>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
           </div>
       </mat-card-content>
     </mat-card>
+
+    <h2 class="profile-section-header">
+      Attachments
+    </h2>
+
+    <mat-tab-group class="page-card">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="assets/icons/national-id.png"
+                alt="facebook icon"
+                class="tab-head-icon">
+          National Id
+        </ng-template>
+
+        <div class="doc-tab-container">
+          <div class="doc-item">
+            <h3 class="doc-type-title">National Id Front Side</h3>
+
+            <img src="{{service.idFrontName()}}"
+                class="attachment-image">
+          </div>
+
+          <div class="doc-item">
+            <h3 class="doc-type-title">National Id Back Side</h3>
+
+            <img src="{{service.idBackName()}}"
+                  class="attachment-image">
+          </div>
+
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="assets/icons/passport.png"
+                alt="facebook icon"
+                class="tab-head-icon">
+          Passport
+        </ng-template>
+        <div class="doc-item">
+          <h3 class="doc-type-title">Passport Copy</h3>
+
+          <img src="{{service.passportCopyName()}}"
+              class="attachment-image">
+        </div>
+
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+                Signature
+        </ng-template>
+        <div class="doc-item">
+          <h3 class="doc-type-title">Signature Specimen</h3>
+
+          <img src="{{service.signatureName()}}"
+              class="attachment-image">
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+
+    <div class="action-container">
+      <button mat-raised-button
+              color="primary"
+              (click)="onApprove()"
+              class="action">
+              Approve
+      </button>
+      <button mat-raised-button
+              color="warn"
+              (click)="onReject()"
+              class="action">
+              Reject
+      </button>
+    </div>
   </div>
 </div>
+
+

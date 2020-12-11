@@ -127,6 +127,33 @@ namespace SmartSaccos.MemberPortal.Controllers
             }
         }
 
+        [HttpPost("KycPost")]
+        public async Task<ActionResult<Member>> KycPost(MemberModel model)
+        {
+            try
+            {
+                Member member = await memberService.KycDetails(model, DateTimeOffset.UtcNow);
+
+                string html = Properties.Resources.RegistrationTemplate;
+                html = html.Replace("{Username}", $"{member.OtherNames} {member.Surname}");
+
+                await messageService.SendEmail(
+                        member.Email,
+                        $"{member.OtherNames} {member.Surname}",
+                        "Registration Confirmation", html);
+
+                await messageService.SendSms(
+                    appSettings.AdminPhoneNo,
+                    $"{member.OtherNames} {member.Surname} has registered and is pending your approval");
+
+                return Ok(member);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
         [HttpGet("CompleteKyc")]
         public async Task<ActionResult<Member>> CompleteKyc()
         {

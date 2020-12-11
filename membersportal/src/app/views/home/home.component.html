@@ -6,7 +6,7 @@
     [opened]="(isHandset$ | async) === false"
     (click)="toggleSideNav(drawer)">
     <mat-toolbar class="side-nav-header">
-      <a [routerLink]="'/'">
+      <a (click) = logout()>
         <img src="/assets/icons/icon-72x72.png"
         alt="Logo image"
         class="logo">

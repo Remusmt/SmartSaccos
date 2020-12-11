@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eaCJBo1xeHrpzKSxOOfGZS1xGHVySQtrQJKcO4FigHbhQ/UYzDPS9dIhtYnGUPNUWIcwahtItUDIiwrA7ebosw==",
+  "dgSpecHash": "EfQym44sJGWBW8ltqCcY5A39MJGcOnkXBIjpGmy+H0/hNaQYHppbbxkS74ouOQn9MJPd6L4rLIWBBPW4g8eTDQ==",
   "success": true,
   "projectFilePath": "E:\\repos\\SmartSaccos\\SmartSaccos.MemberPortal\\SmartSaccos.MemberPortal.csproj",
   "expectedPackageFiles": [
@@ -150,7 +150,9 @@
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.xmldocument\\4.0.1\\system.xml.xmldocument.4.0.1.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath\\4.0.1\\system.xml.xpath.4.0.1.nupkg.sha512",
-    "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.0.1\\system.xml.xpath.xmldocument.4.0.1.nupkg.sha512"
+    "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.0.1\\system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\remus\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
   ],
   "logs": []
 }

@@ -2,7 +2,7 @@ import { Member } from './../shared/models/member';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CurrentUser } from '../shared/models/current-user';
 import { AuthenticationService } from '../shared/services/authentication.service';
@@ -27,6 +27,36 @@ export class MembersService {
   baseurl = '';
   controller = 'Admin';
 
+  memberStatuses = [
+    {value: 0, description: 'Pending KYC'},
+    {value: 1, description: 'Pending KYC'},
+    {value: 2, description: 'Pending KYC'},
+    {value: 3, description: 'Pending Approval'},
+    {value: 4, description: 'Membership Fee Pending'},
+    {value: 5, description: 'Active'},
+    {value: 6, description: 'On Hold'},
+    {value: 7, description: 'Rejected'},
+    {value: 8, description: 'Terminated'}
+  ];
+  maritalStatuses = [
+    {value: 0 , description: 'Single'},
+    {value: 1 , description: 'Married'},
+    {value: 2 , description: 'Divorced'},
+    {value: 3 , description: 'widowed'}
+  ];
+  occupationTypes = [
+    {value: 0, description: 'Employed'},
+    {value: 1, description: 'Self Employed'},
+    {value: 2, description: 'Employed & In Bussiness'}
+  ];
+
+  memberSource = [
+    {value: 0, description: 'Member'},
+    {value: 1, description: 'Friend'},
+    {value: 2, description: 'Website'},
+    {value: 3, description: 'Advertisement'}
+  ];
+
   private selectedMemberSubject = new BehaviorSubject<Member>(new Member());
   public selectedMember = this.selectedMemberSubject.asObservable();
 
@@ -42,7 +72,7 @@ export class MembersService {
     this.authenticationService.currentUser.subscribe(
       res => this.currentUser = res
     );
-
+    this.onGetMembers();
   }
 
   initApprovalForm(memberId: number, action: number): void {
@@ -63,6 +93,9 @@ export class MembersService {
       .subscribe(
         res => {
           this.dataSourceSubject.next(res);
+          if (res.length > 0) {
+            this.setSelected(res[0]);
+          }
           this.wasFetched = true;
         }
       );
@@ -76,20 +109,6 @@ export class MembersService {
   // verify returned value is of type member
   private isMember(value: Member | any): value is Member {
     return (value as Member).id !== undefined;
-  }
-
-  getDetailedMember(id: number): Observable<Member> {
-    return this.http.get<Member>(`${this.baseurl}GetDetailedMember/${id}`).
-    pipe(
-      map(
-        res => {
-          if (this.isMember(res)) {
-            this.selectedMemberSubject.next(res);
-          }
-          return res;
-        }
-      )
-    );
   }
 
   uploadImage(file: File|any, kycDocType: number): any {
@@ -110,6 +129,12 @@ export class MembersService {
     .pipe(
       map(
         res => {
+          // update datasource
+          const index = this.dataSourceSubject.value.findIndex(e => e.id === res.id);
+          if (index >= 0) {
+            this.dataSourceSubject.value[index] = res;
+            this.dataSourceSubject.next(this.dataSourceSubject.value);
+          }
           this.selectedMemberSubject.next(res);
           return res;
         }
@@ -122,6 +147,11 @@ export class MembersService {
     .pipe(
       map(
         res => {
+          const index = this.dataSourceSubject.value.findIndex(e => e.id === res.id);
+          if (index >= 0) {
+            this.dataSourceSubject.value[index] = res;
+            this.dataSourceSubject.next(this.dataSourceSubject.value);
+          }
           this.selectedMemberSubject.next(res);
           return res;
         }
@@ -134,11 +164,36 @@ export class MembersService {
     .pipe(
       map(
         res => {
+          const index = this.dataSourceSubject.value.findIndex(e => e.id === res.id);
+          if (index >= 0) {
+            this.dataSourceSubject.value[index] = res;
+            this.dataSourceSubject.next(this.dataSourceSubject.value);
+          }
           this.selectedMemberSubject.next(res);
           return res;
         }
       )
     );
+  }
+
+  getMaritalStatusDescription(status: number): string|any {
+    return this.maritalStatuses.find(e => e.value)?.description;
+  }
+
+  getStatusDesription(memberStatus: number): string|any {
+    return this.memberStatuses.find(e => e.value === memberStatus)?.description;
+  }
+
+  getOccupationDescription(value: number): string|any {
+    return this.occupationTypes.find(e => e.value === value)?.description;
+  }
+
+  getMemberSourceDescription(value: number): string|any {
+    return this.memberSource.find(e => e.value === value)?.description;
+  }
+
+  getGenderDescription(gender: number): string {
+    return gender > 0 ? 'Male' : 'Female';
   }
 
   intial = () => {
@@ -169,6 +224,11 @@ export class MembersService {
 
   passportCopyName = () => {
     const rName = this.getAttachmentName(this.selectedMemberSubject.value.passportCopyId);
+    return rName ? `${this.constants.resourceUrl}${rName}` : '';
+  }
+
+  signatureName = () => {
+    const rName = this.getAttachmentName(this.selectedMemberSubject.value.signatureId);
     return rName ? `${this.constants.resourceUrl}${rName}` : '';
   }
 

@@ -274,6 +274,22 @@ export class MembersService {
     );
   }
 
+  kycPost(model: Member): Observable<Member> {
+    return this.http.post<Member>(`${this.baseurl}KycPost`, model)
+    .pipe(
+      map(
+        res => {
+          if (this.isMember(res)) {
+            this.currentUser.status = res.memberStatus;
+            this.currentUser.weKnowCustomer = res.memberStatus > 1;
+            this.authenticationService.setUser(this.currentUser);
+          }
+          return res;
+        }
+      )
+    );
+  }
+
   onCompleteKyc(): Observable<Member> {
     return this.http.get<Member>(`${this.baseurl}CompleteKyc`)
     .pipe(

@@ -16,7 +16,7 @@
         <mat-dialog-content>
           <mat-card-content>
             <mat-grid-list cols="1" rowHeight="60px">
-              <mat-grid-tile>
+              <mat-grid-tile *ngIf="service.approvalForm.controls['actionType'].value > 0">
                 <mat-form-field class="full-width-field">
                   <mat-label class="mat-label">Message To Member</mat-label>
                   <input matInput
@@ -52,7 +52,7 @@
                   <span *ngIf="service.approvalForm.controls['actionType'].value === 0">
                     Approve
                   </span>
-                  <span *ngIf="service.approvalForm.controls['actionType'].value === 1">
+                  <span *ngIf="service.approvalForm.controls['actionType'].value === 2">
                     Reject
                   </span>
           </button>

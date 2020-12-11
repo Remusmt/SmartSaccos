@@ -192,7 +192,12 @@ namespace SmartSaccos.MemberPortal.Controllers
                     MemberId = model.MemberId,
                     MessageToMember = model.MessageToMember
                 };
-                return await memberService.PutMemberOnHold(memberApproval);
+                Member member = await memberService.PutMemberOnHold(memberApproval);
+                await messageService.SendEmail(
+                    member.Email,
+                    $"{member.OtherNames} {member.Surname}",
+                    "Membership put on hold", model.MessageToMember);
+                return Ok(member);
             }
             catch (Exception ex)
             {
@@ -218,7 +223,12 @@ namespace SmartSaccos.MemberPortal.Controllers
                     MemberId = model.MemberId,
                     MessageToMember = model.MessageToMember
                 };
-                return await memberService.RejectMember(memberApproval);
+                Member member = await memberService.RejectMember(memberApproval);
+                await messageService.SendEmail(
+                    member.Email, 
+                    $"{member.OtherNames} {member.Surname}", 
+                    "Membership Rejected", model.MessageToMember);
+                return Ok(member);
             }
             catch (Exception ex)
             {

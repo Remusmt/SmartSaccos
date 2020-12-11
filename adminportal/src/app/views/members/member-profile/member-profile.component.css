@@ -6,29 +6,29 @@
   padding-top: 10px;
 }
 
-
 .profile-avator {
   border-radius: 50%;
-  width: 125px;
-  height: 125px;
+  width: 154px;
+  height: 154px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #008000;
+  border: 2px solid #FFC000;
 }
 
 .profile-image {
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  padding: 8px;
-  margin: 1px;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  margin: 8px;
   border: 2px solid #FFC000;
 }
 
 .attachment-image {
   border-radius: 5%;
-  width: 200px;
+  width: 180px;
   height: 150px;
   padding: 10px;
   margin: 10px;
@@ -37,6 +37,8 @@
 
 .intials {
   color: #FFC000;
+  font-size: xx-large;
+  font-weight: 600;
 }
 
 .member-name {
@@ -62,13 +64,59 @@
   width: 70%;
   max-width: 500px;
   margin-bottom: 15px;
+  padding: 15px;
+}
+
+@media screen and (max-width: 640px) {
+  .page-card {
+    width: 95%;
+  }
 }
 
 .action-container {
+  padding-top: 10px;
   text-align: right;
 }
 
 .action {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.profile-section-header {
+  color: #008000;
+  font-weight: 600;
+  font-size: xx-large;
+  padding-top: 10px;
+}
+
+.gender-badge {
+  color: #FFC000;
+  font-size: large;
+}
+
+.status-badge {
+  color: #FFC000;
+  font-size: x-large;
+  margin: auto;
+}
+
+.tab-head-icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.doc-tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.doc-item {
+  text-align: center;
+}
+
+.doc-type-title {
+  padding: 5px;
+  text-align: center;
 }

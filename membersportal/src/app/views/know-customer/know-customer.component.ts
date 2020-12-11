@@ -70,7 +70,7 @@ export class KnowCustomerComponent implements OnInit {
   onSaveAndNext(): void {
     if (this.service.kycForm.valid) {
       this.subscription.add(
-        this.service.kycDetails(this.service.kycForm.value).subscribe(
+        this.service.kycPost(this.service.kycForm.value).subscribe(
           _ => {
             this.notification.success('Completed successfully');
             this.router.navigate(['/membersportal']);

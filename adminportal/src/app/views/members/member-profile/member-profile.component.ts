@@ -6,6 +6,7 @@ import { Member } from 'src/app/shared/models/member';
 import { RegistrationActionComponent } from '../../registration-action/registration-action.component';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-member-profile',
@@ -29,6 +30,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
+    private location: Location,
     public service: MembersService,
     private breakpointObserver: BreakpointObserver
   ) { }
@@ -71,7 +73,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     if (this.selectedMember === undefined) {
       return;
     }
-    this.service.initApprovalForm(this.selectedMember.id, 1);
+    this.service.initApprovalForm(this.selectedMember.id, 2);
     this.dialog.open(RegistrationActionComponent, {
       disableClose: true,
       autoFocus: true,
@@ -97,4 +99,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 }

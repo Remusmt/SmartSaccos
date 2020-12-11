@@ -21,6 +21,10 @@
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Phone No</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.phoneNumber}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="memberStatus">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Status</mat-header-cell>
       <mat-cell *matCellDef="let element">{{getStatusDescription(element.memberStatus)}}</mat-cell>
@@ -28,7 +32,7 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef class="th-right w-75"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="th-right w-75">
-        <button mat-icon-button (click)="onView()">
+        <button mat-icon-button (click)="onView(row)">
           <mat-icon>search</mat-icon>
         </button>
       </mat-cell>
@@ -39,8 +43,8 @@
         No data.
       </mat-footer-cell>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
+    <mat-header-row *matHeaderRowDef="getColumnsToDisplay()"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: getColumnsToDisplay();"
             (click) ="onRowClicked(row)"
             [ngClass]="{'highlightSelected':isSelectedRow(row.id)}"></mat-row>
     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData != null && listData.data.length == 0)}"></mat-footer-row>

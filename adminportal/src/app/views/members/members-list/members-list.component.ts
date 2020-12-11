@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class MembersListComponent implements OnInit, OnDestroy {
 
-  @Input() filterType = 0;
+  @Input() displayedStatus = 0;
   listData: MatTableDataSource<Member[]>|any;
   displayedColumns: string[] = ['memberNumber', 'otherNames', 'surname', 'phoneNumber', 'memberStatus', 'actions'];
   displayedMobileColumns: string[] = ['memberNumber', 'otherNames', 'surname', 'actions'];
@@ -49,13 +49,43 @@ export class MembersListComponent implements OnInit, OnDestroy {
           this.isMobile = res;
         }
     ));
-    this.service.onGetMembers();
+
     this.subscriptions.add(
       this.service.dataSource.subscribe(
         res => {
-          this.listData = new MatTableDataSource(res);
+          switch (this.displayedStatus) {
+            case 3: // Pending approval
+              this.listData = new MatTableDataSource(
+                res.filter(e => e.memberStatus <= 3)
+                );
+              break;
+            case 4: // Pending membership payment
+              this.listData = new MatTableDataSource(
+                res.filter(e => e.memberStatus === 4 || e.memberStatus === 5)
+                );
+              break;
+            case 5: // Active
+              this.listData = new MatTableDataSource(
+                res.filter(e => e.memberStatus === 5)
+                );
+              break;
+            case 6: // On hold
+              this.listData = new MatTableDataSource(
+                res.filter(e => e.memberStatus === 6)
+                );
+              break;
+            case 7: // Rejected
+              this.listData = new MatTableDataSource(
+                res.filter(e => e.memberStatus === 7)
+                );
+              break;
+            default:
+              this.listData = new MatTableDataSource(res);
+              break;
+          }
           this.listData.sort = this.sort;
           this.listData.paginator = this.paginator;
+
           if (res.length > 0) {
             if (this.selectedMemberId > 0) {
               this.onRowClicked(res.find(e => e.id === this.selectedMemberId));
@@ -69,6 +99,24 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  getColumnsToDisplay(): string[] {
+    switch (this.displayedStatus) {
+      case 3:
+      case 7:
+        if (this.isMobile) {
+          return ['otherNames', 'surname', 'actions'];
+        } else {
+          return ['otherNames', 'surname', 'phoneNumber', 'email', 'actions'];
+        }
+      default:
+        if (this.isMobile) {
+          return ['memberNumber', 'otherNames', 'surname', 'actions'];
+        } else {
+          return ['memberNumber', 'otherNames', 'surname', 'phoneNumber', 'memberStatus', 'actions'];
+        }
+    }
   }
 
   isSelectedRow(id: number): boolean {
@@ -102,7 +150,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onView(): void {
+  onView(member: Member|any): void {
+    this.onRowClicked(member);
     this.router.navigate(['/app/memberprofile']);
   }
 
