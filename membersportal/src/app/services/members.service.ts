@@ -265,8 +265,7 @@ export class MembersService {
         res => {
           if (this.isMember(res)) {
             this.currentUser.status = res.memberStatus;
-            this.currentUser.weKnowCustomer = res.memberStatus > 1;
-            this.authenticationService.setUser(this.currentUser);
+            this.currentMemberSubject.next(res);
           }
           return res;
         }

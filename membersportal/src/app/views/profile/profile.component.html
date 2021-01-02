@@ -375,18 +375,38 @@
         </ng-template>
 
         <div class="doc-tab-container">
-          <div class="doc-item">
+          <div class="doc-item"
+               *ngIf="service.idFrontName()">
             <h3 class="doc-type-title">National Id Front Side</h3>
 
             <img src="{{service.idFrontName()}}"
                 class="attachment-image">
+            <div class="change-btn-container">
+              <button class="change-img-btn">
+                Change Image
+              </button>
+            </div>
+          </div>
+          <div *ngIf="!service.idFrontName()">
+            <h3 class="doc-type-title">Upload Here Your National id Front Side</h3>
+              <app-file-upload attachmentType="0"></app-file-upload>
           </div>
 
-          <div class="doc-item">
+          <div class="doc-item"
+               *ngIf="service.idBackName()">
             <h3 class="doc-type-title">National Id Back Side</h3>
 
             <img src="{{service.idBackName()}}"
                   class="attachment-image">
+            <div class="change-btn-container">
+              <button class="change-img-btn">
+                Change Image
+              </button>
+            </div>
+          </div>
+          <div *ngIf="!service.idBackName()">
+            <h3 class="doc-type-title">Upload Here Your National id Back Side</h3>
+              <app-file-upload attachmentType="1"></app-file-upload>
           </div>
 
         </div>
@@ -399,11 +419,22 @@
                 class="tab-head-icon">
           Passport
         </ng-template>
-        <div class="doc-item">
+        <div class="doc-item"
+            *ngIf="service.passportCopyName()">
           <h3 class="doc-type-title">Passport Copy</h3>
 
           <img src="{{service.passportCopyName()}}"
-              class="attachment-image">
+              class="attachment-image"
+              *ngIf="service.passportCopyName()">
+          <div class="change-btn-container">
+            <button class="change-img-btn">
+              Change Image
+            </button>
+          </div>
+        </div>
+        <div *ngIf="!service.passportCopyName()">
+          <h3 class="doc-type-title">Upload Here Your Passport Copy</h3>
+            <app-file-upload attachmentType="3"></app-file-upload>
         </div>
 
       </mat-tab>
@@ -415,9 +446,19 @@
           <h3 class="doc-type-title">Signature Specimen</h3>
 
           <img src="{{service.signatureName()}}"
-              class="attachment-image">
+              class="attachment-image"
+              *ngIf="service.signatureName()">
+          <div class="change-btn-container">
+            <button class="change-img-btn"
+            (click) =changeImage(4)>
+              Change Image
+            </button>
+          </div>
         </div>
-
+        <div *ngIf="!service.signatureName()">
+          <h3 class="doc-type-title">Upload Signature Specimen</h3>
+            <app-file-upload attachmentType="4"></app-file-upload>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

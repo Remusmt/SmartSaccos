@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     {value: 3 , description: 'widowed'}
   ];
   nokIsMinor = false;
+  changingImage = 0;
 
   constructor(
     public service: MembersService,
@@ -100,6 +101,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         );
       }
     }
+  }
+
+  changeImage(imgType: number): void {
+
   }
 
 }

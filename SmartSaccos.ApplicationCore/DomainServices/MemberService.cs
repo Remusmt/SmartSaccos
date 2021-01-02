@@ -301,7 +301,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
                     await memberRepository.SaveChangesAsync();
                     break;
             }
-            return member;
+            return await GetDetailedMemberAsync(member.Id);
         }
 
         public async Task<bool> DeleteAttachmentAsync(MemberAttachment memberAttachment)
@@ -320,6 +320,14 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             if (member == null)
                 throw new Exception("Member not found");
 
+            if (member.MemberStatus >= MemberStatus.PaidMembership)
+            {
+                await GetDetailedMemberAsync(memberApproval.MemberId);
+            }
+            if (!string.IsNullOrEmpty(member.MemberNumber))
+            {
+                await GetDetailedMemberAsync(memberApproval.MemberId);
+            }
             CompanyDefaults companyDefaults = await companyDefaultsrepository
                 .FirstOrDefaultAsync(e => e.CompanyId == member.CompanyId);
 
