@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,9 +7,6 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 })
 export class LandingPageComponent {
 
-  constructor(
-    private authenticationService: AuthenticationService) {
-      this.authenticationService.logout(false);
-    }
+  constructor(){}
 
 }

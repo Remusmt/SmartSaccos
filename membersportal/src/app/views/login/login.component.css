@@ -34,8 +34,8 @@
 .login-header-image {
   background-image: url('/assets/icons/icon-96x96.png');
   background-size: cover;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
 }
 
 .full-width-field {
@@ -67,3 +67,6 @@ a {
   text-decoration: none;
 }
 
+.text-align-center {
+  text-align: center;
+}

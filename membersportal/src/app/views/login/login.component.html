@@ -6,7 +6,7 @@
           (ngSubmit) = 'submitForm(formGroup.value)'>
       <mat-card class="login-card">
         <mat-card-header class="login-card-header">
-          <a [routerLink]="'/'"
+          <a href="https://www.nesadisacco.com"
               class="home-link">
             <div mat-card-avatar class="login-header-image"></div>
           </a>
@@ -51,6 +51,11 @@
                   Sign In
           </button>
         </mat-card-actions>
+        <div class="text-align-center">
+          <p>
+            Not a Member <a routerLink = "/">Register</a>
+          </p>
+        </div>
       </mat-card>
     </form>
   </div>

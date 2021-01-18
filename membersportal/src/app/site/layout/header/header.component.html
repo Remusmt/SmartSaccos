@@ -2,7 +2,7 @@
 <section class="top-menu">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <a [routerLink]="'/'"
+      <a href="https://www.nesadisacco.com"
         class="company-logo-link">
         <div class="company-logo"></div>
         <span class="company-name"
@@ -26,67 +26,39 @@
             <mat-menu #menu="matMenu">
               <a mat-menu-item
                       color="warn"
-                      href="/home#">
+                      href="https://www.nesadisacco.com">
                 <span>Home</span>
             </a>
               <a mat-menu-item
                       color="warn"
-                      href="/home#aboutus">
+                      href="https://www.nesadisacco.com/about.html">
                 <span>About Us</span>
               </a>
-              <a href="/home#products" mat-menu-item>
+              <a href="https://www.nesadisacco.com/products.html" mat-menu-item>
                 <span>Products</span>
               </a>
-              <a mat-menu-item
-              [routerLink]="'/register'"
-                      color="warn">
-                <mat-icon>account_box</mat-icon>
-                <span>Register</span>
-              </a>
-              <button mat-menu-item
-                      [routerLink]="'/calculator'">
-                <mat-icon>keyboard</mat-icon>
-                <span>Loan Calculator</span>
-              </button>
-              <a mat-menu-item
-              [routerLink]="'/login'">
-                <mat-icon>power_settings_new</mat-icon>
-                <span>Login</span>
+              <a href="https://www.nesadisacco.com/contact.html" mat-menu-item>
+                <span>Contacts</span>
               </a>
             </mat-menu>
         </div>
         <div class="desktop-menu"
             *ngIf="(isHandset | async)">
-          <a mat-button href="/home#">
+          <a mat-button href="https://www.nesadisacco.com/products.html">
             Home
           </a>
           <a mat-button
-            href="/home#aboutus">
+            href="https://www.nesadisacco.com/about.html">
             About Us
           </a>
           <a mat-button
-            href="/home#products">
+            href="https://www.nesadisacco.com/products.html">
             Products
           </a>
           <a mat-button
-          [matMenuTriggerFor]="accountantMenu">
-            Loan Calculators
+             href="https://www.nesadisacco.com/contact.html">
+            <span>Contacts</span>
           </a>
-          <a mat-button
-            [routerLink]="'/register'"
-            color="warn">
-            Register
-          </a>
-          <a mat-button [routerLink]="'/login'">
-            <mat-icon>power_settings_new</mat-icon> Login
-          </a>
-
-          <mat-menu #accountantMenu="matMenu">
-            <button mat-menu-item
-                    [routerLink]="'/register'">
-                      Loan Calculator
-            </button>
-          </mat-menu>
         </div>
       </div>
 

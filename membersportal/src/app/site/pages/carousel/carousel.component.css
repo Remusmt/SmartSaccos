@@ -92,3 +92,204 @@ a {
     background: #008000;
     color: #fff;
 }
+
+
+/* :: 5.0 Hero Area CSS */
+.hero-area {
+  position: relative;
+  z-index: 1; }
+  .hero-area .owl-dots {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    bottom: 30px;
+    left: 0;
+    right: 0; }
+    .hero-area .owl-dots .owl-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #d2d2d2;
+      border-radius: 50%;
+      margin: 0 6px; }
+      .hero-area .owl-dots .owl-dot.active {
+        background-color: #ffbb38; }
+  .hero-area .owl-prev,
+  .hero-area .owl-next {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -23px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #003679;
+    left: 20px;
+    text-align: center;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    line-height: 46px;
+    opacity: 0;
+    visibility: hidden; }
+    @media only screen and (max-width: 767px) {
+      .hero-area .owl-prev,
+      .hero-area .owl-next {
+        left: 10px; } }
+    .hero-area .owl-prev:hover,
+    .hero-area .owl-next:hover {
+      background-color: #ffbb38;
+      color: #ffffff; }
+  .hero-area .owl-next {
+    left: auto;
+    right: 20px; }
+    @media only screen and (max-width: 767px) {
+      .hero-area .owl-next {
+        right: 10px; } }
+  .hero-area:hover .owl-next,
+  .hero-area:hover .owl-prev {
+    opacity: 1;
+    visibility: visible; }
+
+
+    .single-slide {
+      position: relative;
+      z-index: 99;
+      width: 100%;
+      height: 760px;
+      background-color: #ffffff;
+      overflow: hidden; }
+      @media only screen and (min-width: 992px) and (max-width: 1199px) {
+        .single-slide {
+          height: 600px; } }
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .single-slide {
+          height: 600px; } }
+      @media only screen and (max-width: 767px) {
+        .single-slide {
+          height: 600px; } }
+      .single-slide .slide-bg-img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -12;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -webkit-animation: slide-bg linear 10000ms infinite;
+        animation: slide-bg linear 10000ms infinite; }
+      .single-slide .slide-du-indicator {
+        position: absolute;
+        z-index: 10;
+        width: 0;
+        height: 2px;
+        background-color: #ffbb38;
+        left: 0;
+        bottom: 0;
+        -webkit-animation: slide-du-indicator linear 10000ms infinite;
+        animation: slide-du-indicator linear 10000ms infinite; }
+      .single-slide .welcome-text {
+        position: relative;
+        z-index: 1; }
+        .single-slide .welcome-text h6 {
+          font-size: 18px;
+          font-weight: 400;
+          color: #ffffff;
+          margin-bottom: 15px; }
+        .single-slide .welcome-text h2 {
+          font-size: 70px;
+          color: #ffffff;
+          font-weight: 600;
+          margin-bottom: 10px;
+          text-transform: uppercase; }
+          .single-slide .welcome-text h2 span {
+            color: #ffbb38; }
+          @media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .single-slide .welcome-text h2 {
+              font-size: 48px; } }
+          @media only screen and (min-width: 768px) and (max-width: 991px) {
+            .single-slide .welcome-text h2 {
+              font-size: 42px; } }
+          @media only screen and (max-width: 767px) {
+            .single-slide .welcome-text h2 {
+              font-size: 24px; } }
+        .single-slide .welcome-text p {
+          font-size: 16px;
+          color: #ffffff; }
+
+          .bg-img {
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat; }
+
+.single-slide {
+  position: relative;
+  z-index: 99;
+  width: 100%;
+  height: 760px;
+  background-color: #ffffff;
+  overflow: hidden; }
+  @media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .single-slide {
+      height: 600px; } }
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .single-slide {
+      height: 600px; } }
+  @media only screen and (max-width: 767px) {
+    .single-slide {
+      height: 600px; } }
+  .single-slide .slide-bg-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -12;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-animation: slide-bg linear 10000ms infinite;
+    animation: slide-bg linear 10000ms infinite; }
+  .single-slide .slide-du-indicator {
+    position: absolute;
+    z-index: 10;
+    width: 0;
+    height: 2px;
+    background-color: #ffbb38;
+    left: 0;
+    bottom: 0;
+    -webkit-animation: slide-du-indicator linear 10000ms infinite;
+    animation: slide-du-indicator linear 10000ms infinite; }
+  .single-slide .welcome-text {
+    position: relative;
+    z-index: 1; }
+    .single-slide .welcome-text h6 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 15px; }
+    .single-slide .welcome-text h2 {
+      font-size: 70px;
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase; }
+      .single-slide .welcome-text h2 span {
+        color: #ffbb38; }
+      @media only screen and (min-width: 992px) and (max-width: 1199px) {
+        .single-slide .welcome-text h2 {
+          font-size: 48px; } }
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .single-slide .welcome-text h2 {
+          font-size: 42px; } }
+      @media only screen and (max-width: 767px) {
+        .single-slide .welcome-text h2 {
+          font-size: 24px; } }
+    .single-slide .welcome-text p {
+      font-size: 16px;
+      color: #ffffff; }

@@ -10,6 +10,7 @@ import { LandingPageComponent } from './site/landing-page/landing-page.component
 import { AuthGuard } from './shared/services/auth.guard';
 
 const routes: Routes = [
+  {path: '', component: LandingPageComponent},
   {path: 'home', component: LandingPageComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
@@ -20,7 +21,7 @@ const routes: Routes = [
     {path: 'welcome', component: WelcomeComponent},
     {path: 'profile', component: ProfileComponent}
   ]},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', redirectTo: '', pathMatch: 'full'},
   {path: '**', component: LandingPageComponent}
 ];
 
