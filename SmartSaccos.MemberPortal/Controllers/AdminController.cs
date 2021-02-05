@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -27,19 +29,22 @@ namespace SmartSaccos.MemberPortal.Controllers
         private readonly AppSettings appSettings;
         private readonly MemberService memberService;
         private readonly MessageService messageService;
+        private readonly IWebHostEnvironment hostEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         public AdminController(
             MessageService msgService,
             MemberService membaService,
+            IWebHostEnvironment webHost,
             IOptions<AppSettings> AppSettings,
             UserManager<ApplicationUser> UserManager,
             SignInManager<ApplicationUser> SignInManager)
         {
+            hostEnvironment = webHost;
             userManager = UserManager;
             messageService = msgService;
-            signInManager = SignInManager;
             memberService = membaService;
+            signInManager = SignInManager;
             appSettings = AppSettings.Value;
         }
 
@@ -233,6 +238,104 @@ namespace SmartSaccos.MemberPortal.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        [HttpPost("KycDetails")]
+        public async Task<ActionResult<Member>> KycPersonalDetails(MemberModel model)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+                return Unauthorized();
+            if (user.UserType != UserType.Admin)
+                return Unauthorized();
+            try
+            {
+                return await memberService.KycDetails(model, DateTimeOffset.UtcNow);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+
+        }
+
+        [HttpPost("KycDocs")]
+        public async Task<ActionResult> KycDocs()
+        {
+            if (Request.Form == null)
+                return BadRequest(new { new Exception("No file attachments found").Message });
+            if (Request.Form.Files.Count == 0)
+                return BadRequest(new { new Exception("No file attachments found").Message });
+            try
+            {
+                // Use authorized user to get member
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                    return Unauthorized();
+                if (user.UserType != UserType.Admin)
+                    return Unauthorized();
+                //get member if user exits
+                Member member = await memberService
+                    .GetMemberByUserIdAsync(int.Parse(Request.Form["Member"]));
+                if (member == null)
+                    return NotFound();
+                //get attachment type
+                AttachmentType attachmentType = (AttachmentType)Enum
+                    .Parse(typeof(AttachmentType), Request.Form["kycDocType"]);
+
+                //delete previous attachment if any
+                switch (attachmentType)
+                {
+                    case AttachmentType.IdFront:
+                        if (member.IdFrontAttachmentId > 0)
+                            DeleteFile(member.IdFrontAttachmentId);
+                        break;
+                    case AttachmentType.IdBack:
+                        if (member.IdBackAttachmentId > 0)
+                            DeleteFile(member.IdBackAttachmentId);
+                        break;
+                    case AttachmentType.Avator:
+                        if (member.PassportPhotoId > 0)
+                            DeleteFile(member.PassportPhotoId);
+                        break;
+                    case AttachmentType.PassportCopy:
+                        if (member.PassportCopyId > 0)
+                            DeleteFile(member.PassportCopyId);
+                        break;
+                    case AttachmentType.Signature:
+                        if (member.SignatureId > 0)
+                            DeleteFile(member.SignatureId);
+                        break;
+                }
+
+                //save file
+                IFormFile formFile = Request.Form.Files[0];
+                Attachment attachment = formFile
+                    .CreateAttachment(member, hostEnvironment.WebRootPath);
+
+                //copy file to server
+                formFile.SaveFile(attachment.FullPath);
+
+                return Ok(await memberService.SaveAttachment(member, attachment, attachmentType));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
+
+        private async void DeleteFile(int id)
+        {
+            MemberAttachment memberAttachment = await memberService
+                            .GetMemberAttachmentAsync(id);
+            if (memberAttachment != null)
+            {
+                if (memberAttachment.Attachment != null)
+                {
+                    memberAttachment.Attachment.FullPath.DeleteFile();
+                    await memberService.DeleteAttachmentAsync(memberAttachment);
+                }
             }
         }
 

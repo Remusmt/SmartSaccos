@@ -107,21 +107,41 @@ export class MembersService {
   }
 
   // verify returned value is of type member
-  private isMember(value: Member | any): value is Member {
+  public isMember(value: Member | any): value is Member {
     return (value as Member).id !== undefined;
   }
 
-  uploadImage(file: File|any, kycDocType: number): any {
+  kycDetails(model: Member): Observable<Member> {
+    return this.http.post<Member>(`${this.baseurl}KycDetails`, model)
+    .pipe(
+      map(
+        res => {
+          if (this.isMember(res)) {
+            this.currentUser.status = res.memberStatus;
+            this.authenticationService.setUser(this.currentUser);
+          }
+          return res;
+        }
+      )
+    );
+  }
+
+  uploadImage(file: File|any, kycDocType: number): Observable<Member> {
     const uploadData = new FormData();
     uploadData.append('kycDoc', file, file.name);
     uploadData.append('kycDocType', kycDocType.toString());
-    this.http.post(`${this.baseurl}KycDocs`, uploadData, {
-      reportProgress: true,
-      observe: 'events'
-    })
-      .subscribe(_ => {
-        // console.log(event); // handle event here
-      });
+    uploadData.append('Member', this.selectedMemberSubject.value.id.toString());
+    return this.http.post<Member>(`${this.baseurl}KycDocs`, uploadData)
+    .pipe(
+      map(
+        res => {
+          if (this.isMember(res)) {
+            this.selectedMemberSubject.next(res);
+          }
+          return res;
+        }
+      )
+    );
   }
 
   approveRegistration(model: ApprovalModel): Observable<Member> {

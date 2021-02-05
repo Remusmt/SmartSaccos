@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.userService.currentUserValue) {
-      this.router.navigate(['/home']);
+      this.userService.logout(false);
+      // this.router.navigate(['/home']);
     }
     this.subscription.add(
       this.route.queryParams

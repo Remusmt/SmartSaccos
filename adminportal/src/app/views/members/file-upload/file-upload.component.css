@@ -1,0 +1,22 @@
+ngx-dropzone,
+.custom-dropzone {
+  margin: 20px;
+}
+
+.custom-dropzone {
+	height: 180px;
+	/* background: #333;
+	color: #fff; */
+	border: 2px dashed #FFC000;
+	border-radius: 5px;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.drop-text {
+  color: #008000;
+}
+
+.reject-text {
+  color: red;
+}

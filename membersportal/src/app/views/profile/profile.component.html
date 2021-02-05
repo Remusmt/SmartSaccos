@@ -442,7 +442,8 @@
         <ng-template mat-tab-label>
                 Signature
         </ng-template>
-        <div class="doc-item">
+        <div class="doc-item"
+            *ngIf="service.signatureName()">
           <h3 class="doc-type-title">Signature Specimen</h3>
 
           <img src="{{service.signatureName()}}"

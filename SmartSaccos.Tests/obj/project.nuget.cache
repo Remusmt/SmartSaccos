@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KJJ/Ku97dNoxG7xkIt/ECk94f+VwxvD+F8wGZ/EjZvvYGQ5JpQb0+zkF+ykwj3c54SImpjco+Jqk+cL3JJWG5A==",
+  "dgSpecHash": "lMuZwsgSM9AWFQsfBR++AUH6qZgl8+V1OGE9td2HdIdwaMD2okDC/0hC/Yya985XMsPuVUxdHBwX/tiB9cISrw==",
   "success": true,
   "projectFilePath": "E:\\repos\\SmartSaccos\\SmartSaccos.Tests\\SmartSaccos.Tests.csproj",
   "expectedPackageFiles": [
@@ -79,8 +79,7 @@
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\remus\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+    "C:\\Users\\remus\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

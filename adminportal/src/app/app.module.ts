@@ -21,6 +21,8 @@ import { MembersDetailsComponent } from './views/members/members-details/members
 import { MembersMainListComponent } from './views/members/members-main-list/members-main-list.component';
 import { RegistrationActionComponent } from './views/registration-action/registration-action.component';
 import { MemberProfileComponent } from './views/members/member-profile/member-profile.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FileUploadComponent } from './views/members/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MemberProfileComponent } from './views/members/member-profile/member-pr
     MembersDetailsComponent,
     MembersMainListComponent,
     RegistrationActionComponent,
-    MemberProfileComponent
+    MemberProfileComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { MemberProfileComponent } from './views/members/member-profile/member-pr
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxDropzoneModule,
     MaterialModule
   ],
   providers: [

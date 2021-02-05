@@ -1,0 +1,15 @@
+<div class="custom-dropzone"
+  ngx-dropzone [multiple]="false"
+  [maxFileSize] = "2097152"
+  [accept]="'image/*'"
+  (change)="onSelect($event)">
+  <ngx-dropzone-label>
+    <div>
+      <h3 class="drop-text" *ngIf="!rejectedFiles.length">Drag and drop file or click to select</h3>
+      <h3 class="reject-text" *ngIf="rejectedFiles.length">Image is too big, try another</h3>
+    </div>
+  </ngx-dropzone-label>
+  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true"
+    (removed)="onRemove(f)">
+  </ngx-dropzone-image-preview>
+</div>

@@ -40,7 +40,7 @@
               <input matInput
                     type="text"
                     name="title"
-                    [ngModel]="selectedMember.title"/>
+                    [(ngModel)]="selectedMember.title"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -49,7 +49,7 @@
               <input matInput
                     type="text"
                     name="surname"
-                    [ngModel]="selectedMember.surname"/>
+                    [(ngModel)]="selectedMember.surname"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]= "2">
@@ -58,7 +58,7 @@
               <input matInput
                     type="text"
                     name="otherNames"
-                    [ngModel]="selectedMember.otherNames"/>
+                    [(ngModel)]="selectedMember.otherNames"/>
             </mat-form-field>
           </mat-grid-tile>
           <app-spinner></app-spinner>
@@ -68,7 +68,7 @@
               <input matInput
                     type="text"
                     name="indentificationNo"
-                    [ngModel]="selectedMember.indentificationNo"/>
+                    [(ngModel)]="selectedMember.indentificationNo"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -77,7 +77,7 @@
               <input matInput
                     type="text"
                     name="phoneNumber"
-                    [ngModel]="selectedMember.phoneNumber"/>
+                    [(ngModel)]="selectedMember.phoneNumber"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -96,7 +96,7 @@
               <input matInput
                     type="email"
                     name="email"
-                    [ngModel]="selectedMember.email"/>
+                    [(ngModel)]="selectedMember.email"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]= "2">
@@ -105,7 +105,7 @@
               <input matInput
                     [matDatepicker]="dateOfBirthP"
                     name ="dateOfBirth"
-                    [ngModel]="selectedMember.dateOfBirth">
+                    [(ngModel)]="selectedMember.dateOfBirth">
               <mat-datepicker-toggle matSuffix [for]="dateOfBirthP"></mat-datepicker-toggle>
               <mat-datepicker #dateOfBirthP disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -116,7 +116,7 @@
               <input matInput
                     type="text"
                     name="occupation"
-                    [ngModel]="selectedMember.occupation"/>
+                    [(ngModel)]="selectedMember.occupation"/>
             </mat-form-field>
           </mat-grid-tile>
 
@@ -153,7 +153,7 @@
               <input matInput
                     type="text"
                     name="nextOfKin"
-                    [ngModel]="selectedMember.nextOfKin"/>
+                    [(ngModel)]="selectedMember.nextOfKin"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile [colspan]= "2">
@@ -162,7 +162,7 @@
               <input matInput
                     type="text"
                     name="nokRelation"
-                    [ngModel]="selectedMember.nokRelation"/>
+                    [(ngModel)]="selectedMember.nokRelation"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile  [colspan]= "2">
@@ -171,7 +171,7 @@
               <input matInput
                     type="text"
                     name="nokContacts"
-                    [ngModel]="selectedMember.nokContacts"/>
+                    [(ngModel)]="selectedMember.nokContacts"/>
             </mat-form-field>
           </mat-grid-tile>
           <mat-grid-tile>
@@ -201,7 +201,7 @@
                   <input matInput
                         type="text"
                         name="village"
-                        [ngModel]="selectedMember.homeAddress.village"/>
+                        [(ngModel)]="selectedMember.homeAddress.village"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -210,7 +210,7 @@
                   <input matInput
                         type="text"
                         name="location"
-                        [ngModel]="selectedMember.homeAddress.location"/>
+                        [(ngModel)]="selectedMember.homeAddress.location"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -219,7 +219,7 @@
                   <input matInput
                         type="text"
                         name="district"
-                        [ngModel]="selectedMember.homeAddress.district"/>
+                        [(ngModel)]="selectedMember.homeAddress.district"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -228,7 +228,7 @@
                   <input matInput
                         type="text"
                         name="county"
-                        [ngModel]="selectedMember.homeAddress.county"/>
+                        [(ngModel)]="selectedMember.homeAddress.county"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -237,7 +237,7 @@
                   <input matInput
                         type="text"
                         name="country"
-                        [ngModel]="selectedMember.homeAddress.country"/>
+                        [(ngModel)]="selectedMember.homeAddress.country"/>
                 </mat-form-field>
               </mat-grid-tile>
             </mat-grid-list>
@@ -252,7 +252,7 @@
                   <input matInput
                         type="text"
                         name="nearestTown"
-                        [ngModel]="selectedMember.nearestTown"/>
+                        [(ngModel)]="selectedMember.nearestTown"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -261,7 +261,7 @@
                   <input matInput
                         type="text"
                         name="village"
-                        [ngModel]="selectedMember.permanentAddress.village"/>
+                        [(ngModel)]="selectedMember.permanentAddress.village"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -270,7 +270,7 @@
                   <input matInput
                         type="text"
                         name="location"
-                        [ngModel]="selectedMember.permanentAddress.location"/>
+                        [(ngModel)]="selectedMember.permanentAddress.location"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -279,7 +279,7 @@
                   <input matInput
                         type="text"
                         name="district"
-                        [ngModel]="selectedMember.permanentAddress.district"/>
+                        [(ngModel)]="selectedMember.permanentAddress.district"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -288,7 +288,7 @@
                   <input matInput
                         type="text"
                         name="county"
-                        [ngModel]="selectedMember.permanentAddress.county"/>
+                        [(ngModel)]="selectedMember.permanentAddress.county"/>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -297,7 +297,7 @@
                   <input matInput
                         type="text"
                         name="country"
-                        [ngModel]="selectedMember.permanentAddress.country"/>
+                        [(ngModel)]="selectedMember.permanentAddress.country"/>
                 </mat-form-field>
               </mat-grid-tile>
             </mat-grid-list>
@@ -319,18 +319,28 @@
         </ng-template>
 
         <div class="doc-tab-container">
-          <div class="doc-item">
+          <div class="doc-item"
+              *ngIf="service.idFrontName()">
             <h3 class="doc-type-title">National Id Front Side</h3>
 
             <img src="{{service.idFrontName()}}"
                 class="attachment-image">
           </div>
+          <div *ngIf="!service.idFrontName()">
+            <h3 class="doc-type-title">Upload National Id Front Side</h3>
+              <app-file-upload attachmentType="0"></app-file-upload>
+          </div>
 
-          <div class="doc-item">
+          <div class="doc-item"
+              *ngIf="service.idBackName()">
             <h3 class="doc-type-title">National Id Back Side</h3>
 
             <img src="{{service.idBackName()}}"
                   class="attachment-image">
+          </div>
+          <div *ngIf="!service.idBackName()">
+            <h3 class="doc-type-title">Upload National id Back Side</h3>
+              <app-file-upload attachmentType="1"></app-file-upload>
           </div>
 
         </div>
@@ -343,11 +353,16 @@
                 class="tab-head-icon">
           Passport
         </ng-template>
-        <div class="doc-item">
+        <div class="doc-item"
+            *ngIf="service.passportCopyName()">
           <h3 class="doc-type-title">Passport Copy</h3>
 
           <img src="{{service.passportCopyName()}}"
               class="attachment-image">
+        </div>
+        <div *ngIf="!service.passportCopyName()">
+          <h3 class="doc-type-title">Upload Passport size photo</h3>
+            <app-file-upload attachmentType="3"></app-file-upload>
         </div>
 
       </mat-tab>
@@ -355,13 +370,17 @@
         <ng-template mat-tab-label>
                 Signature
         </ng-template>
-        <div class="doc-item">
+        <div class="doc-item"
+            *ngIf="service.signatureName()">
           <h3 class="doc-type-title">Signature Specimen</h3>
 
           <img src="{{service.signatureName()}}"
               class="attachment-image">
         </div>
-
+        <div *ngIf="!service.signatureName()">
+          <h3 class="doc-type-title">Upload Signature Specimen</h3>
+            <app-file-upload attachmentType="4"></app-file-upload>
+        </div>
       </mat-tab>
     </mat-tab-group>
 
@@ -377,6 +396,12 @@
               (click)="onReject()"
               class="action">
               Reject
+      </button>
+      <button mat-raised-button
+              color="primary"
+              (click)="onUpdate()"
+              class="action">
+              Update
       </button>
     </div>
   </div>

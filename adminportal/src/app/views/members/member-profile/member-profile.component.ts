@@ -7,6 +7,7 @@ import { RegistrationActionComponent } from '../../registration-action/registrat
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import {Location} from '@angular/common';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -32,6 +33,7 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private location: Location,
     public service: MembersService,
+    private notification: NotificationService,
     private breakpointObserver: BreakpointObserver
   ) { }
 
@@ -81,6 +83,19 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
       position: {top: '10px'},
       panelClass: this.isMobile ? 'form-dialog-container-mobile' : 'form-dialog-container'
     });
+  }
+
+  onUpdate(): void {
+        this.subscriptions.add(
+          this.service.kycDetails(this.selectedMember).subscribe(
+            _ => {
+              this.notification.success('Saved Successfully');
+            },
+            err => {
+              this.notification.warn(err);
+            }
+          )
+        );
   }
 
   getMaritalStatusDescription(status: number): string {
