@@ -38,7 +38,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             if (!country.CurrencyId.HasValue) throw new Exception("Selected country has no currency defined.");
 
             Company company = await companyRepository
-                .FirstOrDefaultAsync(e => e.CompanyName == companyName);
+                .FirstOrDefaultAsync(e => e.CompanyName.ToLower() == companyName.ToLower());
 
             if (company != null) return company;
 

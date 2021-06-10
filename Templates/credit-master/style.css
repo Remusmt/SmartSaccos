@@ -2174,6 +2174,10 @@ img {
   color: #FFC000;
 }
 
+.orange-color {
+  color: #FFC000 !important;
+}
+
 .product-image {
   width: 200px;
   height: 200px;

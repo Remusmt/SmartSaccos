@@ -84,6 +84,16 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             if (string.IsNullOrWhiteSpace(member.OtherNames))
                 throw new Exception("Name cannot be blank");
 
+            var homeAddress = new MemberAddress();
+            addressRepository.Add(homeAddress);
+            var permanentAddress = new MemberAddress();
+            addressRepository.Add(permanentAddress);
+
+            await addressRepository.SaveChangesAsync();
+
+            member.HomeAddressId = homeAddress.Id;
+            member.PermanentAddressId = permanentAddress.Id;
+
             memberRepository.Add(member);
             await memberRepository.SaveChangesAsync();
             await logger.Log(new AuditLog
@@ -141,21 +151,21 @@ namespace SmartSaccos.ApplicationCore.DomainServices
            bool systemGenerated = false)
         {
 
-            if (string.IsNullOrWhiteSpace(model.OtherNames))
-                throw new Exception("First name cannot be blank");
+            //if (string.IsNullOrWhiteSpace(model.OtherNames))
+            //    throw new Exception("First name cannot be blank");
 
-            if (string.IsNullOrWhiteSpace(model.IndentificationNo))
-                throw new Exception("ID/Passport number cannot be blank");
+            //if (string.IsNullOrWhiteSpace(model.IndentificationNo))
+            //    throw new Exception("ID/Passport number cannot be blank");
 
-            if (string.IsNullOrWhiteSpace(model.PhoneNumber))
-                throw new Exception("Phone number cannot be blank");
+            //if (string.IsNullOrWhiteSpace(model.PhoneNumber))
+            //    throw new Exception("Phone number cannot be blank");
 
             Member member = await GetMemberAsync(model.Id);
             if (member == null)
                 throw new Exception("Member not found");
 
-            if (memberRepository.DuplicateIdNumber(member.Id, model.IndentificationNo, member.CompanyId))
-                throw new Exception($"Updating member ID/Passport number with {member.IndentificationNo} would create a duplicate record");
+            //if (memberRepository.DuplicateIdNumber(member.Id, model.IndentificationNo, member.CompanyId))
+            //    throw new Exception($"Updating member ID/Passport number with {member.IndentificationNo} would create a duplicate record");
 
             member.Gender = model.Gender;
             member.IndentificationNo = model.IndentificationNo;
@@ -163,7 +173,6 @@ namespace SmartSaccos.ApplicationCore.DomainServices
             member.OtherNames = model.OtherNames;
             member.PhoneNumber = model.PhoneNumber;
             member.Surname = model.Surname;
-            member.MemberStatus = MemberStatus.KycPersonal;
             member.PassportCopyId = model.PassportCopyId;
             member.SignatureId = model.SignatureId;           
             member.NearestTown = model.NearestTown;
@@ -226,7 +235,7 @@ namespace SmartSaccos.ApplicationCore.DomainServices
                     County = model.PermanentAddress?.County,
                     District = model.PermanentAddress?.District,
                     Location = model.PermanentAddress?.Location,
-                    Village = model.PermanentAddress?.Village
+                    Village = model.PermanentAddress?.Village,
                 };
                 addressRepository.Add(permanentAddress);
                 save = true;
@@ -332,7 +341,10 @@ namespace SmartSaccos.ApplicationCore.DomainServices
                 .FirstOrDefaultAsync(e => e.CompanyId == member.CompanyId);
 
             member.MemberStatus = MemberStatus.PaidMembership;
-            member.MemberNumber = GetMemberNumber(member, companyDefaults.MemberNumber);
+            if (string.IsNullOrWhiteSpace(member.MemberNumber))
+            {
+                member.MemberNumber = GetMemberNumber(member, companyDefaults.MemberNumber);
+            }
             memberRepository.Update(member);
             companyDefaults.MemberNumber += 1;
             companyDefaultsrepository.Update(companyDefaults);
